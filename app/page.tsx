@@ -1,3 +1,11 @@
+"use client";
+
+import Navbar from "@/components/Navbar";
+
 export default function Home() {
-  return <main className="font-black text-3xl">hello next</main>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }
