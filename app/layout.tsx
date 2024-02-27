@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
+const peyda = localFont({
+  src: "../public/Assets/fonts/font-peyda/PeydaWeb-Regular.woff2",
+});
 
 export const metadata: Metadata = {
   title: "Alpha Coffee",
@@ -16,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body className={inter.className}>{children}</body>
+      <body className={peyda.className}>{children}</body>
     </html>
   );
 }
