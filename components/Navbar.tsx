@@ -34,7 +34,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="hidden grow sm:flex">
-                  <p className="text-right text-4xl font-bold text-brown-900">
+                  <p className="text-right text-4xl font-black text-brown-900">
                     قهوه آلفا
                   </p>
                 </div>

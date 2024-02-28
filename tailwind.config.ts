@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -8,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        Payda: ["peyda", ...defaultTheme.fontFamily.sans],
+        IRANSans: ["IRANSans", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         brown: {
           50: "#CBBAAE",
