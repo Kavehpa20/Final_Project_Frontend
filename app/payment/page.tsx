@@ -1,3 +1,3 @@
-export default function Home() {
-  return <main className="text-3xl font-black">payment</main>;
+export default function Payment() {
+  return <main className="text-3xl font-black">Payment</main>;
 }

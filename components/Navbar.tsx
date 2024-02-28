@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { DarkThemeToggle } from "flowbite-react";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -9,32 +10,31 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   return (
-    <Disclosure as="nav" className="">
+    <Disclosure as="nav" className="bg-whit mb-2 dark:bg-gray-700">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
             <div className="flex h-16 w-full items-center ">
               <div className="flex w-full items-center justify-between">
                 <div className="flex grow items-center">
                   <Image
                     width={1000}
                     height={1000}
-                    className="block h-16 w-auto lg:hidden"
+                    className="block h-16 w-auto dark:hidden"
                     src="/Assets/pictures/alpha-coffee-logo.png"
                     alt="Logo"
                   />
-
                   <Image
                     width={1000}
                     height={1000}
-                    className="hidden h-16 w-auto lg:block"
-                    src="/Assets/pictures/alpha-coffee-logo.png"
+                    className="hidden h-16 w-auto dark:block"
+                    src="/Assets/pictures/alpha-coffee-logo-dark.png"
                     alt="Logo"
                   />
                 </div>
 
                 <div className="hidden grow sm:flex">
-                  <p className="text-right text-4xl font-black text-brown-900">
+                  <p className="text-right text-4xl font-black text-brown-900 dark:text-brown-200">
                     قهوه آلفا
                   </p>
                 </div>
@@ -42,7 +42,7 @@ export default function Navbar() {
                 <div className="hidden items-center justify-between sm:flex">
                   <a
                     href="#"
-                    className="text-brown-500 hover:border-brown-300 ml-6 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal hover:text-brown-900"
+                    className="ml-6 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
                   >
                     <span> ادمین</span>
                     <svg
@@ -62,7 +62,7 @@ export default function Navbar() {
                   </a>
                   <a
                     href="#"
-                    className="text-brown-500 hover:border-brown-300 ml-6 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal hover:text-brown-900"
+                    className="ml-6 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
                   >
                     <span> کاربر</span>
                     <svg
@@ -83,9 +83,9 @@ export default function Navbar() {
                 </div>
                 <a
                   href="#"
-                  className="text-brown-500 hover:border-brown-300 ml-6 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal hover:text-brown-900"
+                  className="ml-6 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
                 >
-                  <span>سبد خرید </span>
+                  <span className="hidden sm:block">سبد خرید </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -101,6 +101,9 @@ export default function Navbar() {
                     />
                   </svg>
                 </a>
+                <div className="ml-3">
+                  <DarkThemeToggle />
+                </div>
               </div>
 
               <div className="-mr-2 flex items-center sm:hidden">
@@ -118,11 +121,12 @@ export default function Navbar() {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="mt-4 space-y-4 bg-gray-200 py-4 pt-2">
+            <div className="mt-4 space-y-4 bg-gray-200 py-4 pt-2 dark:bg-gray-900">
               <Disclosure.Button
                 as="a"
                 href="#"
-                className="hover:border-brown-500 hover:bg-brown-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium hover:text-brown-900"
+                className="dark:hover:border-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium text-brown-900 hover:border-brown-500 hover:bg-brown-50 hover:text-brown-500
+                dark:text-brown-200  dark:hover:text-brown-900"
               >
                 <span> ادمین</span>
                 <svg
@@ -143,7 +147,8 @@ export default function Navbar() {
               <Disclosure.Button
                 as="a"
                 href="#"
-                className="hover:border-brown-500 hover:bg-brown-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium hover:text-brown-900"
+                className="dark:hover:border-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium text-brown-900 hover:border-brown-500 hover:bg-brown-50 hover:text-brown-500
+                dark:text-brown-200  dark:hover:text-brown-900"
               >
                 <span> کاربر</span>
                 <svg
