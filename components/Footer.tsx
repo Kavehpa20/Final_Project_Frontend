@@ -1,5 +1,3 @@
-"use client";
-
 import { Footer } from "flowbite-react";
 import {
   BsDribbble,
@@ -9,7 +7,7 @@ import {
   BsTwitter,
 } from "react-icons/bs";
 
-function FooterComponent() {
+export default function FooterComponent() {
   return (
     <Footer container>
       <div className="w-full">
