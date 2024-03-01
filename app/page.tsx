@@ -6,8 +6,7 @@ import dataSlider from "@/components/_data/slider-data.json";
 
 export default function Home() {
   return (
-    <div className="max-w-8xl mx-auto bg-gray-50 dark:bg-gray-500 ">
-      <Navbar />
+    <div className="mx-auto max-w-8xl bg-gray-50 dark:bg-gray-500 ">
       <BannerComponent />
       <CarouselMenu data={dataSlider} />
       <Container />
