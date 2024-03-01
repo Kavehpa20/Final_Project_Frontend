@@ -12,7 +12,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body className="font-Payda">{children}</body>
+      <body className=" bg-gray-50 font-Payda dark:bg-gray-500">
+        {children}
+      </body>
     </html>
   );
 }

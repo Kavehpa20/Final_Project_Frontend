@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "قهوه آلفا",
+    "tagline": "طعم بی نظیر قهوه",
+    "image": "/Assets/pictures/Coffee Bag Mockup copy.png",
+    "buttons": [
+      {
+        "id": 1,
+        "text": "خرید قهوه",
+        "link": "https://www.pexels.com/@rpnickson/",
+        "type": "btn-dark btn-circle"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "ماسالا",
+    "tagline": "گانودرما و ماسالا به وقت آرامش",
+    "image": "/Assets/pictures/Masala.gif",
+    "buttons": [
+      {
+        "id": 1,
+        "text": "خرید گانودرما ماسالا",
+        "link": "https://www.pexels.com/@julia-m-cameron/",
+        "type": "btn-dark btn-circle"
+      }
+    ]
+  }
+]

@@ -1,16 +1,16 @@
-"use client";
-import { Flowbite } from "flowbite-react";
-
-import CarouselMenu from "@/components/Carousel";
+import BannerComponent from "@/components/Banner";
+import CarouselMenu from "@/components/Swiper";
+import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import dataSlider from "@/components/_data/slider-data.json";
 
 export default function Home() {
   return (
-    <Flowbite>
-      <div className="dark:bg-gray-500">
-        <Navbar />
-        <CarouselMenu />
-      </div>
-    </Flowbite>
+    <div className="max-w-8xl mx-auto bg-gray-50 dark:bg-gray-500 ">
+      <Navbar />
+      <BannerComponent />
+      <CarouselMenu data={dataSlider} />
+      <Container />
+    </div>
   );
 }

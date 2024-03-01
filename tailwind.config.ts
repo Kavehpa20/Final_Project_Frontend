@@ -7,7 +7,7 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./containers/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "node_modules/flowbite-react/lib/esm/**/*.{js,ts,jsx,tsx,mdx}",
+    "node_modules/flowbite-react/lib/esm/**/*.js",
     "./public/**/*.{html,js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -15,6 +15,9 @@ const config: Config = {
       fontFamily: {
         Payda: ["peyda", ...defaultTheme.fontFamily.sans],
         IRANSans: ["IRANSans", ...defaultTheme.fontFamily.sans],
+      },
+      spacing: {
+        "8xl": "1440px",
       },
       colors: {
         brown: {
