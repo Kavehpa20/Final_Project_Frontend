@@ -23,3 +23,22 @@ interface ButtonProps {
   link: string;
   type: string;
 }
+
+interface categories {
+  id: number;
+  title: string;
+  name: string;
+  path: string;
+  products: products[];
+}
+
+interface products {
+  id: number;
+  name: string;
+  link: string;
+  type: string;
+}
+
+interface ProductsProps {
+  data: categories[];
+}
