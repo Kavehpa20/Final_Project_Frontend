@@ -112,6 +112,7 @@ export default function FooterComponent() {
               <FooterIcon href="#" icon={BsTwitter} />
               <FooterIcon href="#" icon={BsGithub} />
               <FooterIcon href="#" icon={BsDribbble} />
+              <FooterIcon href="#" icon={BsFacebook} />
             </div>
           </div>
         </div>
