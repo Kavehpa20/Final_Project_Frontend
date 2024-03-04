@@ -65,15 +65,15 @@ export default function FooterComponent() {
           <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
             <div className="hidden dark:block">
               <FooterBrand
-                href="https://flowbite.com"
+                href="/"
                 src="/Assets/pictures/alpha-coffee-logo-dark.png"
                 alt="alpha-coffee-logo"
-                name="Alpha Coffee"
+                name="قهوه آلفا"
               />
             </div>
             <div className="block dark:hidden">
               <FooterBrand
-                href="https://flowbite.com"
+                href="/"
                 src="/Assets/pictures/alpha-coffee-logo.png"
                 alt="alpha-coffee-logo"
                 name="Alpha Coffee"
@@ -81,21 +81,21 @@ export default function FooterComponent() {
             </div>
             <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
               <div>
-                <FooterTitle title="about" />
+                <FooterTitle title="درباره ما" />
                 <FooterLinkGroup col>
                   <FooterLink href="#">Flowbite</FooterLink>
                   <FooterLink href="#">Tailwind CSS</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>
-                <FooterTitle title="Follow us" />
+                <FooterTitle title="ما را دنبال کنید" />
                 <FooterLinkGroup col>
                   <FooterLink href="#">Github</FooterLink>
                   <FooterLink href="#">Discord</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>
-                <FooterTitle title="Legal" />
+                <FooterTitle title="شرایط" />
                 <FooterLinkGroup col>
                   <FooterLink href="#">Privacy Policy</FooterLink>
                   <FooterLink href="#">Terms &amp; Conditions</FooterLink>
@@ -105,8 +105,8 @@ export default function FooterComponent() {
           </div>
           <FooterDivider />
           <div className="w-full sm:flex sm:items-center sm:justify-between">
-            <FooterCopyright href="#" by="Flowbite™" year={2022} />
-            <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+            <FooterCopyright href="/" by="قهوه آلفا™" year={2024} />
+            <div className="ml-4 mt-4 flex gap-6 sm:mt-0 sm:justify-center">
               <FooterIcon href="#" icon={BsFacebook} />
               <FooterIcon href="#" icon={BsInstagram} />
               <FooterIcon href="#" icon={BsTwitter} />
