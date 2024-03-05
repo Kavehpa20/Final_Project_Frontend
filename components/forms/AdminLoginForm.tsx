@@ -1,8 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function AdminLoginForm() {
+  const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
+    mode: "all",
+  });
+
+  const onSubmitHandler = (data: ILoginAdmin) => {
+    console.log(data);
+  };
+
+  const usernameField = register("username");
+  const passwordField = register("password");
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
@@ -30,7 +45,11 @@ function AdminLoginForm() {
             <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-brown-900 dark:text-brown-200 md:text-2xl">
               ورود به پنل مدیریت قهوه آلفا
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form
+              className="space-y-4 md:space-y-6"
+              action="#"
+              onSubmit={handleSubmit(onSubmitHandler)}
+            >
               <div>
                 <label
                   htmlFor="username"
@@ -40,10 +59,10 @@ function AdminLoginForm() {
                 </label>
                 <input
                   type="text"
-                  name="username"
                   id="username"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-brown-600 focus:ring-brown-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   placeholder="username"
+                  {...usernameField}
                 />
               </div>
               <div>
@@ -55,10 +74,10 @@ function AdminLoginForm() {
                 </label>
                 <input
                   type="password"
-                  name="password"
                   id="password"
                   placeholder="••••••••"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-brown-600 focus:ring-brown-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  {...passwordField}
                 />
               </div>
               <div className="flex items-center justify-between">
