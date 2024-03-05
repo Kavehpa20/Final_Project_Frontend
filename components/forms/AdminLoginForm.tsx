@@ -5,18 +5,18 @@ import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { classNames } from "@/libs/tools";
+import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
 
 function AdminLoginForm() {
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
     mode: "all",
+    resolver: zodResolver(adminLoginFormSchema),
   });
 
   const onSubmitHandler = (data: ILoginAdmin) => {
     console.log(data);
   };
-
-  const usernameField = register("username");
-  const passwordField = register("password");
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -60,10 +60,21 @@ function AdminLoginForm() {
                 <input
                   type="text"
                   id="username"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-brown-600 focus:ring-brown-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className={classNames(
+                    "block w-full rounded-lg border",
+                    "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                    "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                    "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                    !!formState.errors.username?.message
+                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                      : "",
+                  )}
                   placeholder="username"
-                  {...usernameField}
+                  {...register("username")}
                 />
+                <p className="mt-1 text-xs font-semibold text-red-600">
+                  {formState.errors.username?.message}
+                </p>
               </div>
               <div>
                 <label
@@ -76,9 +87,20 @@ function AdminLoginForm() {
                   type="password"
                   id="password"
                   placeholder="••••••••"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-brown-600 focus:ring-brown-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                  {...passwordField}
+                  className={classNames(
+                    "block w-full rounded-lg border",
+                    "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                    "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                    "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                    !!formState.errors.password?.message
+                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                      : "",
+                  )}
+                  {...register("password")}
                 />
+                <p className="mt-1 text-xs font-semibold text-red-600">
+                  {formState.errors.password?.message}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
