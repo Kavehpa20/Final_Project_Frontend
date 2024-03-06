@@ -5,8 +5,12 @@ import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { classNames } from "@/libs/tools";
+import { classNames, errorHandler } from "@/libs/tools";
 import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
+import { login } from "@/apis/auth-services";
+import { setSessionToken } from "@/libs/session-manager";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function AdminLoginForm() {
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
@@ -14,15 +18,23 @@ function AdminLoginForm() {
     resolver: zodResolver(adminLoginFormSchema),
   });
 
-  const onSubmitHandler = (data: ILoginAdmin) => {
-    console.log(data);
+  const onSubmitHandler = async (data: ILoginAdmin) => {
+    const body = { username: data.username, password: data.password };
+    try {
+      const res = await login(body);
+      setSessionToken(res.token.accessToken);
+      console.log(res.token.accessToken);
+      toast.success("Successfully login: Welcome", { theme: "colored" });
+    } catch (error) {
+      errorHandler(error as AxiosError);
+    }
   };
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
-        <a
-          href="#"
+        <Link
+          href="/"
           className="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
         >
           <Image
@@ -39,7 +51,7 @@ function AdminLoginForm() {
             alt="alpha-coffee-logo"
             className="mr-2 block h-16 w-28 dark:hidden"
           />
-        </a>
+        </Link>
         <div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
           <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
             <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-brown-900 dark:text-brown-200 md:text-2xl">
