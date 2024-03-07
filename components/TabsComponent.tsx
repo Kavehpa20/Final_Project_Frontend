@@ -5,6 +5,7 @@ import { MdDashboard } from "react-icons/md";
 import { Button } from "flowbite-react";
 import Link from "next/link";
 import TableComponent from "./forms/TableComponent";
+import RadioButtons from "./RadioButtons";
 
 const TabsComponent = () => {
   return (
@@ -50,13 +51,13 @@ const TabsComponent = () => {
           <TableComponent />
         </Tabs.Item>
         <Tabs.Item title="سفارش ها" icon={HiClipboardList}>
-          This is{" "}
-          <span className="font-medium text-gray-800 dark:text-white">
-            سفارش ها
-          </span>
-          . Clicking another tab will toggle the visibility of this one for the
-          next. The tab JavaScript swaps classes to control the content
-          visibility and styling.
+          <div className="mx-10 flex justify-between">
+            <span className="font-medium text-gray-800 dark:text-white">
+              مدیریت سفارش ها
+            </span>
+            <RadioButtons />
+          </div>
+          <TableComponent />
         </Tabs.Item>
       </Tabs>
     </>
