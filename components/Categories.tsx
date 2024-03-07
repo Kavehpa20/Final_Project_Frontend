@@ -1,6 +1,5 @@
 import Link from "next/link";
 import categories from "@/components/temp/categories.json";
-import CardComponent from "./Card";
 import ProductContainer from "./ProductContainer";
 import ProductsHeaderLink from "./ProductsHeaderLink";
 
