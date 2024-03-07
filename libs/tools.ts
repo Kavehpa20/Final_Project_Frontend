@@ -9,5 +9,4 @@ export const errorHandler = (error: AxiosError) => {
   if (error.response?.status === 401) {
     toast.error("incorrect username and password", { theme: "colored" });
   }
-  // toast;
 };

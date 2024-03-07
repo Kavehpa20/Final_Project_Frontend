@@ -1,11 +1,7 @@
 import React from "react";
 
 function AdminPanel() {
-  return (
-    <div>
-      <p>admin panel</p>
-    </div>
-  );
+  return <div>admin_panel</div>;
 }
 
 export default AdminPanel;
