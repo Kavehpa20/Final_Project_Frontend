@@ -22,8 +22,8 @@ export default function RootLayout({
         <Navbar />
         {children}
         <FooterComponent />
+        <ToastContainer />
       </body>
-      <ToastContainer />
     </html>
   );
 }
