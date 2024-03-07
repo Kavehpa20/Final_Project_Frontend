@@ -17,15 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryClientProvider>
-      <html lang="en" dir="rtl">
-        <body className="bg-gray-50 font-Payda dark:bg-gray-500">
-          <Navbar />
-          {children}
-          <FooterComponent />
-        </body>
-        <ToastContainer />
-      </html>
-    </ReactQueryClientProvider>
+    <html lang="en" dir="rtl">
+      <body className="bg-gray-50 font-Payda dark:bg-gray-500">
+        <Navbar />
+        {children}
+        <FooterComponent />
+      </body>
+      <ToastContainer />
+    </html>
   );
 }

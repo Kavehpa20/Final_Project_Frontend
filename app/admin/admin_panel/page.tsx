@@ -1,7 +1,10 @@
+"use client";
+
+import TabsComponent from "@/components/TabsComponent";
 import React from "react";
 
-function AdminPanel() {
-  return <div>admin_panel</div>;
-}
+const AdminPanel = () => {
+  return <TabsComponent />;
+};
 
 export default AdminPanel;
