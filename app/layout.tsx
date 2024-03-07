@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import FooterComponent from "@/components/Footer";
 import { ReactQueryClientProvider } from "@/components/QueryClientProvider";
@@ -22,7 +20,6 @@ export default function RootLayout({
           <Navbar />
           {children}
           <FooterComponent />
-          <ToastContainer />
         </body>
       </html>
     </ReactQueryClientProvider>

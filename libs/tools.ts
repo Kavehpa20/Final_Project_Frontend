@@ -6,7 +6,6 @@ export const classNames = (...classnames: string[]) => {
 };
 
 export const errorHandler = (error: AxiosError) => {
-  console.log(error.response?.data);
   if (error.response?.status === 401) {
     toast.error("incorrect username and password", { theme: "colored" });
   }

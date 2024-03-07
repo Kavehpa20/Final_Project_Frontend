@@ -11,12 +11,14 @@ import { login } from "@/apis/auth-services";
 import { setSessionToken } from "@/libs/session-manager";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 function AdminLoginForm() {
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
     mode: "all",
     resolver: zodResolver(adminLoginFormSchema),
   });
+  const router = useRouter();
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
     const body = { username: data.username, password: data.password };
@@ -25,6 +27,7 @@ function AdminLoginForm() {
       setSessionToken(res.token.accessToken);
       console.log(res.token.accessToken);
       toast.success("Successfully login: Welcome", { theme: "colored" });
+      router.push("admin/admin_panel");
     } catch (error) {
       errorHandler(error as AxiosError);
     }
