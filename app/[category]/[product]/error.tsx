@@ -15,9 +15,9 @@ export default function Error({
 
   return (
     <div>
-      <h2>Something went wrong!</h2>
+      <h2>مشکلی به وجود آمد!</h2>
       <Link href={"/"}>
-        <button>Back to Home</button>
+        <button>بازگشت به خانه</button>
       </Link>
     </div>
   );
