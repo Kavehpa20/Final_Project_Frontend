@@ -42,3 +42,8 @@ interface products {
 interface ProductsProps {
   data: categories[];
 }
+
+interface ILoginAdmin {
+  username : string ;
+  password: string
+}

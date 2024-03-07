@@ -1,3 +1,9 @@
+import AdminLoginForm from "@/components/forms/AdminLoginForm";
+
 export default function Login() {
-  return <main className="text-3xl font-black">صفحه ادمین</main>;
+  return (
+    <>
+      <AdminLoginForm />
+    </>
+  );
 }

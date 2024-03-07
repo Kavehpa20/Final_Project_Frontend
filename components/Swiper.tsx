@@ -57,7 +57,7 @@ const SwiperMenu: React.FC<DemoSliderProps> = ({ data }) => {
                       {title}
                     </p>
                     {buttons.length > 0 ? (
-                      <p className=" mt-10 inline-block rounded-full bg-gray-500 px-9 py-2 text-white dark:bg-gray-900">
+                      <p className=" mt-10 inline-block rounded-full bg-gray-600 px-9 py-2.5 text-center text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
                         <SliderButtons buttons={buttons} />
                       </p>
                     ) : null}
