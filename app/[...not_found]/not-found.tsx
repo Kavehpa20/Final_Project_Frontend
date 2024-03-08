@@ -30,26 +30,3 @@ export default function NotFound() {
     </div>
   );
 }
-
-function NotFound404() {
-  return;
-  <div className="mx-auto flex h-screen flex-col items-center justify-center px-6 dark:bg-gray-900 xl:px-0">
-    <div className="block md:max-w-lg">
-      <Image
-        width={1000}
-        height={1000}
-        src="/Assets/pictures/404.svg"
-        alt="astronaut image"
-      />
-    </div>
-    <div className="flex flex-col items-center text-center xl:max-w-4xl">
-      <h1 className="mb-3 text-2xl font-bold leading-tight text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
-        Page not found
-      </h1>
-      <p className="mb-5 max-w-md text-base font-normal text-gray-500 dark:text-gray-400 md:text-lg">
-        Oops! Looks like you followed a bad link. If you think this is a problem
-        with us, please tell us.
-      </p>
-    </div>
-  </div>;
-}

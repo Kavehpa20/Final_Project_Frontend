@@ -48,6 +48,24 @@ interface ILoginAdmin {
   password: string;
 }
 
+interface ICategory {
+  _id: string;
+  name: string;
+  icon: string;
+  createdAt: string;
+  updatedAt: string;
+  slugname: string;
+}
+
+interface ISubcategories {
+  _id: string;
+  category: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  slugname: string;
+}
+
 type Props = {
   text: string;
 };

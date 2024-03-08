@@ -1,19 +1,26 @@
-"use client";
-
 import React from "react";
 import CardComponent from "./Card";
-import ProductsHeaderLink from "./ProductsHeaderLink";
+import Link from "next/link";
+import { landingProductsReq } from "@/apis/landing-products-req";
+import axios from "axios";
 
-function ProductContainer() {
+const ProductContainer = async ({ data }) => {
+  const res = await data;
+  console.log(res);
   return (
     <>
       <div className="grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-2 lg:grid-cols-3">
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
+        {res.map((el) => (
+          <CardComponent
+            key={el.name}
+            name={el.name}
+            price={el.price}
+            thumbnail={el.thumbnail}
+          />
+        ))}
       </div>
     </>
   );
-}
+};
 
 export default ProductContainer;
