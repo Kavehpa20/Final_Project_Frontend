@@ -1,13 +1,43 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { classNames, errorHandler } from "@/libs/tools";
+import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
+import { login } from "@/apis/auth-services";
+import { setSessionToken } from "@/libs/session-manager";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 function AdminLoginForm() {
+  const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
+    mode: "all",
+    resolver: zodResolver(adminLoginFormSchema),
+  });
+  const router = useRouter();
+
+  const onSubmitHandler = async (data: ILoginAdmin) => {
+    const body = { username: data.username, password: data.password };
+    try {
+      const res = await login(body);
+      setSessionToken(res.token.accessToken);
+      console.log(res.token.accessToken);
+      toast.success("Successfully login: Welcome", { theme: "colored" });
+      router.push("admin/admin_panel");
+    } catch (error) {
+      errorHandler(error as AxiosError);
+    }
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
-        <a
-          href="#"
+        <Link
+          href="/"
           className="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
         >
           <Image
@@ -24,13 +54,16 @@ function AdminLoginForm() {
             alt="alpha-coffee-logo"
             className="mr-2 block h-16 w-28 dark:hidden"
           />
-        </a>
+        </Link>
         <div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
           <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
             <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-brown-900 dark:text-brown-200 md:text-2xl">
               ورود به پنل مدیریت قهوه آلفا
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(onSubmitHandler)}
+            >
               <div>
                 <label
                   htmlFor="username"
@@ -40,11 +73,22 @@ function AdminLoginForm() {
                 </label>
                 <input
                   type="text"
-                  name="username"
                   id="username"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-brown-600 focus:ring-brown-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className={classNames(
+                    "block w-full rounded-lg border",
+                    "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                    "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                    "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                    !!formState.errors.username?.message
+                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                      : "",
+                  )}
                   placeholder="username"
+                  {...register("username")}
                 />
+                <p className="mt-1 text-xs font-semibold text-red-600">
+                  {formState.errors.username?.message}
+                </p>
               </div>
               <div>
                 <label
@@ -55,11 +99,22 @@ function AdminLoginForm() {
                 </label>
                 <input
                   type="password"
-                  name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-brown-600 focus:ring-brown-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className={classNames(
+                    "block w-full rounded-lg border",
+                    "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                    "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                    "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                    !!formState.errors.password?.message
+                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                      : "",
+                  )}
+                  {...register("password")}
                 />
+                <p className="mt-1 text-xs font-semibold text-red-600">
+                  {formState.errors.password?.message}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">

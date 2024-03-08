@@ -1,17 +1,33 @@
-import categories from "@/components/temp/categories.json";
+import { categoryProductsRequest } from "@/apis/axios-config";
+import { landingDataFetching } from "@/apis/landing-request";
+import CardComponent from "@/components/Card";
+import { Card } from "flowbite-react";
 
-const ProductPage = ({
+const ProductPage = async ({
   params,
 }: {
   params: { product: string; category: string };
 }) => {
-  const category = categories.find((el) => params.category === el.path);
-  const product = category?.products.find(
-    (el) => el.id === Number(params.product),
+  const getCategories = await landingDataFetching();
+  const categories = getCategories.data.categories;
+  const category = categories.find((el) => el.name === params.category);
+  const categoryId = category?._id;
+  const products = await categoryProductsRequest(categoryId);
+  console.log(products.data.products);
+  const product = products.data.products.find(
+    (el) => el.slugname === params.product,
   );
+  console.log(product);
+
   if (!product) throw new Error("Not found");
 
-  return <div>{product?.type}</div>;
+  return (
+    <CardComponent
+      name={product.name}
+      price={product.price}
+      thumbnail={product.thumbnail}
+    />
+  );
 };
 
 export default ProductPage;

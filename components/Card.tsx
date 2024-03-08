@@ -1,20 +1,17 @@
-"use client";
-
 import { Card } from "flowbite-react";
 
-export default function CardComponent() {
+export default async function CardComponent({ name, price, thumbnail }) {
   return (
     <Card
       className="mx-auto max-w-sm"
-      imgSrc="/Assets/pictures/Suprim/600 (3).jpg"
+      imgSrc={`http://localhost:8000/images/products/thumbnails/${await thumbnail}`}
       horizontal
     >
-      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Noteworthy technology acquisitions 2021
+      <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        {await name}
       </h5>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far,
-        in reverse chronological order.
+      <p className="font-IRANSans font-normal text-gray-700 dark:text-gray-400">
+        {await price} تومان
       </p>
     </Card>
   );
