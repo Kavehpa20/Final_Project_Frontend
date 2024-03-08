@@ -14,7 +14,6 @@ export default async function CategoriesList({ categories }) {
   const res = await axios
     .all(endPoints.map((endPoint) => axios.get(endPoint)))
     .then((data) => data);
-  // console.log(res[0].data.data.products);
 
   return (
     <div className="mt-3">
