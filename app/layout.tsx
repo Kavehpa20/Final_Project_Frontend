@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import FooterComponent from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,10 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en" dir="rtl">
       <body className="bg-gray-50 font-Payda dark:bg-gray-500">
-        <Navbar />
-        {children}
-        <FooterComponent />
-        <ToastContainer />
+          {children}
+          <ToastContainer />
       </body>
     </html>
   );
