@@ -8,7 +8,7 @@ const RadioButtons = () => {
 
   return (
     <div className="grid place-items-center">
-      <div className="grid w-fit grid-cols-2 gap-2 rounded-xl bg-gray-200 p-1 dark:bg-gray-900">
+      <div className="grid w-fit grid-cols-3 gap-2 rounded-xl bg-gray-200 p-1 text-gray-900 dark:bg-gray-900 dark:text-gray-200">
         <div>
           <input
             type="radio"
@@ -23,7 +23,7 @@ const RadioButtons = () => {
             htmlFor="1"
             className="dark:peer-checked:text- block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
           >
-            سفارش های تحویل شده
+            تحویل شده
           </label>
         </div>
 
@@ -41,7 +41,25 @@ const RadioButtons = () => {
             htmlFor="2"
             className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
           >
-            سفارشهای در انتظارارسال
+            در انتظار ارسال
+          </label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            name="option"
+            id="3"
+            value="option3"
+            checked={selectedValue === "option3"}
+            onChange={() => handleRadioChange("option3")}
+            className="peer hidden"
+          />
+          <label
+            htmlFor="3"
+            className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
+          >
+            همه
           </label>
         </div>
       </div>

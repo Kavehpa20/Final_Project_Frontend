@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import Navbar from "@/components/Navbar";
 import FooterComponent from "@/components/Footer";
+import AdminNavbar from "@/components/AdminNavbar";
 
 export const metadata: Metadata = {
-  title: "قهوه آلفا",
-  description: "خاص ترین فروشگاه قهوه در ایران",
+  title: "پنل مدیریت قهوه آلفا",
+  description: "پنل مدیریت فروشگاه اینترنتی قهوه آلفا",
 };
 
-export default function HomeLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <div className="bg-gray-50 font-Payda dark:bg-gray-500">
-      <Navbar />
+      <AdminNavbar />
       {children}
       <FooterComponent />
     </div>
