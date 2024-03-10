@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { axiosBaseUrl, categoryProductsRequest } from "@/apis/axios-config";
-import { landingDataFetching } from "@/apis/landing-request";
+import { axiosBaseUrl, categoryProductsRequest } from "@/apis/axiosBaseURL";
+import { landingDataFetching } from "@/apis/getCategories";
 import CardComponent from "@/components/Card";
 
 const CatagoriesPage = async ({ params }: { params: { category: string } }) => {

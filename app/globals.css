@@ -117,3 +117,7 @@
     /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
     url('/Assets/fonts/font-IRANSans/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
 }
+
+:root {
+  --toastify-font-family: inherit;
+}
