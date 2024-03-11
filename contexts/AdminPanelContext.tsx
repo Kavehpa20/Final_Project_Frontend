@@ -1,8 +1,14 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
-const AdminPanelContext = createContext();
+const AdminPanelContext = createContext<ICreateContext | null>(null);
 
 const AdminPanelProvider = ({
   children,

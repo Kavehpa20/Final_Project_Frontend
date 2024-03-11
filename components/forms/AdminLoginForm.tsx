@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,8 +11,11 @@ import { login } from "@/apis/auth-services";
 import { setToken } from "@/libs/tokenManager";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { LoadingButton } from "../LoadingButton";
 
 function AdminLoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
     mode: "all",
     resolver: zodResolver(adminLoginFormSchema),
@@ -21,15 +24,18 @@ function AdminLoginForm() {
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
     const body = { username: data.username, password: data.password };
+    setIsLoading((isloading) => true);
     try {
       const res = await login(body);
       setToken("Alpha_coffee", res.token.accessToken);
       setToken("refresh_token", res.token.refreshToken);
       toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
+      setIsLoading((isloading) => false);
     } catch (error) {
       console.log(error);
       // errorHandler(error as AxiosError);
+      setIsLoading((isloading) => false);
     }
   };
 
@@ -142,12 +148,21 @@ function AdminLoginForm() {
                   رمز عبور خود را فراموش کرده اید؟
                 </a>
               </div>
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                ورود
-              </button>
+              {!isLoading ? (
+                <button
+                  type="submit"
+                  className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  ورود
+                </button>
+              ) : (
+                <LoadingButton
+                  name={"ورود"}
+                  className={
+                    "w-full rounded-lg bg-primary-600 px-5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  }
+                />
+              )}
 
               <div className="flex justify-between">
                 <p className="text-sm font-light text-brown-900 dark:text-brown-200">

@@ -69,3 +69,13 @@ interface ISubcategories {
 type Props = {
   text: string;
 };
+
+interface ICreateContext {
+  openModal: boolean;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
+}
+
+interface IUserPanelContext {
+  hello: string;
+  setHello: Dispatch<SetStateAction<string>>;
+}
