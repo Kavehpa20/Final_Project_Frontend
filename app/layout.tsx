@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en" dir="rtl">
       <body className="bg-gray-50 font-Payda dark:bg-gray-500">
         {children}
-        <ToastContainer />
+        <ToastContainer rtl />
       </body>
     </html>
   );

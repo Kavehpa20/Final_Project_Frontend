@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import FooterComponent from "@/components/Footer";
 import AdminNavbar from "@/components/AdminNavbar";
+import { AdminPanelProvider } from "@/contexts/AdminPanelContext";
 
 export const metadata: Metadata = {
   title: "پنل مدیریت قهوه آلفا",
@@ -14,10 +15,12 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-gray-50 font-Payda dark:bg-gray-500">
-      <AdminNavbar />
-      {children}
-      <FooterComponent />
-    </div>
+    <AdminPanelProvider>
+      <div className="bg-gray-50 font-Payda dark:bg-gray-500">
+        <AdminNavbar />
+        {children}
+        <FooterComponent />
+      </div>
+    </AdminPanelProvider>
   );
 }

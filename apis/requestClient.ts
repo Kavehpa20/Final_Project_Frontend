@@ -31,7 +31,7 @@ requestClient.interceptors.response.use(
     if (error.response.status === 401 && !config.sent) {
       config.sent = true;
       console.log("1 here");
-      toast.error("نام کاربری یا کلمه عبور اشتباه است", { theme: "colored" });
+      toast.error("نام کاربری یا کلمه عبور اشتباه است.", { theme: "colored" });
       if (config.url !== "/auth/token" && config.url !== "/auth/login") {
         const refreshToken = Cookies.get("refresh_token");
         requestClient.post("/auth/token", { refreshToken }).then((res) => {

@@ -23,7 +23,7 @@ const RadioButtons = () => {
             htmlFor="1"
             className="dark:peer-checked:text- block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
           >
-            تحویل شده
+            در انتظار ارسال
           </label>
         </div>
 
@@ -41,7 +41,7 @@ const RadioButtons = () => {
             htmlFor="2"
             className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
           >
-            در انتظار ارسال
+            در انتظار ارسال{" "}
           </label>
         </div>
 

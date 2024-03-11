@@ -1,15 +1,21 @@
 "use client";
 
+import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+
+export const deleteToken = () => {
+  Cookies.remove("Alpha_coffee");
+  Cookies.remove("refresh_Token");
+};
 
 const LogoutModal = () => {
-  const [openModal, setOpenModal] = useState(false);
-
+  const router = useRouter();
+  const { openModal, setOpenModal } = useAdminPanel();
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
       <Modal
         show={openModal}
         size="md"
@@ -24,7 +30,12 @@ const LogoutModal = () => {
               آیا مطمئن هستید میخواهید خارج شوید؟
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={() => setOpenModal(false)}>
+              <Button
+                color="failure"
+                onClick={() => {
+                  deleteToken(), router.push("/admin"), setOpenModal(false);
+                }}
+              >
                 {"بله مطمئن هستم"}
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>

@@ -1,22 +1,15 @@
 "use client";
 
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import { useAdminPanel } from "@/contexts/AdminPanelContext";
 
-export const deleteToken = () => {
-  Cookies.remove("Alpha_coffee");
-  Cookies.remove("refresh_Token");
-};
-
-export default function LogoutPage() {
-  const router = useRouter();
+export default function LogoutButton() {
+  const { setOpenModal } = useAdminPanel();
 
   return (
     <button
       type="button"
       onClick={() => {
-        deleteToken();
-        router.push("/admin");
+        setOpenModal(true);
       }}
       className="ml-2 inline-flex items-center justify-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
     >
