@@ -1,17 +1,27 @@
+"use client";
+
 import { Tabs } from "flowbite-react";
 import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { Button } from "flowbite-react";
 import TableComponent from "./TableComponent";
 import RadioButtons from "./RadioButtons";
+import OrdersTable from "./tables/ordersTable/OrdersTable";
+import { useAdminPanel } from "@/contexts/AdminPanelContext";
+import DeliveryOrdersTable from "./tables/ordersTable/DeliveryOrdersTable";
+import NotDeliveryOrdersTable from "./tables/ordersTable/NotDeliveryOrdersTable";
+import InventoryAndPrices from "./tables/inventoryAndPrices/InventoryAndPrices";
 
 const TabsComponent = () => {
+  const { selectedValue, setSelectedValue, handleRadioChange } =
+    useAdminPanel();
   return (
     <>
       <Tabs
         className="mt-1 inline-flex w-full justify-center gap-x-4"
         aria-label="Default tabs"
         style="default"
+        onClick={(e) => console.log(e.target.innerText)}
       >
         <Tabs.Item title="کالاها" icon={MdDashboard}>
           <div className="mx-10 flex justify-between">
@@ -29,7 +39,8 @@ const TabsComponent = () => {
             </span>
             <Button color="success">ذخیره</Button>
           </div>
-          <TableComponent />
+          {/* <TableComponent /> */}
+          <InventoryAndPrices />
         </Tabs.Item>
         <Tabs.Item active title="سفارش ها" icon={HiClipboardList}>
           <div className="item-center mx-10 flex justify-between">
@@ -38,7 +49,9 @@ const TabsComponent = () => {
             </span>
             <RadioButtons />
           </div>
-          <TableComponent />
+          {selectedValue === "option1" && <OrdersTable />}
+          {selectedValue === "option2" && <NotDeliveryOrdersTable />}
+          {selectedValue === "option3" && <DeliveryOrdersTable />}
         </Tabs.Item>
       </Tabs>
     </>

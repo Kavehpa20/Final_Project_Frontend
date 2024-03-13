@@ -1,9 +1,18 @@
 "use client";
 
 import { Button } from "flowbite-react";
+import { ReactNode } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 
-export const LoadingButton = ({ name, className }) => {
+interface IButton {
+  name?: ReactNode;
+  className: string | undefined;
+}
+
+export const LoadingButton = ({
+  name,
+  className,
+}: IButton): React.ReactNode => {
   return (
     <Button
       className={className}

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { classNames } from "@/libs/tools";
 import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
-import { login } from "@/apis/auth-services";
+import { loginRequest } from "@/apis/requestsAPI";
 import { setToken } from "@/libs/tokenManager";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -24,18 +24,18 @@ function AdminLoginForm() {
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
     const body = { username: data.username, password: data.password };
-    setIsLoading((isloading) => true);
+    setIsLoading((isLoading) => true);
     try {
-      const res = await login(body);
+      const res = await loginRequest(body);
       setToken("Alpha_coffee", res.token.accessToken);
       setToken("refresh_token", res.token.refreshToken);
       toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
-      setIsLoading((isloading) => false);
+      setIsLoading((isLoading) => false);
     } catch (error) {
       console.log(error);
       // errorHandler(error as AxiosError);
-      setIsLoading((isloading) => false);
+      setIsLoading((isLoading) => false);
     }
   };
 

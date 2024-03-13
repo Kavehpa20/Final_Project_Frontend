@@ -1,3 +1,5 @@
+import { boolean } from "zod";
+
 interface Slide {
   id: number;
   title: string;
@@ -73,9 +75,22 @@ type Props = {
 interface ICreateContext {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
+  currentPage: boolean;
+  setCurrentPage: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUserPanelContext {
   hello: string;
   setHello: Dispatch<SetStateAction<string>>;
+}
+
+interface IOrders {
+  createdAt: string;
+  deliveryDate: string;
+  deliveryStatus: boolean;
+  products: Array;
+  totalPrice: number;
+  updatedAt: string;
+  user: string;
+  _id: string;
 }
