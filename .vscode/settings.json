@@ -47,5 +47,6 @@
     "نظیر",
     "وجود",
     "ورود"
-  ]
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

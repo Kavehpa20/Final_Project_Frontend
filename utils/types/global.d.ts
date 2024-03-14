@@ -75,8 +75,12 @@ type Props = {
 interface ICreateContext {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
-  currentPage: boolean;
+  currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<boolean>>;
+  onPageChange: Function;
+  selectedValue: string;
+  setSelectedValue: Dispatch<SetStateAction<boolean>>;
+  handleRadioChange: Function;
 }
 
 interface IUserPanelContext {
@@ -93,4 +97,17 @@ interface IOrders {
   updatedAt: string;
   user: string;
   _id: string;
+}
+
+interface IProduct {
+  brand: string;
+  description: string;
+  quantity: number;
+  thumbnail: string;
+  images: Array;
+  name: string;
+  subcategory: string;
+  category: string;
+  _id: string;
+  price: number;
 }

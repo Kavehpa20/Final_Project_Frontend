@@ -11,6 +11,7 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import DeliveryOrdersTable from "./tables/ordersTable/DeliveryOrdersTable";
 import NotDeliveryOrdersTable from "./tables/ordersTable/NotDeliveryOrdersTable";
 import InventoryAndPrices from "./tables/inventoryAndPrices/InventoryAndPrices";
+import AssetsManager from "./tables/assetsManager/AssetsManager";
 
 const TabsComponent = () => {
   const { selectedValue, setSelectedValue, handleRadioChange } =
@@ -21,7 +22,7 @@ const TabsComponent = () => {
         className="mt-1 inline-flex w-full justify-center gap-x-4"
         aria-label="Default tabs"
         style="default"
-        onClick={(e) => console.log(e.target.innerText)}
+        // onClick={(e) => console.log(e.target.innerText)}
       >
         <Tabs.Item title="کالاها" icon={MdDashboard}>
           <div className="mx-10 flex justify-between">
@@ -30,7 +31,7 @@ const TabsComponent = () => {
             </span>
             <Button color="success">افزودن کالا</Button>
           </div>
-          <TableComponent />
+          <AssetsManager />
         </Tabs.Item>
         <Tabs.Item title="موجودی و قیمت ها" icon={HiAdjustments}>
           <div className="mx-10 flex justify-between">

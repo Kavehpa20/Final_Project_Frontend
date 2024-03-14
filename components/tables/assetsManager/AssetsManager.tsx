@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  Button,
   Flowbite,
   Table,
   TableBody,
@@ -15,16 +16,17 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import PaginationComponent from "../../pagination/PaginationComponent";
 import { IProduct } from "@/utils/types/global";
+import { Avatar } from "flowbite-react";
 
 const moment = require("moment-jalaali");
 
-const InventoryAndPrices = () => {
+const AssetsManager = () => {
   const { currentPage } = useAdminPanel();
 
-  const inventoryAndPricesReq = async () => {
+  const assetsManagerReq = async () => {
     try {
-      const InventoryAndPricesList = await getInventoryAndPrices(currentPage);
-      return InventoryAndPricesList;
+      const assetsList = await getInventoryAndPrices(currentPage);
+      return assetsList;
     } catch (error) {
       // console.log(error.message);
     }
@@ -32,8 +34,8 @@ const InventoryAndPrices = () => {
 
   const { isPending, isError, error, data, isFetching, isPlaceholderData } =
     useQuery({
-      queryKey: ["InventoryAndPricesList", currentPage],
-      queryFn: inventoryAndPricesReq,
+      queryKey: ["assetsManager", currentPage],
+      queryFn: assetsManagerReq,
       placeholderData: keepPreviousData,
     });
 
@@ -50,22 +52,36 @@ const InventoryAndPrices = () => {
       <div className="mx-4 mt-2 overflow-x-auto">
         <Table striped>
           <TableHead>
-            <TableHeadCell>کالا</TableHeadCell>
-            <TableHeadCell>قیمت</TableHeadCell>
-            <TableHeadCell>موجودی</TableHeadCell>
+            <TableHeadCell>تصویر</TableHeadCell>
+            <TableHeadCell>نام کالا</TableHeadCell>
+            <TableHeadCell>دسته بندی</TableHeadCell>
+            <TableHeadCell></TableHeadCell>
           </TableHead>
           {data.data.products.map((product: IProduct) => (
             <TableBody className="divide-y" key={product._id}>
               <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {/* <TableName id={order.user} /> */}
-                  {product.name}
+                <TableCell>
+                  <Avatar
+                    img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+                    rounded
+                    bordered
+                    color="gray"
+                    size="lg"
+                  />
                 </TableCell>
-                <TableCell className="font-IRANSans">
-                  {product.price.toLocaleString()}
-                </TableCell>
+                <TableCell className="font-IRANSans">{product.name}</TableCell>
                 <TableCell className="font-IRANSans">
                   {product.quantity}
+                </TableCell>
+                <TableCell>
+                  <div className="inline-flex gap-x-5">
+                    <Button color="failure" pill>
+                      حذف
+                    </Button>
+                    <Button color="warning" pill>
+                      ویرایش
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -82,4 +98,4 @@ const InventoryAndPrices = () => {
   );
 };
 
-export default InventoryAndPrices;
+export default AssetsManager;
