@@ -1,5 +1,3 @@
-import { boolean } from "zod";
-
 interface Slide {
   id: number;
   title: string;
@@ -81,6 +79,10 @@ interface ICreateContext {
   selectedValue: string;
   setSelectedValue: Dispatch<SetStateAction<boolean>>;
   handleRadioChange: Function;
+  OrdersTableData: UseQueryResult<any, Error>;
+  OrdersDeliveryData: UseQueryResult<any, Error>;
+  NoOrdersDeliveryData: UseQueryResult<any, Error>;
+  CategoryAndSubcategory: UseQueryResult<any, Error>;
 }
 
 interface IUserPanelContext {

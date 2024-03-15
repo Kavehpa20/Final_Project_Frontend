@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "flowbite-react";
 import { TableTheme } from "../../../forms/TableTheme";
-import { IOrders } from "@/utils/types/global";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import PaginationComponent from "../../../pagination/PaginationComponent";
 import TableCellFullName from "./TableCellFullName";
