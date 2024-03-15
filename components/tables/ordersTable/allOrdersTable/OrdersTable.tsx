@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Flowbite,
   Spinner,
@@ -9,22 +8,21 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import { TableTheme } from "../../../forms/TableTheme";
 
+import { TableTheme } from "../../../forms/TableTheme";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import PaginationComponent from "../../../pagination/PaginationComponent";
 import TableCellFullName from "./TableCellFullName";
 
 const moment = require("moment-jalaali");
-let page: number = 2;
 
 const OrdersTable = () => {
   const { OrdersTableData } = useAdminPanel();
 
   return OrdersTableData.isPending ? (
     <div>
-    <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
-    <Spinner aria-label="Large spinner example" size="lg" />
+      <span className="text-lg text-gray-800 dark:text-white"> Loading </span>
+      <Spinner aria-label="Large spinner example" size="lg" />
     </div>
   ) : OrdersTableData.isError ? (
     <div>Error: {OrdersTableData.error.message}</div>
@@ -41,32 +39,34 @@ const OrdersTable = () => {
             </TableHeadCell>
           </TableHead>
           <TableBody className="divide-y">
-            {OrdersTableData.data.data.orders.map((order, index: number) => (
-              <TableRow
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                key={order._id}
-              >
-                <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  <TableCellFullName index={index} />
-                </TableCell>
-                <TableCell className="font-IRANSans">
-                  {order.totalPrice.toLocaleString()}
-                </TableCell>
-                <TableCell className="font-IRANSans">
-                  {moment(order.createdAt.split("T")[0], "YYYY-MM-DD").format(
-                    "jYYYY/jMM/jDD",
-                  )}
-                </TableCell>
-                <TableCell>
-                  <a
-                    href="#"
-                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                  >
-                    بررسی سفارش
-                  </a>
-                </TableCell>
-              </TableRow>
-            ))}
+            {OrdersTableData.data.data.orders.map(
+              (order: IOrders, index: number) => (
+                <TableRow
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  key={order._id}
+                >
+                  <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    <TableCellFullName index={index} />
+                  </TableCell>
+                  <TableCell className="font-IRANSans">
+                    {order.totalPrice.toLocaleString()}
+                  </TableCell>
+                  <TableCell className="font-IRANSans">
+                    {moment(order.createdAt.split("T")[0], "YYYY-MM-DD").format(
+                      "jYYYY/jMM/jDD",
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <a
+                      href="#"
+                      className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                    >
+                      بررسی سفارش
+                    </a>
+                  </TableCell>
+                </TableRow>
+              ),
+            )}
           </TableBody>
         </Table>
         {OrdersTableData.isFetching ? (

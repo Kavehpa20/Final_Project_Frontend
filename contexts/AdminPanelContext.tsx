@@ -9,7 +9,7 @@ import {
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useState } from "react";
 
-const AdminPanelContext = createContext<ICreateContext | null>(null);
+const AdminPanelContext = createContext<ICreateContext>({} as ICreateContext);
 
 const AdminPanelProvider = ({
   children,

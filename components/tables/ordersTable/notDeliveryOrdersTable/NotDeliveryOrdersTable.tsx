@@ -14,7 +14,6 @@ import PaginationComponent from "../../../pagination/PaginationComponent";
 import TableCellFullName from "./TableCellFullName";
 
 const moment = require("moment-jalaali");
-let page: number = 2;
 
 const NotDeliveryOrdersTable = () => {
   const { NoOrdersDeliveryData } = useAdminPanel();

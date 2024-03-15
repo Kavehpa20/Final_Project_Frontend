@@ -8,7 +8,9 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 const CategoryAndSubcategoryName = ({ index }: { index: number }) => {
   const { CategoryAndSubcategory } = useAdminPanel();
   const [loading, setLoading] = useState(true);
-  const [CategorySubcategory, setCategorySubcategory] = useState(null);
+  const [CategorySubcategory, setCategorySubcategory] = useState(
+    {} as ISubcategory,
+  );
 
   const getCategorySubcategory = async () => {
     setLoading(true);

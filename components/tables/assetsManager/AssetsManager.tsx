@@ -11,13 +11,12 @@ import {
 } from "flowbite-react";
 
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
-import { IProduct } from "@/utils/types/global";
 import CategoryAndSubcategoryName from "./CategoryAndSubcategory";
 import PaginationComponent from "../../pagination/PaginationComponent";
 import { TableTheme } from "../../forms/TableTheme";
 
 const AssetsManager = () => {
-  const { currentPage, CategoryAndSubcategory } = useAdminPanel();
+  const { CategoryAndSubcategory } = useAdminPanel();
 
   return CategoryAndSubcategory.isPending ? (
     <div>

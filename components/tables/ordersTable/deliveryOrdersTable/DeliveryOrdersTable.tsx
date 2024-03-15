@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "flowbite-react";
 
-import { IOrders } from "@/utils/types/global";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import PaginationComponent from "../../../pagination/PaginationComponent";
 import TableCellFullName from "./TableCellFullName";
@@ -19,7 +18,7 @@ const moment = require("moment-jalaali");
 let page: number = 2;
 
 const DeliveryOrdersTable = () => {
-  const { OrdersDeliveryData, currentPage } = useAdminPanel();
+  const { OrdersDeliveryData } = useAdminPanel();
 
   // if (!isPlaceholderData && data) {
   //   setCurrentPage((currentPage: number) => currentPage + 1);
@@ -27,8 +26,8 @@ const DeliveryOrdersTable = () => {
 
   return OrdersDeliveryData.isPending ? (
     <div>
-    <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
-    <Spinner aria-label="Large spinner example" size="lg" />
+      <span className="text-lg text-gray-800 dark:text-white"> Loading </span>
+      <Spinner aria-label="Large spinner example" size="lg" />
     </div>
   ) : OrdersDeliveryData.isError ? (
     <div>Error: {OrdersDeliveryData.error.message}</div>
@@ -72,10 +71,15 @@ const DeliveryOrdersTable = () => {
             ),
           )}
         </Table>
-        {OrdersDeliveryData.isFetching ? <>
-          <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
-          <Spinner aria-label="Large spinner example" size="lg" />
-          </> : null}{" "}
+        {OrdersDeliveryData.isFetching ? (
+          <>
+            <span className="text-lg text-gray-800 dark:text-white">
+              {" "}
+              Loading{" "}
+            </span>
+            <Spinner aria-label="Large spinner example" size="lg" />
+          </>
+        ) : null}{" "}
         {OrdersDeliveryData.data.total_pages === 1 ? (
           ""
         ) : (

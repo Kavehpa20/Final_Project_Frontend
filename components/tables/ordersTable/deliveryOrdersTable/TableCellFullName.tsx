@@ -8,7 +8,7 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 export const TableCellFullName = ({ index }: { index: number }) => {
   const { OrdersDeliveryData } = useAdminPanel();
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState({} as Users);
 
   const getUsers = async () => {
     setLoading(true);

@@ -70,6 +70,24 @@ type Props = {
   text: string;
 };
 
+type Users = {
+  firstname: string;
+  lastname: string;
+};
+
+interface ISubcategory {
+  data: {
+    subcategory: {
+      _id: string;
+      name: string;
+      category: {
+        _id: string;
+        name: string;
+      };
+    };
+  };
+}
+
 interface ICreateContext {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
@@ -79,10 +97,10 @@ interface ICreateContext {
   selectedValue: string;
   setSelectedValue: Dispatch<SetStateAction<boolean>>;
   handleRadioChange: Function;
-  OrdersTableData: UseQueryResult<any, Error>;
-  OrdersDeliveryData: UseQueryResult<any, Error>;
-  NoOrdersDeliveryData: UseQueryResult<any, Error>;
-  CategoryAndSubcategory: UseQueryResult<any, Error>;
+  OrdersTableData: UseQueryResult<Group[], Error>;
+  OrdersDeliveryData: UseQueryResult<Group[], Error>;
+  NoOrdersDeliveryData: UseQueryResult<Group[], Error>;
+  CategoryAndSubcategory: UseQueryResult<Group[], Error>;
 }
 
 interface IUserPanelContext {

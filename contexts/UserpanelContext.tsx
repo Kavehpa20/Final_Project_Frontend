@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from "react";
-
+import { createContext, useContext, useState } from "react";
 
 const UserPanelContext = createContext<IUserPanelContext | null>(null);
 
