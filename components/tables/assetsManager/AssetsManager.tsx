@@ -12,7 +12,6 @@ import {
 import { TableTheme } from "../../forms/TableTheme";
 import { getInventoryAndPrices, getOrders } from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-// import { IOrders, IProduct } from "@/utils/types/global";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import PaginationComponent from "../../pagination/PaginationComponent";
 import { IProduct } from "@/utils/types/global";
@@ -39,10 +38,6 @@ const AssetsManager = () => {
       placeholderData: keepPreviousData,
     });
 
-  // if (!isPlaceholderData && data) {
-  //   setCurrentPage((currentPage: number) => currentPage + 1);
-  // }
-
   return isPending ? (
     <p>Loading ...</p>
   ) : isError ? (
@@ -57,9 +52,12 @@ const AssetsManager = () => {
             <TableHeadCell>دسته بندی</TableHeadCell>
             <TableHeadCell></TableHeadCell>
           </TableHead>
-          {data.data.products.map((product: IProduct) => (
-            <TableBody className="divide-y" key={product._id}>
-              <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <TableBody className="divide-y">
+            {data.data.products.map((product: IProduct) => (
+              <TableRow
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                key={product._id}
+              >
                 <TableCell>
                   <Avatar
                     img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
@@ -84,8 +82,8 @@ const AssetsManager = () => {
                   </div>
                 </TableCell>
               </TableRow>
-            </TableBody>
-          ))}
+            ))}
+          </TableBody>
         </Table>
         {isFetching ? <span> Loading...</span> : null}{" "}
         {data.total_pages === 1 ? (

@@ -22,7 +22,7 @@ export const ordersDeliveryFilter = async (
 
 export const getNameById = async (id: string) => {
   const response = await requestClient.get(`/users/${id}`);
-  return response.data;
+  return response.data.data.user;
 };
 
 export const getInventoryAndPrices = async (page: number) => {

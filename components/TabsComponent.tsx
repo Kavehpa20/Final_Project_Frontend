@@ -6,10 +6,10 @@ import { MdDashboard } from "react-icons/md";
 import { Button } from "flowbite-react";
 import TableComponent from "./TableComponent";
 import RadioButtons from "./RadioButtons";
-import OrdersTable from "./tables/ordersTable/OrdersTable";
+import OrdersTable from "./tables/ordersTable/allOrdersTable/OrdersTable";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
-import DeliveryOrdersTable from "./tables/ordersTable/DeliveryOrdersTable";
-import NotDeliveryOrdersTable from "./tables/ordersTable/NotDeliveryOrdersTable";
+import DeliveryOrdersTable from "./tables/ordersTable/deliveryOrdersTable/DeliveryOrdersTable";
+import NotDeliveryOrdersTable from "./tables/ordersTable/notDeliveryOrdersTable/NotDeliveryOrdersTable";
 import InventoryAndPrices from "./tables/inventoryAndPrices/InventoryAndPrices";
 import AssetsManager from "./tables/assetsManager/AssetsManager";
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Flowbite,
   Table,
@@ -8,48 +8,22 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import { TableTheme } from "../../forms/TableTheme";
-import { getOrders } from "@/apis/requestsAPI";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { IOrders } from "@/utils/types/global";
-import TableName from "../../forms/TableName";
+import { TableTheme } from "../../../forms/TableTheme";
+
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
-import PaginationComponent from "../../pagination/PaginationComponent";
+import PaginationComponent from "../../../pagination/PaginationComponent";
+import TableCellFullName from "./TableCellFullName";
 
 const moment = require("moment-jalaali");
 let page: number = 2;
 
 const OrdersTable = () => {
-  const { currentPage } = useAdminPanel();
+  const { OrdersTableData } = useAdminPanel();
 
-  const { selectedValue, setSelectedValue, handleRadioChange } =
-    useAdminPanel();
-
-  const getOrdersData = async () => {
-    try {
-      const ordersList = await getOrders(currentPage);
-
-      return ordersList;
-    } catch (error) {
-      // console.log(error.message);
-    }
-  };
-
-  const { isPending, isError, error, data, isFetching, isPlaceholderData } =
-    useQuery({
-      queryKey: ["ordersList", currentPage],
-      queryFn: getOrdersData,
-      placeholderData: keepPreviousData,
-    });
-
-  // if (!isPlaceholderData && data) {
-  //   setCurrentPage((currentPage: number) => currentPage + 1);
-  // }
-
-  return isPending ? (
+  return OrdersTableData.isPending ? (
     <p>Loading ...</p>
-  ) : isError ? (
-    <div>Error: {error.message}</div>
+  ) : OrdersTableData.isError ? (
+    <div>Error: {OrdersTableData.error.message}</div>
   ) : (
     <Flowbite theme={{ theme: TableTheme }}>
       <div className="mx-4 mt-2 overflow-x-auto">
@@ -62,17 +36,19 @@ const OrdersTable = () => {
               <span className="sr-only">بررسی سفارش</span>
             </TableHeadCell>
           </TableHead>
-          {data.data.orders.map((order: IOrders) => (
-            <TableBody className="divide-y" key={order._id}>
-              <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <TableBody className="divide-y">
+            {OrdersTableData.data.data.orders.map((order, index: number) => (
+              <TableRow
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                key={order._id}
+              >
                 <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {/* <TableName id={order.user} /> */}
-                  {order.user}
+                  <TableCellFullName index={index} />
                 </TableCell>
                 <TableCell className="font-IRANSans">
                   {order.totalPrice.toLocaleString()}
                 </TableCell>
-                <TableCell>
+                <TableCell className="font-IRANSans">
                   {moment(order.createdAt.split("T")[0], "YYYY-MM-DD").format(
                     "jYYYY/jMM/jDD",
                   )}
@@ -86,14 +62,14 @@ const OrdersTable = () => {
                   </a>
                 </TableCell>
               </TableRow>
-            </TableBody>
-          ))}
+            ))}
+          </TableBody>
         </Table>
-        {isFetching ? <span> Loading...</span> : null}{" "}
-        {data.total_pages === 1 ? (
+        {OrdersTableData.isFetching ? <span> Loading...</span> : null}{" "}
+        {OrdersTableData.data.total_pages === 1 ? (
           ""
         ) : (
-          <PaginationComponent totalPages={data.total_pages} />
+          <PaginationComponent totalPages={OrdersTableData.data.total_pages} />
         )}
       </div>
     </Flowbite>
