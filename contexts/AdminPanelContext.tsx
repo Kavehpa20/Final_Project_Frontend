@@ -1,6 +1,11 @@
 "use client";
 
-import { getOrders, ordersDeliveryFilter } from "@/apis/requestsAPI";
+import {
+  getInventoryAndPrices,
+  getNameSubcategoryById,
+  getOrders,
+  ordersDeliveryFilter,
+} from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useState } from "react";
 
@@ -62,6 +67,23 @@ const AdminPanelProvider = ({
     placeholderData: keepPreviousData,
   });
 
+  const getCategoryAndSubcategoryData = async () => {
+    try {
+      const CategoryAndSubcategoryList =
+        await getInventoryAndPrices(currentPage);
+
+      return CategoryAndSubcategoryList;
+    } catch (error) {
+      // console.log(error.message);
+    }
+  };
+
+  const CategoryAndSubcategory = useQuery({
+    queryKey: ["CategoryAndSubcategory", currentPage],
+    queryFn: getCategoryAndSubcategoryData,
+    placeholderData: keepPreviousData,
+  });
+
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -83,7 +105,8 @@ const AdminPanelProvider = ({
         handleRadioChange,
         OrdersTableData,
         OrdersDeliveryData,
-        NoOrdersDeliveryData
+        NoOrdersDeliveryData,
+        CategoryAndSubcategory,
       }}
     >
       {children}

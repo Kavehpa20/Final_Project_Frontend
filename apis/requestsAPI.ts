@@ -29,3 +29,8 @@ export const getInventoryAndPrices = async (page: number) => {
   const response = await requestClient.get(`/products?page=${page}`);
   return response.data;
 };
+
+export const getNameSubcategoryById = async (id: string) => {
+  const response = await requestClient.get(`/subcategories/${id}`);
+  return response.data;
+};

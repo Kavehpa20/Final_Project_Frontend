@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Flowbite,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -21,7 +22,10 @@ const OrdersTable = () => {
   const { OrdersTableData } = useAdminPanel();
 
   return OrdersTableData.isPending ? (
-    <p>Loading ...</p>
+    <div>
+    <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
+    <Spinner aria-label="Large spinner example" size="lg" />
+    </div>
   ) : OrdersTableData.isError ? (
     <div>Error: {OrdersTableData.error.message}</div>
   ) : (
@@ -65,7 +69,15 @@ const OrdersTable = () => {
             ))}
           </TableBody>
         </Table>
-        {OrdersTableData.isFetching ? <span> Loading...</span> : null}{" "}
+        {OrdersTableData.isFetching ? (
+          <>
+            <span className="text-lg text-gray-800 dark:text-white">
+              {" "}
+              Loading{" "}
+            </span>
+            <Spinner aria-label="Large spinner example" size="lg" />
+          </>
+        ) : null}{" "}
         {OrdersTableData.data.total_pages === 1 ? (
           ""
         ) : (

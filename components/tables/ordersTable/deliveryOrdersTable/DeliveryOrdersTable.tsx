@@ -1,6 +1,7 @@
 import { TableTheme } from "../../../forms/TableTheme";
 import {
   Flowbite,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -25,7 +26,10 @@ const DeliveryOrdersTable = () => {
   // }
 
   return OrdersDeliveryData.isPending ? (
-    <p>Loading ...</p>
+    <div>
+    <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
+    <Spinner aria-label="Large spinner example" size="lg" />
+    </div>
   ) : OrdersDeliveryData.isError ? (
     <div>Error: {OrdersDeliveryData.error.message}</div>
   ) : (
@@ -68,7 +72,10 @@ const DeliveryOrdersTable = () => {
             ),
           )}
         </Table>
-        {OrdersDeliveryData.isFetching ? <span> Loading...</span> : null}{" "}
+        {OrdersDeliveryData.isFetching ? <>
+          <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
+          <Spinner aria-label="Large spinner example" size="lg" />
+          </> : null}{" "}
         {OrdersDeliveryData.data.total_pages === 1 ? (
           ""
         ) : (

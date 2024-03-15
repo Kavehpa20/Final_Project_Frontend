@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   Flowbite,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -42,7 +43,10 @@ const InventoryAndPrices = () => {
   // }
 
   return isPending ? (
-    <p>Loading ...</p>
+    <div>
+    <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
+    <Spinner aria-label="Large spinner example" size="lg" />
+    </div>
   ) : isError ? (
     <div>Error: {error.message}</div>
   ) : (
@@ -71,7 +75,15 @@ const InventoryAndPrices = () => {
             </TableBody>
           ))}
         </Table>
-        {isFetching ? <span> Loading...</span> : null}{" "}
+        {isFetching ? (
+          <>
+            <span className="text-lg text-gray-800 dark:text-white">
+              {" "}
+              Loading{" "}
+            </span>
+            <Spinner aria-label="Large spinner example" size="lg" />
+          </>
+        ) : null}{" "}
         {data.total_pages === 1 ? (
           ""
         ) : (

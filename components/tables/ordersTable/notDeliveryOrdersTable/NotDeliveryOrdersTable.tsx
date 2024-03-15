@@ -1,5 +1,6 @@
 import {
   Flowbite,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -8,10 +9,7 @@ import {
   TableRow,
 } from "flowbite-react";
 import { TableTheme } from "../../../forms/TableTheme";
-import { ordersDeliveryFilter } from "@/apis/requestsAPI";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { IOrders } from "@/utils/types/global";
-import TableName from "../allOrdersTable/TableCellFullName";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import PaginationComponent from "../../../pagination/PaginationComponent";
 import TableCellFullName from "./TableCellFullName";
@@ -23,7 +21,10 @@ const NotDeliveryOrdersTable = () => {
   const { NoOrdersDeliveryData } = useAdminPanel();
 
   return NoOrdersDeliveryData.isPending ? (
-    <p>Loading ...</p>
+    <div>
+      <span className="text-lg text-gray-800 dark:text-white"> Loading </span>
+      <Spinner aria-label="Large spinner example" size="lg" />
+    </div>
   ) : NoOrdersDeliveryData.isError ? (
     <div>Error: {NoOrdersDeliveryData.error.message}</div>
   ) : (
@@ -38,33 +39,43 @@ const NotDeliveryOrdersTable = () => {
               <span className="sr-only">بررسی سفارش</span>
             </TableHeadCell>
           </TableHead>
-          {NoOrdersDeliveryData.data.data.orders.map((order: IOrders , index:number) => (
-            <TableBody className="divide-y" key={order._id}>
-              <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  <TableCellFullName index={index} />
-                </TableCell>
-                <TableCell className="font-IRANSans">
-                  {order.totalPrice.toLocaleString()}
-                </TableCell>
-                <TableCell>
-                  {moment(order.createdAt.split("T")[0], "YYYY-MM-DD").format(
-                    "jYYYY/jMM/jDD",
-                  )}
-                </TableCell>
-                <TableCell>
-                  <a
-                    href="#"
-                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                  >
-                    بررسی سفارش
-                  </a>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          ))}
+          {NoOrdersDeliveryData.data.data.orders.map(
+            (order: IOrders, index: number) => (
+              <TableBody className="divide-y" key={order._id}>
+                <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    <TableCellFullName index={index} />
+                  </TableCell>
+                  <TableCell className="font-IRANSans">
+                    {order.totalPrice.toLocaleString()}
+                  </TableCell>
+                  <TableCell>
+                    {moment(order.createdAt.split("T")[0], "YYYY-MM-DD").format(
+                      "jYYYY/jMM/jDD",
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <a
+                      href="#"
+                      className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                    >
+                      بررسی سفارش
+                    </a>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ),
+          )}
         </Table>
-        {NoOrdersDeliveryData.isFetching ? <span> Loading...</span> : null}{" "}
+        {NoOrdersDeliveryData.isFetching ? (
+          <>
+            <span className="text-lg text-gray-800 dark:text-white">
+              {" "}
+              Loading{" "}
+            </span>
+            <Spinner aria-label="Large spinner example" size="lg" />
+          </>
+        ) : null}{" "}
         {NoOrdersDeliveryData.data.total_pages === 1 ? (
           ""
         ) : (
