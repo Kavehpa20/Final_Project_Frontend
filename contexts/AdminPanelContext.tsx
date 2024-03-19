@@ -2,7 +2,6 @@
 
 import {
   getInventoryAndPrices,
-  getNameSubcategoryById,
   getOrders,
   ordersDeliveryFilter,
 } from "@/apis/requestsAPI";
@@ -20,7 +19,6 @@ const AdminPanelProvider = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("option1");
   const [showAddingModal, setShowAddingModal] = useState(false);
-  const [email, setEmail] = useState("");
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
@@ -115,8 +113,6 @@ const AdminPanelProvider = ({
         CategoryAndSubcategory,
         showAddingModal,
         setShowAddingModal,
-        email,
-        setEmail,
         onCloseAddingModal,
       }}
     >

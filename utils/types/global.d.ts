@@ -103,8 +103,6 @@ interface ICreateContext {
   CategoryAndSubcategory: UseQueryResult<Group[], Error>;
   showAddingModal: boolean;
   setShowAddingModal: Dispatch<SetStateAction<boolean>>;
-  email: string;
-  setEmail: Dispatch<SetStateAction<boolean>>;
   onCloseAddingModal: ModalProps;
 }
 

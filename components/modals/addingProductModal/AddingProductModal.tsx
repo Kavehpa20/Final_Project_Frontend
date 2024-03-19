@@ -16,8 +16,7 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 
 const AddingProductModal = () => {
-  const { showAddingModal, email, setEmail, onCloseAddingModal } =
-    useAdminPanel();
+  const { showAddingModal, onCloseAddingModal } = useAdminPanel();
 
   const [isLoading, setIsLoading] = useState(false);
 
