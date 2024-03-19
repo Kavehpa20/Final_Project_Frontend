@@ -20,7 +20,7 @@ const AssetsManager = () => {
 
   return CategoryAndSubcategory.isPending ? (
     <div>
-          <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
+          <span className="text-gray-800 dark:text-white text-lg"> در حال بارگذاری </span>
           <Spinner aria-label="Large spinner example" size="lg" />
           </div>
   ) : CategoryAndSubcategory.isError ? (
@@ -73,7 +73,7 @@ const AssetsManager = () => {
           </TableBody>
         </Table>
         {CategoryAndSubcategory.isFetching ? <>
-          <span className="text-gray-800 dark:text-white text-lg"> Loading </span>
+          <span className="text-gray-800 dark:text-white text-lg"> در حال بارگذاری </span>
           <Spinner aria-label="Large spinner example" size="lg" />
           </> : null}{" "}
         {CategoryAndSubcategory.data.total_pages === 1 ? (

@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { LoadingButton } from "../LoadingButton";
 
-function AdminLoginForm() {
+const AdminLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
@@ -181,6 +181,6 @@ function AdminLoginForm() {
       </div>
     </section>
   );
-}
+};
 
 export default AdminLoginForm;

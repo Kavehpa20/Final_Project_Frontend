@@ -1,19 +1,51 @@
 "use client";
 
+import { useState } from "react";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { classNames } from "@/libs/tools";
+import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
+import { loginRequest } from "@/apis/requestsAPI";
+import { setToken } from "@/libs/tokenManager";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
+import { LoadingButton } from "@/components/LoadingButton";
 
 const AddingProductModal = () => {
-  const {
-    showAddingModal,
-    setShowAddingModal,
-    email,
-    setEmail,
-    onCloseAddingModal,
-  } = useAdminPanel();
+  const { showAddingModal, email, setEmail, onCloseAddingModal } =
+    useAdminPanel();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
+    mode: "all",
+    resolver: zodResolver(adminLoginFormSchema),
+  });
+  const router = useRouter();
+
+  const onSubmitHandler = async (data: ILoginAdmin) => {
+    const body = { username: data.username, password: data.password };
+    setIsLoading((isLoading) => true);
+    try {
+      const res = await loginRequest(body);
+      setToken("Alpha_coffee", res.token.accessToken);
+      setToken("refresh_token", res.token.refreshToken);
+      toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
+      router.push("admin/admin_panel");
+      setIsLoading((isLoading) => false);
+    } catch (error) {
+      console.log(error);
+      // errorHandler(error as AxiosError);
+      setIsLoading((isLoading) => false);
+    }
+  };
+
   return (
     <>
-      {/* <Button onClick={() => setShowAddingModal(true)}>Toggle modal</Button> */}
       <Modal
         show={showAddingModal}
         size="md"
@@ -22,53 +54,116 @@ const AddingProductModal = () => {
       >
         <Modal.Header />
         <Modal.Body>
-          <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Sign in to our platform
-            </h3>
+          <form
+            className="space-y-4 md:space-y-6"
+            onSubmit={handleSubmit(onSubmitHandler)}
+          >
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="email" value="Your email" />
-              </div>
-              <TextInput
-                id="email"
-                placeholder="name@company.com"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
+              <label
+                htmlFor="username"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+              >
+                نام کاربری
+              </label>
+              <input
+                type="text"
+                id="username"
+                className={classNames(
+                  "block w-full rounded-lg border",
+                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.username?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                placeholder="نام کاربری"
+                {...register("username")}
               />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.username?.message}
+              </p>
             </div>
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="password" value="Your password" />
-              </div>
-              <TextInput id="password" type="password" required />
+              <label
+                htmlFor="password"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+              >
+                پسورد
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="پسورد"
+                className={classNames(
+                  "block w-full rounded-lg border",
+                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.password?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("password")}
+              />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.password?.message}
+              </p>
             </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-start">
+                <div className="flex h-5 items-center">
+                  <input
+                    id="remember"
+                    aria-describedby="remember"
+                    type="checkbox"
+                    className="focus:ring-3 ml-2 h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-brown-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-brown-600"
+                  />
+                </div>
+                <div className="ml-3 text-sm">
+                  <label
+                    htmlFor="remember"
+                    className="text-brown-900 dark:text-brown-200"
+                  >
+                    من را به خاطر داشته باش
+                  </label>
+                </div>
+              </div>
+              <a
+                href="#"
+                className="text-sm font-medium text-primary-900 hover:border-primary-200 hover:text-primary-500 hover:underline dark:text-primary-200 dark:hover:border-primary-50 dark:hover:text-primary-100"
+              >
+                رمز عبور خود را فراموش کرده اید؟
+              </a>
+            </div>
+            {!isLoading ? (
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                ورود
+              </button>
+            ) : (
+              <LoadingButton
+                name={"ورود"}
+                className={
+                  "w-full rounded-lg bg-primary-600 px-5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                }
+              />
+            )}
+
             <div className="flex justify-between">
-              <div className="flex items-center gap-2">
-                <Checkbox id="remember" />
-                <Label htmlFor="remember">Remember me</Label>
-              </div>
-              <a
-                href="#"
-                className="text-sm text-cyan-700 hover:underline dark:text-cyan-500"
+              <p className="text-sm font-light text-brown-900 dark:text-brown-200">
+                اگر اکانت ندارید با مدیر در ارتباط باشید{" "}
+              </p>
+              <Link
+                href="/"
+                className="mr-4 font-medium text-primary-900 hover:border-primary-200 hover:text-primary-500 hover:underline dark:text-primary-200 dark:hover:border-primary-50 dark:hover:text-primary-100"
               >
-                Lost Password?
-              </a>
+                بازگشت به سایت
+              </Link>
             </div>
-            <div className="w-full">
-              <Button>Log in to your account</Button>
-            </div>
-            <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
-              Not registered?&nbsp;
-              <a
-                href="#"
-                className="text-cyan-700 hover:underline dark:text-cyan-500"
-              >
-                Create account
-              </a>
-            </div>
-          </div>
+          </form>
         </Modal.Body>
       </Modal>
     </>
