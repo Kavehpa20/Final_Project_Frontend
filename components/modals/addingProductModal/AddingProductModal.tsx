@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { classNames } from "@/libs/tools";
 import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
 import { loginRequest } from "@/apis/requestsAPI";
@@ -11,7 +12,14 @@ import { setToken } from "@/libs/tokenManager";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import {
+  Button,
+  FileInput,
+  Label,
+  Modal,
+  Textarea,
+  Select,
+} from "flowbite-react";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 
@@ -27,14 +35,14 @@ const AddingProductModal = () => {
   const router = useRouter();
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
-    const body = { username: data.username, password: data.password };
+    const body = { category: data.category, password: data.password };
     setIsLoading((isLoading) => true);
     try {
-      const res = await loginRequest(body);
-      setToken("Alpha_coffee", res.token.accessToken);
-      setToken("refresh_token", res.token.refreshToken);
-      toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
-      router.push("admin/admin_panel");
+      // const res = await loginRequest(body);
+      // setToken("Alpha_coffee", res.token.accessToken);
+      // setToken("refresh_token", res.token.refreshToken);
+      // toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
+      // router.push("admin/admin_panel");
       setIsLoading((isLoading) => false);
     } catch (error) {
       console.log(error);
@@ -47,53 +55,59 @@ const AddingProductModal = () => {
     <>
       <Modal
         show={showAddingModal}
-        size="md"
+        size="4xl"
         onClose={onCloseAddingModal}
         popup
       >
         <Modal.Header />
         <Modal.Body>
           <form
-            className="space-y-4 md:space-y-6"
+            className="relative grid grid-cols-1 gap-5 pb-14 lg:grid-cols-2"
             onSubmit={handleSubmit(onSubmitHandler)}
           >
             <div>
               <label
-                htmlFor="username"
+                htmlFor="category"
                 className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+                value="Select your category"
               >
-                نام کاربری
+                دسته بندی
               </label>
-              <input
-                type="text"
-                id="username"
-                className={classNames(
-                  "block w-full rounded-lg border",
-                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
-                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
-                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                  !!formState.errors.username?.message
-                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
-                    : "",
-                )}
-                placeholder="نام کاربری"
-                {...register("username")}
-              />
-              <p className="mt-1 text-xs font-semibold text-red-600">
-                {formState.errors.username?.message}
-              </p>
+
+              <Select sizing="md" id="category" {...register("category")}>
+                <option>قهوه</option>
+                <option>چای و دمنوش</option>
+                <option>انواع خوراکی</option>
+                <option>انواع شکلات</option>
+              </Select>
             </div>
             <div>
               <label
-                htmlFor="password"
+                htmlFor="subCategory"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+                value="Select your subCategory"
+              >
+                زیر دسته بندی
+              </label>
+
+              <Select sizing="md" id="subCategory" {...register("subCategory")}>
+                <option>قهوه</option>
+                <option>چای و دمنوش</option>
+                <option>انواع خوراکی</option>
+                <option>انواع شکلات</option>
+              </Select>
+            </div>
+            <div>
+              <label
+                htmlFor="name"
                 className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
               >
-                پسورد
+                نام کالا
               </label>
               <input
-                type="password"
-                id="password"
-                placeholder="پسورد"
+                type="text"
+                id="name"
+                placeholder="نام کالا"
                 className={classNames(
                   "block w-full rounded-lg border",
                   "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
@@ -103,65 +117,147 @@ const AddingProductModal = () => {
                     ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                     : "",
                 )}
-                {...register("password")}
+                {...register("name")}
               />
               <p className="mt-1 text-xs font-semibold text-red-600">
                 {formState.errors.password?.message}
               </p>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-start">
-                <div className="flex h-5 items-center">
-                  <input
-                    id="remember"
-                    aria-describedby="remember"
-                    type="checkbox"
-                    className="focus:ring-3 ml-2 h-4 w-4 rounded border border-gray-300 bg-gray-50 focus:ring-brown-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-brown-600"
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label
-                    htmlFor="remember"
-                    className="text-brown-900 dark:text-brown-200"
-                  >
-                    من را به خاطر داشته باش
-                  </label>
-                </div>
-              </div>
-              <a
-                href="#"
-                className="text-sm font-medium text-primary-900 hover:border-primary-200 hover:text-primary-500 hover:underline dark:text-primary-200 dark:hover:border-primary-50 dark:hover:text-primary-100"
+            <div>
+              <label
+                htmlFor="price"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
               >
-                رمز عبور خود را فراموش کرده اید؟
-              </a>
+                قیمت کالا
+              </label>
+              <input
+                type="number"
+                id="price"
+                placeholder="قیمت کالا"
+                className={classNames(
+                  "block w-full rounded-lg border",
+                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.password?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("price")}
+              />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.password?.message}
+              </p>
             </div>
+            <div>
+              <label
+                htmlFor="quantity"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+              >
+                موجودی کالا
+              </label>
+              <input
+                type="number"
+                id="quantity"
+                placeholder="تعداد"
+                className={classNames(
+                  "block w-full rounded-lg border",
+                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.password?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("quantity")}
+              />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.password?.message}
+              </p>
+            </div>
+            <div>
+              <label
+                htmlFor="brand"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+              >
+                برند کالا
+              </label>
+              <input
+                type="text"
+                id="brand"
+                placeholder="برند"
+                className={classNames(
+                  "block w-full rounded-lg border",
+                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.password?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("brand")}
+              />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.password?.message}
+              </p>
+            </div>
+            <div>
+              <label
+                htmlFor="description"
+                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+              >
+                توضیحات کالا
+              </label>
+              <Textarea
+                id="description"
+                placeholder="توضیحات محصول"
+                rows={4}
+                className={classNames(
+                  "block w-full rounded-lg border",
+                  "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.password?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("description")}
+              />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.password?.message}
+              </p>
+            </div>
+            <div className="max-w-md">
+              <div className="mb-2 block">
+                <Label
+                  className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+                  htmlFor="picUpload"
+                  value="Upload Picture"
+                />
+              </div>
+              <FileInput
+                className="mb-2 block text-sm font-medium "
+                {...register("picUpload")}
+                id="picUpload"
+                helperText="تصاویر مربوط به محصول را حتما با فرمت jpg، jpeg یا png ارسال کنید و دقت کتید حجم عکس ها کمتر از 2mb باشد."
+              />
+            </div>
+
             {!isLoading ? (
               <button
                 type="submit"
-                className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="absolute bottom-0 w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                ورود
+                اضافه کردن
               </button>
             ) : (
               <LoadingButton
-                name={"ورود"}
+                name={"اضافه کردن"}
                 className={
-                  "w-full rounded-lg bg-primary-600 px-5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  "absolute bottom-0 w-full rounded-lg bg-primary-600 px-5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 }
               />
             )}
-
-            <div className="flex justify-between">
-              <p className="text-sm font-light text-brown-900 dark:text-brown-200">
-                اگر اکانت ندارید با مدیر در ارتباط باشید{" "}
-              </p>
-              <Link
-                href="/"
-                className="mr-4 font-medium text-primary-900 hover:border-primary-200 hover:text-primary-500 hover:underline dark:text-primary-200 dark:hover:border-primary-50 dark:hover:text-primary-100"
-              >
-                بازگشت به سایت
-              </Link>
-            </div>
           </form>
         </Modal.Body>
       </Modal>
