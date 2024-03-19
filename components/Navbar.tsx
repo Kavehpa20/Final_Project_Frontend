@@ -24,15 +24,15 @@ export default function Navbar() {
                 <Link href="/">
                   <div className="flex grow items-center">
                     <Image
-                      width={1000}
-                      height={1000}
+                      width={500}
+                      height={500}
                       className="block h-16 w-auto dark:hidden"
                       src="/Assets/pictures/alpha-coffee-logo.png"
                       alt="Logo"
                     />
                     <Image
-                      width={1000}
-                      height={1000}
+                      width={500}
+                      height={500}
                       className="hidden h-16 w-auto dark:block"
                       src="/Assets/pictures/alpha-coffee-logo-dark.png"
                       alt="Logo"

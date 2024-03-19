@@ -2,7 +2,7 @@ import BannerComponent from "@/components/Banner";
 import CarouselMenu from "@/components/Swiper";
 import dataSlider from "@/components/_data/slider-data.json";
 import CatagoriesList from "@/components/Categories";
-import { landingDataFetching } from "@/apis/landing-request";
+import { landingDataFetching } from "@/apis/getCategories";
 
 async function getData() {
   const data = await landingDataFetching();

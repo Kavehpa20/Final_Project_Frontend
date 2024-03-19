@@ -1,4 +1,4 @@
-import { axiosBaseUrl } from "./axios-config";
+import { axiosBaseUrl } from "./axiosBaseURL";
 
 export const getSubcategories = async () => {
   const response = await axiosBaseUrl().get("/subcategories");

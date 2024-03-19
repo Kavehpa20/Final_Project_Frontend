@@ -1,8 +1,5 @@
 import React from "react";
 import CardComponent from "./Card";
-import Link from "next/link";
-import { landingProductsReq } from "@/apis/landing-products-req";
-import axios from "axios";
 
 const ProductContainer = async ({ data }) => {
   const res = await data;

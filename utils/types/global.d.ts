@@ -69,3 +69,70 @@ interface ISubcategories {
 type Props = {
   text: string;
 };
+
+type Users = {
+  firstname: string;
+  lastname: string;
+};
+
+interface ISubcategory {
+  data: {
+    subcategory: {
+      _id: string;
+      name: string;
+      category: {
+        _id: string;
+        name: string;
+      };
+    };
+  };
+}
+
+interface ICreateContext {
+  openModal: boolean;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<boolean>>;
+  onPageChange: Function;
+  selectedValue: string;
+  setSelectedValue: Dispatch<SetStateAction<boolean>>;
+  handleRadioChange: Function;
+  OrdersTableData: UseQueryResult<Group[], Error>;
+  OrdersDeliveryData: UseQueryResult<Group[], Error>;
+  NoOrdersDeliveryData: UseQueryResult<Group[], Error>;
+  CategoryAndSubcategory: UseQueryResult<Group[], Error>;
+  showAddingModal: boolean;
+  setShowAddingModal: Dispatch<SetStateAction<boolean>>;
+  email: string;
+  setEmail: Dispatch<SetStateAction<boolean>>;
+  onCloseAddingModal: ModalProps;
+}
+
+interface IUserPanelContext {
+  hello: string;
+  setHello: Dispatch<SetStateAction<string>>;
+}
+
+interface IOrders {
+  createdAt: string;
+  deliveryDate: string;
+  deliveryStatus: boolean;
+  products: Array;
+  totalPrice: number;
+  updatedAt: string;
+  user: string;
+  _id: string;
+}
+
+interface IProduct {
+  brand: string;
+  description: string;
+  quantity: number;
+  thumbnail: string;
+  images: Array;
+  name: string;
+  subcategory: string;
+  category: string;
+  _id: string;
+  price: number;
+}

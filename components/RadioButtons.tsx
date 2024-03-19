@@ -1,11 +1,11 @@
+"use client";
+
+import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import React, { useState } from "react";
 
 const RadioButtons = () => {
-  const [selectedValue, setSelectedValue] = useState("option1");
-  const handleRadioChange = (value: string) => {
-    setSelectedValue(value);
-  };
-
+  const { selectedValue, setSelectedValue, handleRadioChange } =
+    useAdminPanel();
   return (
     <div className="grid place-items-center">
       <div className="grid w-fit grid-cols-3 gap-2 rounded-xl bg-gray-200 p-1 text-gray-900 dark:bg-gray-900 dark:text-gray-200">
@@ -23,7 +23,7 @@ const RadioButtons = () => {
             htmlFor="1"
             className="dark:peer-checked:text- block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
           >
-            تحویل شده
+            همه
           </label>
         </div>
 
@@ -59,7 +59,7 @@ const RadioButtons = () => {
             htmlFor="3"
             className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
           >
-            همه
+            تحویل شده
           </label>
         </div>
       </div>

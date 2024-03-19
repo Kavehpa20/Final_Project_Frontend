@@ -20,7 +20,7 @@ export default async function CategoriesList({ categories }) {
       {categories.map((el: ICategory, i) => (
         <div key={el.name}>
           <Link href={`/${el.slugname}`}>
-            <ProductsHeaderLink text={el.name} />
+            <ProductsHeaderLink text={el.slugname} />
           </Link>
           <ProductContainer data={res[i].data.data.products} />
         </div>

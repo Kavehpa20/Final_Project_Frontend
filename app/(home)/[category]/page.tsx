@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { axiosBaseUrl, categoryProductsRequest } from "@/apis/axios-config";
-import { landingDataFetching } from "@/apis/landing-request";
+import { categoryProductsRequest } from "@/apis/axiosBaseURL";
+import { landingDataFetching } from "@/apis/getCategories";
 import CardComponent from "@/components/Card";
 
 const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
   const getCategories = await landingDataFetching();
   const categories = getCategories.data.categories;
-  const category = categories.find((el) => el.name === params.category);
+  const category = categories.find((el) => el.slugname === params.category);
   if (!category) throw new Error("Not Found");
   const categoryId = category?._id;
 
