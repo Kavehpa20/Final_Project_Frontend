@@ -101,6 +101,11 @@ interface ICreateContext {
   OrdersDeliveryData: UseQueryResult<Group[], Error>;
   NoOrdersDeliveryData: UseQueryResult<Group[], Error>;
   CategoryAndSubcategory: UseQueryResult<Group[], Error>;
+  showAddingModal: boolean;
+  setShowAddingModal: Dispatch<SetStateAction<boolean>>;
+  email: string;
+  setEmail: Dispatch<SetStateAction<boolean>>;
+  onCloseAddingModal: ModalProps;
 }
 
 interface IUserPanelContext {

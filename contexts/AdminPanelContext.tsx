@@ -19,11 +19,17 @@ const AdminPanelProvider = ({
   const [openModal, setOpenModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("option1");
+  const [showAddingModal, setShowAddingModal] = useState(false);
+  const [email, setEmail] = useState("");
+
+  function onCloseAddingModal() {
+    setShowAddingModal(false);
+    setEmail("");
+  }
 
   const getOrdersData = async () => {
     try {
       const ordersList = await getOrders(currentPage);
-
       return ordersList;
     } catch (error) {
       // console.log(error.message);
@@ -107,6 +113,11 @@ const AdminPanelProvider = ({
         OrdersDeliveryData,
         NoOrdersDeliveryData,
         CategoryAndSubcategory,
+        showAddingModal,
+        setShowAddingModal,
+        email,
+        setEmail,
+        onCloseAddingModal,
       }}
     >
       {children}

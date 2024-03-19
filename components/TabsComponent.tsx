@@ -1,10 +1,9 @@
 "use client";
 
 import { Tabs } from "flowbite-react";
-import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
+import { HiAdjustments, HiClipboardList } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { Button } from "flowbite-react";
-import TableComponent from "./TableComponent";
 import RadioButtons from "./RadioButtons";
 import OrdersTable from "./tables/ordersTable/allOrdersTable/OrdersTable";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
@@ -14,8 +13,7 @@ import InventoryAndPrices from "./tables/inventoryAndPrices/InventoryAndPrices";
 import AssetsManager from "./tables/assetsManager/AssetsManager";
 
 const TabsComponent = () => {
-  const { selectedValue, setSelectedValue, handleRadioChange } =
-    useAdminPanel();
+  const { selectedValue, setShowAddingModal } = useAdminPanel();
   return (
     <>
       <Tabs
@@ -29,7 +27,9 @@ const TabsComponent = () => {
             <span className="font-medium text-gray-800 dark:text-white">
               مدیریت کالاها
             </span>
-            <Button color="success">افزودن کالا</Button>
+            <Button color="success" onClick={() => setShowAddingModal(true)}>
+              افزودن کالا
+            </Button>
           </div>
           <AssetsManager />
         </Tabs.Item>

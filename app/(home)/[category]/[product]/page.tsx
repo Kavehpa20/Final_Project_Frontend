@@ -9,7 +9,7 @@ const ProductPage = async ({
 }) => {
   const getCategories = await landingDataFetching();
   const categories = getCategories.data.categories;
-  const category = categories.find((el) => el.name === params.category);
+  const category = categories.find((el) => el.slugname === params.category);
   const categoryId = category?._id;
   const products = await categoryProductsRequest(categoryId);
   const product = products.data.products.find(
