@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { addProductModalSchema } from "@/libs/validations/addProductModalSchema";
 import { classNames } from "@/libs/tools";
-import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
-import { loginRequest } from "@/apis/requestsAPI";
-import { setToken } from "@/libs/tokenManager";
+
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -22,7 +20,7 @@ import {
 } from "flowbite-react";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
-import { getCategories } from "@/apis/getCategories";
+import SubCategoriesOptions from "./SubCategoriesOptions";
 
 const AddingProductModal = () => {
   const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
@@ -30,19 +28,30 @@ const AddingProductModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
+  const { register, handleSubmit, formState, watch } = useForm<IAddingProduct>({
     mode: "all",
-    resolver: zodResolver(adminLoginFormSchema),
+    resolver: zodResolver(addProductModalSchema),
   });
+  const categoryValue = watch("category");
   const router = useRouter();
 
-  const onSubmitHandler = async (data: ILoginAdmin) => {
-    const body = { category: data.category, password: data.password };
+  const onSubmitHandler = async (data: IAddingProduct) => {
+    const body = {
+      category: data.category,
+      subcategory: data.subcategory,
+      name: data.name,
+      price: data.price,
+      quantity: data.quantity,
+      brand: data.brand,
+      description: data.description,
+      thumbnail: data.thumbnail,
+      images: data.images,
+    };
+    console.log(body);
+
     setIsLoading((isLoading) => true);
     try {
       // const res = await loginRequest(body);
-      // setToken("Alpha_coffee", res.token.accessToken);
-      // setToken("refresh_token", res.token.refreshToken);
       // toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       // router.push("admin/admin_panel");
       setIsLoading((isLoading) => false);
@@ -71,7 +80,6 @@ const AddingProductModal = () => {
             <label
               htmlFor="category"
               className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
-              value="Select your category"
             >
               دسته بندی
             </label>
@@ -86,16 +94,19 @@ const AddingProductModal = () => {
             <label
               htmlFor="subCategory"
               className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
-              value="Select your subCategory"
             >
               زیر دسته بندی
             </label>
-
-            <Select sizing="md" id="subCategory" {...register("subCategory")}>
-              <option>قهوه</option>
-              <option>چای و دمنوش</option>
-              <option>انواع خوراکی</option>
-              <option>انواع شکلات</option>
+            <Select
+              sizing="md"
+              id="subCategory"
+              value={categoryValue}
+              {...register("subcategory")}
+            >
+              <SubCategoriesOptions
+                CategoriesNameData={CategoriesNameData.data}
+                value={categoryValue}
+              />
             </Select>
           </div>
           <div>
@@ -114,16 +125,17 @@ const AddingProductModal = () => {
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.password?.message
+                !!formState.errors.name?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("name")}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
-              {formState.errors.password?.message}
+              {formState.errors.name?.message}
             </p>
           </div>
+
           <div>
             <label
               htmlFor="price"
@@ -140,16 +152,17 @@ const AddingProductModal = () => {
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.password?.message
+                !!formState.errors.price?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("price")}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
-              {formState.errors.password?.message}
+              {formState.errors.price?.message}
             </p>
           </div>
+
           <div>
             <label
               htmlFor="quantity"
@@ -166,16 +179,17 @@ const AddingProductModal = () => {
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.password?.message
+                !!formState.errors.quantity?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("quantity")}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
-              {formState.errors.password?.message}
+              {formState.errors.quantity?.message}
             </p>
           </div>
+
           <div>
             <label
               htmlFor="brand"
@@ -192,16 +206,17 @@ const AddingProductModal = () => {
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.password?.message
+                !!formState.errors.brand?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("brand")}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
-              {formState.errors.password?.message}
+              {formState.errors.brand?.message}
             </p>
           </div>
+
           <div>
             <label
               htmlFor="description"
@@ -212,36 +227,77 @@ const AddingProductModal = () => {
             <Textarea
               id="description"
               placeholder="توضیحات محصول"
-              rows={4}
+              rows={8}
               className={classNames(
                 "block w-full rounded-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.password?.message
+                !!formState.errors.description?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("description")}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
-              {formState.errors.password?.message}
+              {formState.errors.description?.message}
             </p>
           </div>
-          <div className="max-w-md">
-            <div className="mb-2 block">
-              <Label
-                className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
-                htmlFor="picUpload"
-                value="آپلود عکس"
+
+          <div className="flex flex-col gap-4">
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+                  htmlFor="thumbnail"
+                  value="آپلود عکس"
+                />
+              </div>
+              <FileInput
+                {...register("thumbnail")}
+                id="thumbnail"
+                helperText="آیکون مربوط به محصول را حتما با فرمت jpg، jpeg یا png ارسال کنید"
+                className={classNames(
+                  "mb-2 block w-full rounded-lg border text-sm font-medium",
+                  "border-gray-300 bg-gray-50 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.thumbnail?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("thumbnail")}
               />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.thumbnail?.message}
+              </p>
             </div>
-            <FileInput
-              className="mb-2 block text-sm font-medium "
-              {...register("picUpload")}
-              id="picUpload"
-              helperText="تصاویر مربوط به محصول را حتما با فرمت jpg، jpeg یا png ارسال کنید و دقت کتید حجم عکس ها کمتر از 2mb باشد."
-            />
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
+                  htmlFor="images"
+                  value="تصویر محصول"
+                />
+              </div>
+              <FileInput
+                className={classNames(
+                  "mb-2 block w-full rounded-lg border text-sm font-medium",
+                  "border-gray-300 bg-gray-50 text-gray-900 focus:border-blue-600",
+                  "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                  "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+                  !!formState.errors.images?.message
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    : "",
+                )}
+                {...register("images")}
+                id="images"
+                helperText="تصویر مربوط به محصول را حتما با فرمت jpg، jpeg یا png ارسال کنید"
+              />
+              <p className="mt-1 text-xs font-semibold text-red-600">
+                {formState.errors.images?.message}
+              </p>
+            </div>
           </div>
 
           {!isLoading ? (

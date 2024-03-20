@@ -135,3 +135,15 @@ interface IProduct {
   _id: string;
   price: number;
 }
+
+interface IAddingProduct {
+  category: string;
+  subcategory: string;
+  name: string;
+  price: string;
+  quantity: string;
+  brand: string;
+  description: string;
+  thumbnail: object;
+  images: object;
+}

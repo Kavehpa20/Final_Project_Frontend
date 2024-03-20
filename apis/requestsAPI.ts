@@ -34,3 +34,8 @@ export const getNameSubcategoryById = async (id: string) => {
   const response = await requestClient.get(`/subcategories/${id}`);
   return response.data;
 };
+
+export const getSubcategoryByCategory = async (id: string = "") => {
+  const response = await requestClient.get(`subcategories?category=${id}`);
+  return response.data;
+};
