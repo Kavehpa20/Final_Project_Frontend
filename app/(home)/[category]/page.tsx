@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { categoryProductsRequest } from "@/apis/axiosBaseURL";
-import { landingDataFetching } from "@/apis/getCategories";
+import { getSubcategories } from "@/apis/getCategories";
 import CardComponent from "@/components/Card";
 
 const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
-  const getCategories = await landingDataFetching();
+  const getCategories = await getSubcategories();
   const categories = getCategories.data.categories;
   const category = categories.find((el) => el.slugname === params.category);
   if (!category) throw new Error("Not Found");

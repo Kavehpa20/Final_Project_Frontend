@@ -12,14 +12,7 @@ import { setToken } from "@/libs/tokenManager";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-import {
-  Button,
-  FileInput,
-  Label,
-  Modal,
-  Textarea,
-  Select,
-} from "flowbite-react";
+import { FileInput, Label, Modal, Textarea, Select } from "flowbite-react";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 
@@ -50,6 +43,8 @@ const AddingProductModal = () => {
       setIsLoading((isLoading) => false);
     }
   };
+
+  const categrories = 
 
   return (
     <>
@@ -232,7 +227,7 @@ const AddingProductModal = () => {
                 <Label
                   className="mb-2 block text-sm font-medium text-brown-900 dark:text-brown-200"
                   htmlFor="picUpload"
-                  value="Upload Picture"
+                  value="آپلود عکس"
                 />
               </div>
               <FileInput
