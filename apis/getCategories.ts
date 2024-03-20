@@ -1,6 +1,6 @@
 import { axiosBaseUrl } from "./axiosBaseURL";
 
-export const getSubcategories = async () => {
+export const getCategories = async () => {
   const response = await axiosBaseUrl().get("/categories");
   return response.data;
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { getCategories } from "@/apis/getCategories";
 import {
   getInventoryAndPrices,
   getOrders,
@@ -96,6 +97,21 @@ const AdminPanelProvider = ({
     setSelectedValue(value);
   };
 
+  const getCategoriesName = async () => {
+    try {
+      const categories = await getCategories();
+      return categories.data.categories;
+    } catch (error) {
+      // console.log(error.message);
+    }
+  };
+
+  const CategoriesNameData = useQuery({
+    queryKey: ["CategoriesNameData"],
+    queryFn: getCategoriesName,
+    placeholderData: keepPreviousData,
+  });
+
   return (
     <AdminPanelContext.Provider
       value={{
@@ -114,6 +130,7 @@ const AdminPanelProvider = ({
         showAddingModal,
         setShowAddingModal,
         onCloseAddingModal,
+        CategoriesNameData,
       }}
     >
       {children}

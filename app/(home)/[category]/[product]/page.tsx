@@ -1,5 +1,5 @@
 import { categoryProductsRequest } from "@/apis/axiosBaseURL";
-import { getSubcategories } from "@/apis/getCategories";
+import { getCategories } from "@/apis/getCategories";
 import CardComponent from "@/components/Card";
 
 const ProductPage = async ({
@@ -7,8 +7,8 @@ const ProductPage = async ({
 }: {
   params: { product: string; category: string };
 }) => {
-  const getCategories = await getSubcategories();
-  const categories = getCategories.data.categories;
+  const getCategoriesName = await getCategories();
+  const categories = getCategoriesName.data.categories;
   const category = categories.find((el) => el.slugname === params.category);
   const categoryId = category?._id;
   const products = await categoryProductsRequest(categoryId);

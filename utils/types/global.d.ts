@@ -104,6 +104,7 @@ interface ICreateContext {
   showAddingModal: boolean;
   setShowAddingModal: Dispatch<SetStateAction<boolean>>;
   onCloseAddingModal: ModalProps;
+  CategoriesNameData: UseQueryResult<Group[], Error>;
 }
 
 interface IUserPanelContext {
