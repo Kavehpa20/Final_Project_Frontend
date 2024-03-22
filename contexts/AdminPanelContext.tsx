@@ -4,7 +4,6 @@ import { getCategories } from "@/apis/getCategories";
 import {
   getInventoryAndPrices,
   getOrders,
-  getSubcategoryByCategory,
   ordersDeliveryFilter,
 } from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -24,7 +23,6 @@ const AdminPanelProvider = ({
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
-    setEmail("");
   }
 
   const getOrdersData = async () => {

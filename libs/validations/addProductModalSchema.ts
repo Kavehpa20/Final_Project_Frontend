@@ -67,11 +67,3 @@ export const addProductModalSchema = z.object({
       "Only .jpg, .jpeg, .png and .webp formats are supported.",
     ),
 });
-//  z.preprocess(
-//   (a) => parseInt(z.string().parse(a), 10),
-//   z
-//     .number()
-//     .positive({ message: "قیمت نمی تواند منفی باشد" })
-//     .min(1, "تعداد نمی تواند کمتر از یک عدد باشد"),
-// ),
-//  z.number().positive({ message: "قیمت نمی تواند منفی باشد" }),

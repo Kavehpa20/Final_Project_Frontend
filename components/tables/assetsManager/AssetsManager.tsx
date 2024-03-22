@@ -20,9 +20,12 @@ const AssetsManager = () => {
 
   return CategoryAndSubcategory.isPending ? (
     <div>
-          <span className="text-gray-800 dark:text-white text-lg"> در حال بارگذاری </span>
-          <Spinner aria-label="Large spinner example" size="lg" />
-          </div>
+      <span className="text-lg text-gray-800 dark:text-white">
+        {" "}
+        در حال بارگذاری{" "}
+      </span>
+      <Spinner aria-label="Large spinner example" size="lg" />
+    </div>
   ) : CategoryAndSubcategory.isError ? (
     <div>Error: {CategoryAndSubcategory.error.message}</div>
   ) : (
@@ -39,10 +42,10 @@ const AssetsManager = () => {
             {CategoryAndSubcategory.data.data.products.map(
               (product: IProduct, index: number) => (
                 <TableRow
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  className="bg-white text-xs dark:border-gray-700 dark:bg-gray-800 md:text-base"
                   key={product._id}
                 >
-                  <TableCell>
+                  <TableCell className="px-2">
                     <Avatar
                       img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
                       rounded
@@ -58,7 +61,7 @@ const AssetsManager = () => {
                     <CategoryAndSubcategoryName index={index} />
                   </TableCell>
                   <TableCell>
-                    <div className="inline-flex gap-x-5">
+                    <div className="flex flex-col gap-5 md:flex-row">
                       <Button color="failure" pill>
                         حذف
                       </Button>
@@ -72,10 +75,15 @@ const AssetsManager = () => {
             )}
           </TableBody>
         </Table>
-        {CategoryAndSubcategory.isFetching ? <>
-          <span className="text-gray-800 dark:text-white text-lg"> در حال بارگذاری </span>
-          <Spinner aria-label="Large spinner example" size="lg" />
-          </> : null}{" "}
+        {CategoryAndSubcategory.isFetching ? (
+          <>
+            <span className="text-lg text-gray-800 dark:text-white">
+              {" "}
+              در حال بارگذاری{" "}
+            </span>
+            <Spinner aria-label="Large spinner example" size="lg" />
+          </>
+        ) : null}{" "}
         {CategoryAndSubcategory.data.total_pages === 1 ? (
           ""
         ) : (

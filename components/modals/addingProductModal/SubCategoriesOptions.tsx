@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 
 import { getSubcategoryByCategory } from "@/apis/requestsAPI";
 
-export const SubCategoriesOptions = ({ CategoriesNameData, value }) => {
+export const SubCategoriesOptions = ({ CategoriesNameData, categoryValue }) => {
   const [loading, setLoading] = useState(true);
   const [subCategory, setSubCategory] = useState();
 
-  const category = CategoriesNameData.find(
-    (category: ICategory) => category.name === value,
-  );
-
   const getSubCategory = async () => {
     setLoading(true);
-    if (!category._id) return;
+    const category = await CategoriesNameData.find(
+      (category: ICategory) => category.name === categoryValue,
+    );
+
     const res = await getSubcategoryByCategory(category._id);
     setLoading(false);
     setSubCategory(res);
@@ -22,14 +21,18 @@ export const SubCategoriesOptions = ({ CategoriesNameData, value }) => {
 
   useEffect(() => {
     getSubCategory();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [categoryValue]);
 
-  return (
-    !loading &&
-    subCategory.data.subcategories.map((subcat: ISubcategories) => (
-      <option key={subcat._id}>{subcat.name}</option>
-    ))
+  return loading ? (
+    <option>Loading ...</option>
+  ) : (
+    subCategory.data.subcategories.map(
+      (subcat: ISubcategories, index: number) => (
+        <option key={subcat._id} value={subcat.name}>
+          {subcat.name}
+        </option>
+      ),
+    )
   );
 };
 export default SubCategoriesOptions;

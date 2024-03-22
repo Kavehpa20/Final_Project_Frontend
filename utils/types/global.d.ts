@@ -88,6 +88,15 @@ interface ISubcategory {
   };
 }
 
+interface ISubcat {
+  _id: string;
+  name: string;
+  category: {
+    _id: string;
+    name: string;
+  };
+}
+
 interface ICreateContext {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;

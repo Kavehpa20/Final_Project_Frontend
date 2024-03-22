@@ -1,15 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { addProductModalSchema } from "@/libs/validations/addProductModalSchema";
-import { classNames } from "@/libs/tools";
-
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-
 import {
   FileInput,
   Label,
@@ -18,9 +8,18 @@ import {
   Select,
   Spinner,
 } from "flowbite-react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { addProductModalSchema } from "@/libs/validations/addProductModalSchema";
+import { classNames } from "@/libs/tools";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
+import { getSubcategoryByCategory } from "@/apis/requestsAPI";
 
 const AddingProductModal = () => {
   const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
@@ -28,17 +27,40 @@ const AddingProductModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, formState, watch } = useForm<IAddingProduct>({
-    mode: "all",
-    resolver: zodResolver(addProductModalSchema),
-  });
-  const categoryValue = watch("category");
+  const { register, handleSubmit, formState, watch, control } =
+    useForm<IAddingProduct>({
+      mode: "all",
+      resolver: zodResolver(addProductModalSchema),
+    });
+  const categoryValue = watch("category", "قهوه");
+  const subcategoryValue = watch("subcategory", "گانودرما");
   const router = useRouter();
 
   const onSubmitHandler = async (data: IAddingProduct) => {
+    const category = await CategoriesNameData.data.find(
+      (el: ICategory) => data.category === el.name,
+    );
+
+    let subCatId: ISubcategories;
+
+    const subcategoryId = async () => {
+      const response = await getSubcategoryByCategory(category._id);
+      subCatId = response.data.subcategories.find(
+        (subcat: ISubcategories) => subcat.name === data.subcategory,
+      );
+      return subCatId;
+    };
+
+    // setSubCategory(await getSubcategoryByCategory(category._id));
+    // console.log(subCategory);
+
+    // const subcategory: ISubcat = subCategory.data.subcategories.find(
+    //   (subcat: ISubcategories) => subcat.name === data.subcategory,
+    // );
+
     const body = {
-      category: data.category,
-      subcategory: data.subcategory,
+      category: category._id,
+      subcategory: await subcategoryId().then(() => subCatId._id),
       name: data.name,
       price: data.price,
       quantity: data.quantity,
@@ -47,22 +69,21 @@ const AddingProductModal = () => {
       thumbnail: data.thumbnail,
       images: data.images,
     };
+
     console.log(body);
 
-    setIsLoading((isLoading) => true);
+    // setIsLoading((isLoading) => true);
     try {
       // const res = await loginRequest(body);
       // toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       // router.push("admin/admin_panel");
-      setIsLoading((isLoading) => false);
+      // setIsLoading((isLoading) => false);
     } catch (error) {
       console.log(error);
       // errorHandler(error as AxiosError);
-      setIsLoading((isLoading) => false);
+      // setIsLoading((isLoading) => false);
     }
   };
-
-  // console.log(CategoriesNameData.data);
 
   return CategoriesNameData.isPending ? (
     <span></span>
@@ -86,7 +107,9 @@ const AddingProductModal = () => {
 
             <Select sizing="md" id="category" {...register("category")}>
               {CategoriesNameData.data.map((category: ICategory) => (
-                <option key={category._id}>{category.name}</option>
+                <option key={category._id} value={category.name}>
+                  {category.name}
+                </option>
               ))}
             </Select>
           </div>
@@ -97,17 +120,19 @@ const AddingProductModal = () => {
             >
               زیر دسته بندی
             </label>
-            <Select
-              sizing="md"
-              id="subCategory"
-              value={categoryValue}
-              {...register("subcategory")}
-            >
-              <SubCategoriesOptions
-                CategoriesNameData={CategoriesNameData.data}
-                value={categoryValue}
-              />
-            </Select>
+            <Controller
+              defaultValue={subcategoryValue}
+              render={({ field }) => (
+                <Select sizing="md" {...field}>
+                  <SubCategoriesOptions
+                    CategoriesNameData={CategoriesNameData.data}
+                    categoryValue={categoryValue}
+                  />
+                </Select>
+              )}
+              control={control}
+              name="subcategory"
+            />
           </div>
           <div>
             <label
@@ -135,7 +160,6 @@ const AddingProductModal = () => {
               {formState.errors.name?.message}
             </p>
           </div>
-
           <div>
             <label
               htmlFor="price"
@@ -162,7 +186,6 @@ const AddingProductModal = () => {
               {formState.errors.price?.message}
             </p>
           </div>
-
           <div>
             <label
               htmlFor="quantity"
@@ -189,7 +212,6 @@ const AddingProductModal = () => {
               {formState.errors.quantity?.message}
             </p>
           </div>
-
           <div>
             <label
               htmlFor="brand"
@@ -216,7 +238,6 @@ const AddingProductModal = () => {
               {formState.errors.brand?.message}
             </p>
           </div>
-
           <div>
             <label
               htmlFor="description"
@@ -243,7 +264,6 @@ const AddingProductModal = () => {
               {formState.errors.description?.message}
             </p>
           </div>
-
           <div className="flex flex-col gap-4">
             <div>
               <div className="mb-2 block">
@@ -299,7 +319,6 @@ const AddingProductModal = () => {
               </p>
             </div>
           </div>
-
           {!isLoading ? (
             <button
               type="submit"
