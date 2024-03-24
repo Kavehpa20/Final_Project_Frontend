@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
 
-export const getToken = (tokenKey = "Alpha_coffee") => {
+export const getToken = (tokenKey = "access_token") => {
   return Cookies.get(tokenKey);
 };
 
-export const setToken = (tokenKey = "Alpha_coffee", token: string) => {
+export const setToken = (tokenKey = "access_token", token: string) => {
   return Cookies.set(tokenKey, token);
 };

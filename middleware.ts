@@ -2,10 +2,7 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // Assume a "Cookie:Alpha_coffee=fast" header to be present on the incoming request
-  // Getting cookies from the request using the `RequestCookies` API
-
-  let token = request.cookies.get("Alpha_coffee")?.value;
+  let token = request.cookies.get("access_token")?.value;
 
   if (!token) {
     return NextResponse.redirect(new URL("/admin", request.url));

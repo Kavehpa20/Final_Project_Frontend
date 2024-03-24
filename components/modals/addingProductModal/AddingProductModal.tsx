@@ -19,7 +19,8 @@ import { classNames } from "@/libs/tools";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
-import { getSubcategoryByCategory } from "@/apis/requestsAPI";
+import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
+import { AxiosError } from "axios";
 
 const AddingProductModal = () => {
   const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
@@ -51,37 +52,32 @@ const AddingProductModal = () => {
       return subCatId;
     };
 
-    // setSubCategory(await getSubcategoryByCategory(category._id));
-    // console.log(subCategory);
-
-    // const subcategory: ISubcat = subCategory.data.subcategories.find(
-    //   (subcat: ISubcategories) => subcat.name === data.subcategory,
-    // );
-
-    const body = {
+    const body: IProduct = {
       category: category._id,
       subcategory: await subcategoryId().then(() => subCatId._id),
       name: data.name,
-      price: data.price,
-      quantity: data.quantity,
+      price: Number(data.price),
+      quantity: Number(data.quantity),
       brand: data.brand,
       description: data.description,
-      thumbnail: data.thumbnail,
-      images: data.images,
+      thumbnail: data.thumbnail[0],
+      images: data.images[0],
     };
 
     console.log(body);
 
-    // setIsLoading((isLoading) => true);
+    setIsLoading((isLoading) => true);
     try {
-      // const res = await loginRequest(body);
-      // toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
+      const res = await addNewProductApi(body);
+      console.log(res);
+      // toast.warning(res.statusText, { theme: "colored" });
       // router.push("admin/admin_panel");
-      // setIsLoading((isLoading) => false);
+      setIsLoading((isLoading) => false);
     } catch (error) {
+      // console.log("error");
       console.log(error);
       // errorHandler(error as AxiosError);
-      // setIsLoading((isLoading) => false);
+      setIsLoading((isLoading) => false);
     }
   };
 
@@ -274,7 +270,6 @@ const AddingProductModal = () => {
                 />
               </div>
               <FileInput
-                {...register("thumbnail")}
                 id="thumbnail"
                 helperText="آیکون مربوط به محصول را حتما با فرمت jpg، jpeg یا png ارسال کنید"
                 className={classNames(

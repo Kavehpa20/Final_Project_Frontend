@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 export const deleteToken = () => {
-  Cookies.remove("Alpha_coffee");
-  Cookies.remove("refresh_Token");
+  Cookies.remove("access_token");
+  Cookies.remove("refresh_token");
 };
 
 const LogoutModal = () => {

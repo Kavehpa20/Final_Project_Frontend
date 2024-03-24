@@ -39,3 +39,38 @@ export const getSubcategoryByCategory = async (id: string) => {
   const response = await requestClient.get(`subcategories?category=${id}`);
   return response.data;
 };
+
+export const addNewProductApi = async ({
+  brand,
+  description,
+  quantity,
+  thumbnail,
+  images,
+  name,
+  subcategory,
+  category,
+  price,
+}: IProduct) => {
+  // Create FormData object
+  const formData = new FormData();
+
+  // Append data fields to FormData object
+  formData.append("brand", brand);
+  formData.append("description", description);
+  formData.append("category", category);
+  formData.append("name", name);
+  formData.append("subcategory", subcategory);
+  formData.append("quantity", quantity.toString()); // Ensure quantity is converted to string
+  formData.append("thumbnail", thumbnail); // Assuming thumbnail is a File object
+  formData.append("images", images); // Assuming thumbnail is a File object
+  formData.append("price", price.toString()); // Ensure price is converted to string
+
+  try {
+    const response = await requestClient.post("products", formData);
+    return response;
+  } catch (error) {
+    // Handle error
+    console.error("Error adding new product:", error);
+    throw error;
+  }
+};

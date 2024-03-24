@@ -27,13 +27,12 @@ const AdminLoginForm = () => {
     setIsLoading((isLoading) => true);
     try {
       const res = await loginRequest(body);
-      setToken("Alpha_coffee", res.token.accessToken);
+      setToken("access_token", res.token.accessToken);
       setToken("refresh_token", res.token.refreshToken);
       toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
       setIsLoading((isLoading) => false);
     } catch (error) {
-      console.log(error);
       // errorHandler(error as AxiosError);
       setIsLoading((isLoading) => false);
     }

@@ -61,7 +61,7 @@ const AssetsManager = () => {
                     <CategoryAndSubcategoryName index={index} />
                   </TableCell>
                   <TableCell>
-                    <div className="flex flex-col gap-5 md:flex-row">
+                    <div className="flex flex-col justify-end gap-7 md:flex-row">
                       <Button color="failure" pill>
                         حذف
                       </Button>

@@ -136,12 +136,12 @@ interface IProduct {
   brand: string;
   description: string;
   quantity: number;
-  thumbnail: string;
-  images: Array;
+  thumbnail?: File;
+  images?: File;
   name: string;
   subcategory: string;
   category: string;
-  _id: string;
+  _id?: string;
   price: number;
 }
 

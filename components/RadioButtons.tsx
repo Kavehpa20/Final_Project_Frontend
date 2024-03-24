@@ -7,8 +7,8 @@ const RadioButtons = () => {
   const { selectedValue, setSelectedValue, handleRadioChange } =
     useAdminPanel();
   return (
-    <div className="grid place-items-center">
-      <div className="grid w-fit grid-cols-3 gap-2 rounded-xl bg-gray-200 p-1 text-gray-900 dark:bg-gray-900 dark:text-gray-200">
+    <div className="grid place-items-center text-sm">
+      <div className="grid w-fit grid-cols-3 gap-2 rounded-xl bg-gray-200 p-1 text-sm text-gray-900 dark:bg-gray-900 dark:text-gray-200">
         <div>
           <input
             type="radio"
@@ -17,7 +17,7 @@ const RadioButtons = () => {
             value="option1"
             checked={selectedValue === "option1"}
             onChange={() => handleRadioChange("option1")}
-            className="peer hidden"
+            className="peer hidden text-sm"
           />
           <label
             htmlFor="1"
@@ -35,7 +35,7 @@ const RadioButtons = () => {
             value="option2"
             checked={selectedValue === "option2"}
             onChange={() => handleRadioChange("option2")}
-            className="peer hidden"
+            className="peer hidden text-sm"
           />
           <label
             htmlFor="2"
@@ -53,7 +53,7 @@ const RadioButtons = () => {
             value="option3"
             checked={selectedValue === "option3"}
             onChange={() => handleRadioChange("option3")}
-            className="peer hidden"
+            className="peer hidden text-sm"
           />
           <label
             htmlFor="3"
