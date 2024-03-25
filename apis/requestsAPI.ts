@@ -61,8 +61,8 @@ export const addNewProductApi = async ({
   formData.append("name", name);
   formData.append("subcategory", subcategory);
   formData.append("quantity", quantity.toString()); // Ensure quantity is converted to string
-  formData.append("thumbnail", thumbnail); // Assuming thumbnail is a File object
-  formData.append("images", images); // Assuming thumbnail is a File object
+  formData.append("thumbnail", thumbnail[0]); // Assuming thumbnail is a File object
+  formData.append("images", images[0]); // Assuming thumbnail is a File object
   formData.append("price", price.toString()); // Ensure price is converted to string
 
   try {
@@ -73,4 +73,14 @@ export const addNewProductApi = async ({
     console.error("Error adding new product:", error);
     throw error;
   }
+};
+
+export const deleteProductById = async (id: string) => {
+  const response = await requestClient.delete(`products/${id}`);
+  return response.data;
+};
+
+export const getProductNameById = async (id: string) => {
+  const response = await requestClient.get(`/products/${id}`);
+  return response.data.data.product;
 };

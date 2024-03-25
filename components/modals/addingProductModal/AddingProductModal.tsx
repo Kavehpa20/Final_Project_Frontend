@@ -20,7 +20,6 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
 import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
-import { AxiosError } from "axios";
 
 const AddingProductModal = () => {
   const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
@@ -60,8 +59,8 @@ const AddingProductModal = () => {
       quantity: Number(data.quantity),
       brand: data.brand,
       description: data.description,
-      thumbnail: data.thumbnail[0],
-      images: data.images[0],
+      thumbnail: data.thumbnail,
+      images: data.images,
     };
 
     console.log(body);
@@ -69,8 +68,10 @@ const AddingProductModal = () => {
     setIsLoading((isLoading) => true);
     try {
       const res = await addNewProductApi(body);
-      console.log(res);
-      // toast.warning(res.statusText, { theme: "colored" });
+      if (res.status === 201) {
+        toast.success("محصول با موفقیت اضافه شد.", { theme: "colored" });
+        onCloseAddingModal();
+      }
       // router.push("admin/admin_panel");
       setIsLoading((isLoading) => false);
     } catch (error) {

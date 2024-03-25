@@ -17,10 +17,12 @@ const AdminPanelProvider = ({
   children: React.ReactNode;
 }>) => {
   const [openModal, setOpenModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("option1");
   const [showAddingModal, setShowAddingModal] = useState(false);
-
+  const [productId, setProductId] = useState('');
+  
   function onCloseAddingModal() {
     setShowAddingModal(false);
   }
@@ -130,6 +132,8 @@ const AdminPanelProvider = ({
         setShowAddingModal,
         onCloseAddingModal,
         CategoriesNameData,
+        openDeleteModal,
+        setOpenDeleteModal,productId, setProductId
       }}
     >
       {children}

@@ -114,6 +114,10 @@ interface ICreateContext {
   setShowAddingModal: Dispatch<SetStateAction<boolean>>;
   onCloseAddingModal: ModalProps;
   CategoriesNameData: UseQueryResult<Group[], Error>;
+  openDeleteModal: boolean;
+  setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
+  productId: string;
+  setProductId: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUserPanelContext {
@@ -136,8 +140,8 @@ interface IProduct {
   brand: string;
   description: string;
   quantity: number;
-  thumbnail?: File;
-  images?: File;
+  thumbnail?: File[] | object;
+  images?: File[] | object;
   name: string;
   subcategory: string;
   category: string;

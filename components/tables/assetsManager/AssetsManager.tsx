@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, Spinner } from "flowbite-react";
 import {
   Button,
@@ -14,9 +16,26 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import CategoryAndSubcategoryName from "./CategoryAndSubcategory";
 import PaginationComponent from "../../pagination/PaginationComponent";
 import { TableTheme } from "../../forms/TableTheme";
+import { deleteProductById } from "@/apis/requestsAPI";
+import { toast } from "react-toastify";
+import AskingDeleteModal from "@/components/modals/AskingDeleteModal";
 
 const AssetsManager = () => {
-  const { CategoryAndSubcategory } = useAdminPanel();
+  const {
+    CategoryAndSubcategory,
+    openDeleteModal,
+    productId,
+    setProductId,
+    setOpenDeleteModal,
+  } = useAdminPanel();
+
+  // const editHandler = (e) => {
+  //   console.log(e.target.id);
+  // };
+
+  // const deleteHandler = (e) => {
+  //   console.log(e.target.id);
+  // };
 
   return CategoryAndSubcategory.isPending ? (
     <div>
@@ -41,36 +60,51 @@ const AssetsManager = () => {
           <TableBody className="divide-y">
             {CategoryAndSubcategory.data.data.products.map(
               (product: IProduct, index: number) => (
-                <TableRow
-                  className="bg-white text-xs dark:border-gray-700 dark:bg-gray-800 md:text-base"
-                  key={product._id}
-                >
-                  <TableCell className="px-2">
-                    <Avatar
-                      img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
-                      rounded
-                      bordered
-                      color="gray"
-                      size="lg"
-                    />
-                  </TableCell>
-                  <TableCell className="font-IRANSans">
-                    {product.name}
-                  </TableCell>
-                  <TableCell className="font-IRANSans">
-                    <CategoryAndSubcategoryName index={index} />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-col justify-end gap-7 md:flex-row">
-                      <Button color="failure" pill>
-                        حذف
-                      </Button>
-                      <Button color="warning" pill>
-                        ویرایش
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                <>
+                  <TableRow
+                    className="bg-white text-xs dark:border-gray-700 dark:bg-gray-800 md:text-base"
+                    key={product._id}
+                  >
+                    <TableCell className="px-2">
+                      <Avatar
+                        img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+                        rounded
+                        bordered
+                        color="gray"
+                        size="lg"
+                      />
+                    </TableCell>
+                    <TableCell className="font-IRANSans">
+                      {product.name}
+                    </TableCell>
+                    <TableCell className="font-IRANSans">
+                      <CategoryAndSubcategoryName index={index} />
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-col justify-end gap-7 md:flex-row">
+                        <Button
+                          color="failure"
+                          id={product._id}
+                          pill
+                          onClick={() => {
+                            setOpenDeleteModal(true);
+                            setProductId(product._id);
+                          }}
+                        >
+                          حذف
+                        </Button>
+                        <Button
+                          color="warning"
+                          id={product._id}
+                          pill
+                          onClick={() => console.log(product._id)}
+                        >
+                          ویرایش
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </>
               ),
             )}
           </TableBody>
@@ -92,6 +126,7 @@ const AssetsManager = () => {
           />
         )}
       </div>
+      <AskingDeleteModal />
     </Flowbite>
   );
 };
