@@ -6,6 +6,7 @@ import { AdminPanelProvider } from "@/contexts/AdminPanelContext";
 import TabsComponent from "@/components/TabsComponent";
 import LogoutModal from "@/components/modals/LogoutModal";
 import AddingProductModal from "@/components/modals/addingProductModal/AddingProductModal";
+import EditingProductModal from "@/components/modals/editingProductModal/EditingProductModal";
 
 export const metadata: Metadata = {
   title: "پنل مدیریت قهوه آلفا",
@@ -21,10 +22,11 @@ export default function AdminLayout({
     <AdminPanelProvider>
       <div className="bg-gray-50 font-Payda dark:bg-gray-500">
         <AdminNavbar />
-        <LogoutModal />
         <TabsComponent />
-        <AddingProductModal />
         {children}
+        <LogoutModal />
+        <AddingProductModal />
+        <EditingProductModal />
         <FooterComponent />
       </div>
     </AdminPanelProvider>

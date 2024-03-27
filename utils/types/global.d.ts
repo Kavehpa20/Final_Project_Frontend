@@ -24,24 +24,24 @@ interface ButtonProps {
   type: string;
 }
 
-interface categories {
-  id: number;
-  title: string;
-  name: string;
-  path: string;
-  products: products[];
-}
+// interface categories {
+//   id: number;
+//   title: string;
+//   name: string;
+//   path: string;
+//   products: products[];
+// }
 
-interface products {
-  id: number;
-  name: string;
-  link: string;
-  type: string;
-}
+// interface products {
+//   id: number;
+//   name: string;
+//   link: string;
+//   type: string;
+// }
 
-interface ProductsProps {
-  data: categories[];
-}
+// interface IProductsProps {
+//   data: categories[];
+// }
 
 interface ILoginAdmin {
   username: string;
@@ -77,14 +77,7 @@ type Users = {
 
 interface ISubcategory {
   data: {
-    subcategory: {
-      _id: string;
-      name: string;
-      category: {
-        _id: string;
-        name: string;
-      };
-    };
+    subcategories: ISubcat[];
   };
 }
 
@@ -116,8 +109,11 @@ interface ICreateContext {
   CategoriesNameData: UseQueryResult<Group[], Error>;
   openDeleteModal: boolean;
   setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
-  productId: string;
+  productId: null | string;
   setProductId: Dispatch<SetStateAction<boolean>>;
+  showEditingModal: boolean;
+  setShowEditingModal: Dispatch<SetStateAction<boolean>>;
+  onCloseEditingModal: ModalProps;
 }
 
 interface IUserPanelContext {
@@ -141,10 +137,10 @@ interface IProduct {
   description: string;
   quantity: number;
   thumbnail?: File[] | object;
-  images?: File[] | object;
+  images?: File[] | Array;
   name: string;
-  subcategory: string;
-  category: string;
+  subcategory: ISubcategories;
+  category: ICategory;
   _id?: string;
   price: number;
 }

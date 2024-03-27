@@ -12,12 +12,13 @@ const AskingDeleteModal = () => {
     useAdminPanel();
 
   const productName = async () => {
-    try {
-      const res = await getProductNameById(productId);
-      return res.name;
-    } catch (error) {
-      console.log(error);
-    }
+    if (productId)
+      try {
+        const res = await getProductNameById(productId);
+        return res.name;
+      } catch (error) {
+        console.log(error);
+      }
   };
 
   return (
@@ -41,7 +42,7 @@ const AskingDeleteModal = () => {
               <Button
                 color="failure"
                 onClick={async () => {
-                  const response = await deleteProductById(productId);
+                  const response = await deleteProductById(productId || "");
                   if (response.status === "success") {
                     toast.success("کالا با موفقیت حذف گردید", {
                       theme: "colored",

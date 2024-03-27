@@ -21,10 +21,15 @@ const AdminPanelProvider = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("option1");
   const [showAddingModal, setShowAddingModal] = useState(false);
-  const [productId, setProductId] = useState('');
-  
+  const [showEditingModal, setShowEditingModal] = useState(false);
+  const [productId, setProductId] = useState(null);
+
   function onCloseAddingModal() {
     setShowAddingModal(false);
+  }
+
+  function onCloseEditingModal() {
+    setShowEditingModal(false);
   }
 
   const getOrdersData = async () => {
@@ -133,7 +138,12 @@ const AdminPanelProvider = ({
         onCloseAddingModal,
         CategoriesNameData,
         openDeleteModal,
-        setOpenDeleteModal,productId, setProductId
+        setOpenDeleteModal,
+        productId,
+        setProductId,
+        showEditingModal,
+        setShowEditingModal,
+        onCloseEditingModal,
       }}
     >
       {children}
