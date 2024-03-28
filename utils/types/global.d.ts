@@ -136,7 +136,7 @@ interface IProduct {
   brand: string;
   description: string;
   quantity: number;
-  thumbnail?: File[] | object;
+  thumbnail?: File[] | Array;
   images?: File[] | Array;
   name: string;
   subcategory: ISubcategories;
