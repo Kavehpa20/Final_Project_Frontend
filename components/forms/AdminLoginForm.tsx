@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { LoadingButton } from "../LoadingButton";
 
-function AdminLoginForm() {
+const AdminLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
@@ -27,13 +27,12 @@ function AdminLoginForm() {
     setIsLoading((isLoading) => true);
     try {
       const res = await loginRequest(body);
-      setToken("Alpha_coffee", res.token.accessToken);
+      setToken("access_token", res.token.accessToken);
       setToken("refresh_token", res.token.refreshToken);
       toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
       setIsLoading((isLoading) => false);
     } catch (error) {
-      console.log(error);
       // errorHandler(error as AxiosError);
       setIsLoading((isLoading) => false);
     }
@@ -181,6 +180,6 @@ function AdminLoginForm() {
       </div>
     </section>
   );
-}
+};
 
 export default AdminLoginForm;

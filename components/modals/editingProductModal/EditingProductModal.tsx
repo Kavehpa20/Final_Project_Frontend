@@ -7,8 +7,9 @@ import {
   Textarea,
   Select,
   Spinner,
+  Avatar,
 } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -18,21 +19,49 @@ import { classNames } from "@/libs/tools";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
-import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
+import {
+  editProductApi,
+  getProductNameById,
+  getSubcategoryByCategory,
+} from "@/apis/requestsAPI";
 
-const AddingProductModal = () => {
-  const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
-    useAdminPanel();
-
+const EditingProductModal = () => {
+  const [productDetail, setProductDetail] = useState({} as IProduct);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, formState, watch, control, setValue } =
+  const {
+    showEditingModal,
+    onCloseEditingModal,
+    CategoriesNameData,
+    productId,
+  } = useAdminPanel();
+
+  const productDetailsFunc = async () => {
+    if (productId)
+      try {
+        const res = await getProductNameById(productId);
+        return res;
+      } catch (error) {
+        console.log(error);
+      }
+  };
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      const res = await productDetailsFunc();
+      setProductDetail(res);
+    };
+    if (productId) {
+      fetchProductDetails();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
+
+  const { register, handleSubmit, formState, control, setValue } =
     useForm<IAddingProduct>({
       mode: "all",
       resolver: zodResolver(addProductModalSchema),
     });
-  const categoryValue = watch("category", "قهوه");
-  const subcategoryValue = watch("subcategory", "گانودرما");
 
   const onSubmitHandler = async (data: IAddingProduct) => {
     const category = await CategoriesNameData.data.find(
@@ -63,17 +92,73 @@ const AddingProductModal = () => {
 
     setIsLoading((isLoading) => true);
     try {
-      const res = await addNewProductApi(body);
-      if (res.status === 201) {
-        toast.success("محصول با موفقیت اضافه شد.", { theme: "colored" });
-        onCloseAddingModal();
+      const res = await editProductApi(body, productId as string);
+      if (res.status === 200) {
+        toast.success("محصول با موفقیت ویرایش شد.", { theme: "colored" });
+        onCloseEditingModal();
       }
       setIsLoading((isLoading) => false);
     } catch (error) {
+      toast.error("خطایی رخ داده است.", { theme: "colored" });
       console.log(error);
       setIsLoading((isLoading) => false);
     }
   };
+
+  const [categoryName, setCategoryName] = useState("");
+  useEffect(() => {
+    if (productDetail.category) setCategoryName(productDetail.category.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [subcategoryName, setSubcategoryName] = useState("");
+  useEffect(() => {
+    if (productDetail.subcategory)
+      setSubcategoryName(productDetail.subcategory.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryName]);
+
+  const [description, setDescription] = useState("");
+  useEffect(() => {
+    if (productDetail.description) setDescription(productDetail.description);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [productName, setProductName] = useState("");
+  useEffect(() => {
+    if (productDetail.name) setProductName(productDetail.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [productPrice, setProductPrice] = useState(0);
+  useEffect(() => {
+    if (productDetail.price) setProductPrice(productDetail.price);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [productQuantity, setProductQuantity] = useState(0);
+  useEffect(() => {
+    if (productDetail.quantity) setProductQuantity(productDetail.quantity);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [productBrand, setProductBrand] = useState("");
+  useEffect(() => {
+    if (productDetail.brand) setProductBrand(productDetail.brand);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [productThumbnail, setProductThumbnail] = useState({});
+  useEffect(() => {
+    if (productDetail.thumbnail) setProductThumbnail(productDetail.thumbnail);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
+
+  const [productImages, setProductImages] = useState([]);
+  useEffect(() => {
+    if (productDetail.images) setProductImages(productDetail.images);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail]);
 
   return CategoriesNameData.isPending ? (
     <div>
@@ -86,7 +171,12 @@ const AddingProductModal = () => {
   ) : CategoriesNameData.isError ? (
     <div>Error: {CategoriesNameData.error.message}</div>
   ) : (
-    <Modal show={showAddingModal} size="4xl" onClose={onCloseAddingModal} popup>
+    <Modal
+      show={showEditingModal}
+      size="4xl"
+      onClose={onCloseEditingModal}
+      popup
+    >
       <Modal.Header />
       <Modal.Body>
         <form
@@ -101,7 +191,16 @@ const AddingProductModal = () => {
               دسته بندی
             </label>
 
-            <Select sizing="md" id="category" {...register("category")}>
+            <Select
+              sizing="md"
+              id="category"
+              {...register("category")}
+              value={categoryName}
+              onChange={(e) => {
+                setCategoryName(e.target.value);
+                setValue("category", e.target.value);
+              }}
+            >
               {CategoriesNameData.data.map((category: ICategory) => (
                 <option key={category._id} value={category.name}>
                   {category.name}
@@ -117,12 +216,14 @@ const AddingProductModal = () => {
               زیر دسته بندی
             </label>
             <Controller
+              defaultValue={subcategoryName}
               render={({ field }) => (
                 <Select
                   sizing="md"
                   {...field}
-                  value={subcategoryValue}
+                  value={subcategoryName}
                   onChange={(e) => {
+                    setSubcategoryName(e.target.value);
                     setValue("subcategory", e.target.value, {
                       shouldValidate: true,
                       shouldDirty: true,
@@ -131,7 +232,7 @@ const AddingProductModal = () => {
                 >
                   <SubCategoriesOptions
                     CategoriesNameData={CategoriesNameData.data}
-                    categoryValue={categoryValue}
+                    categoryValue={categoryName}
                   />
                 </Select>
               )}
@@ -150,6 +251,7 @@ const AddingProductModal = () => {
               type="text"
               id="name"
               placeholder="نام کالا"
+              value={productName}
               className={classNames(
                 "block w-full rounded-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
@@ -160,6 +262,13 @@ const AddingProductModal = () => {
                   : "",
               )}
               {...register("name")}
+              onChange={(e) => {
+                setProductName(e.target.value);
+                setValue("name", e.target.value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
               {formState.errors.name?.message}
@@ -175,6 +284,7 @@ const AddingProductModal = () => {
             <input
               type="number"
               id="price"
+              value={productPrice}
               placeholder="قیمت کالا"
               className={classNames(
                 "block w-full rounded-lg border",
@@ -186,6 +296,13 @@ const AddingProductModal = () => {
                   : "",
               )}
               {...register("price")}
+              onChange={(e) => {
+                setProductPrice(Number(e.target.value));
+                setValue("price", e.target.value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
               {formState.errors.price?.message}
@@ -200,6 +317,7 @@ const AddingProductModal = () => {
             </label>
             <input
               type="number"
+              value={productQuantity}
               id="quantity"
               placeholder="تعداد"
               className={classNames(
@@ -212,6 +330,13 @@ const AddingProductModal = () => {
                   : "",
               )}
               {...register("quantity")}
+              onChange={(e) => {
+                setProductQuantity(Number(e.target.value));
+                setValue("quantity", e.target.value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
               {formState.errors.quantity?.message}
@@ -226,6 +351,7 @@ const AddingProductModal = () => {
             </label>
             <input
               type="text"
+              value={productBrand}
               id="brand"
               placeholder="برند"
               className={classNames(
@@ -238,6 +364,13 @@ const AddingProductModal = () => {
                   : "",
               )}
               {...register("brand")}
+              onChange={(e) => {
+                setProductBrand(e.target.value);
+                setValue("brand", e.target.value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
               {formState.errors.brand?.message}
@@ -252,6 +385,7 @@ const AddingProductModal = () => {
             </label>
             <Textarea
               id="description"
+              value={description}
               placeholder="توضیحات محصول"
               rows={8}
               className={classNames(
@@ -264,6 +398,13 @@ const AddingProductModal = () => {
                   : "",
               )}
               {...register("description")}
+              onChange={(e) => {
+                setDescription(e.target.value);
+                setValue("description", e.target.value, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
             />
             <p className="mt-1 text-xs font-semibold text-red-600">
               {formState.errors.description?.message}
@@ -323,16 +464,46 @@ const AddingProductModal = () => {
               </p>
             </div>
           </div>
+          <div>
+            <p className="text-md my-4 block font-medium text-brown-900 dark:text-brown-200">
+              آیکون قبلی محصول
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <Avatar
+                img={`http://localhost:8000/images/products/thumbnails/${productThumbnail}`}
+                bordered
+                color="pink"
+                size="xl"
+              />
+            </div>
+          </div>
+          <div>
+            <p className="text-md my-4 block font-medium text-brown-900 dark:text-brown-200">
+              تصاویر قبلی محصول
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              {productImages.map((image) => (
+                <Avatar
+                  key={image}
+                  img={`http://localhost:8000/images/products/images/${image}`}
+                  bordered
+                  color="success"
+                  size="xl"
+                />
+              ))}
+            </div>
+          </div>
+
           {!isLoading ? (
             <button
               type="submit"
               className="absolute bottom-0 w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
-              اضافه کردن
+              ویرایش کردن
             </button>
           ) : (
             <LoadingButton
-              name={"در حال اضافه کردن"}
+              name={"در حال ویرایش کردن"}
               className={
                 "absolute bottom-0 w-full rounded-lg bg-primary-600 px-5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               }
@@ -344,4 +515,4 @@ const AddingProductModal = () => {
   );
 };
 
-export default AddingProductModal;
+export default EditingProductModal;

@@ -1,8 +1,8 @@
 "use client";
 
+import { getCategories } from "@/apis/getCategories";
 import {
   getInventoryAndPrices,
-  getNameSubcategoryById,
   getOrders,
   ordersDeliveryFilter,
 } from "@/apis/requestsAPI";
@@ -17,14 +17,19 @@ const AdminPanelProvider = ({
   children: React.ReactNode;
 }>) => {
   const [openModal, setOpenModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedValue, setSelectedValue] = useState("option1");
   const [showAddingModal, setShowAddingModal] = useState(false);
-  const [email, setEmail] = useState("");
+  const [showEditingModal, setShowEditingModal] = useState(false);
+  const [productId, setProductId] = useState(null);
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
-    setEmail("");
+  }
+
+  function onCloseEditingModal() {
+    setShowEditingModal(false);
   }
 
   const getOrdersData = async () => {
@@ -98,6 +103,21 @@ const AdminPanelProvider = ({
     setSelectedValue(value);
   };
 
+  const getCategoriesName = async () => {
+    try {
+      const categories = await getCategories();
+      return categories.data.categories;
+    } catch (error) {
+      // console.log(error.message);
+    }
+  };
+
+  const CategoriesNameData = useQuery({
+    queryKey: ["CategoriesNameData"],
+    queryFn: getCategoriesName,
+    placeholderData: keepPreviousData,
+  });
+
   return (
     <AdminPanelContext.Provider
       value={{
@@ -115,9 +135,15 @@ const AdminPanelProvider = ({
         CategoryAndSubcategory,
         showAddingModal,
         setShowAddingModal,
-        email,
-        setEmail,
         onCloseAddingModal,
+        CategoriesNameData,
+        openDeleteModal,
+        setOpenDeleteModal,
+        productId,
+        setProductId,
+        showEditingModal,
+        setShowEditingModal,
+        onCloseEditingModal,
       }}
     >
       {children}

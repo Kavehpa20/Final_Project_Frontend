@@ -26,7 +26,7 @@ const DeliveryOrdersTable = () => {
 
   return OrdersDeliveryData.isPending ? (
     <div>
-      <span className="text-lg text-gray-800 dark:text-white"> Loading </span>
+      <span className="text-lg text-gray-800 dark:text-white"> در حال بارگذاری </span>
       <Spinner aria-label="Large spinner example" size="lg" />
     </div>
   ) : OrdersDeliveryData.isError ? (
@@ -75,7 +75,7 @@ const DeliveryOrdersTable = () => {
           <>
             <span className="text-lg text-gray-800 dark:text-white">
               {" "}
-              Loading{" "}
+              در حال بارگذاری{" "}
             </span>
             <Spinner aria-label="Large spinner example" size="lg" />
           </>

@@ -11,7 +11,7 @@ const PaginationComponent = ({ totalPages }: { totalPages: number }) => {
 
   return (
     <Flowbite theme={{ theme: PaginationTheme }}>
-      <div className="flex overflow-x-auto sm:justify-center">
+      <div className="flex justify-center overflow-x-auto">
         <Pagination
           previousLabel="صفحه قبل"
           nextLabel="صفحه بعد"

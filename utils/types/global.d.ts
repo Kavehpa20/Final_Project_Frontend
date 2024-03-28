@@ -24,24 +24,24 @@ interface ButtonProps {
   type: string;
 }
 
-interface categories {
-  id: number;
-  title: string;
-  name: string;
-  path: string;
-  products: products[];
-}
+// interface categories {
+//   id: number;
+//   title: string;
+//   name: string;
+//   path: string;
+//   products: products[];
+// }
 
-interface products {
-  id: number;
-  name: string;
-  link: string;
-  type: string;
-}
+// interface products {
+//   id: number;
+//   name: string;
+//   link: string;
+//   type: string;
+// }
 
-interface ProductsProps {
-  data: categories[];
-}
+// interface IProductsProps {
+//   data: categories[];
+// }
 
 interface ILoginAdmin {
   username: string;
@@ -77,14 +77,16 @@ type Users = {
 
 interface ISubcategory {
   data: {
-    subcategory: {
-      _id: string;
-      name: string;
-      category: {
-        _id: string;
-        name: string;
-      };
-    };
+    subcategories: ISubcat[];
+  };
+}
+
+interface ISubcat {
+  _id: string;
+  name: string;
+  category: {
+    _id: string;
+    name: string;
   };
 }
 
@@ -103,9 +105,15 @@ interface ICreateContext {
   CategoryAndSubcategory: UseQueryResult<Group[], Error>;
   showAddingModal: boolean;
   setShowAddingModal: Dispatch<SetStateAction<boolean>>;
-  email: string;
-  setEmail: Dispatch<SetStateAction<boolean>>;
   onCloseAddingModal: ModalProps;
+  CategoriesNameData: UseQueryResult<Group[], Error>;
+  openDeleteModal: boolean;
+  setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
+  productId: null | string;
+  setProductId: Dispatch<SetStateAction<boolean>>;
+  showEditingModal: boolean;
+  setShowEditingModal: Dispatch<SetStateAction<boolean>>;
+  onCloseEditingModal: ModalProps;
 }
 
 interface IUserPanelContext {
@@ -128,11 +136,23 @@ interface IProduct {
   brand: string;
   description: string;
   quantity: number;
-  thumbnail: string;
-  images: Array;
+  thumbnail?: File[] | Array;
+  images?: File[] | Array;
   name: string;
-  subcategory: string;
-  category: string;
-  _id: string;
+  subcategory: ISubcategories;
+  category: ICategory;
+  _id?: string;
   price: number;
+}
+
+interface IAddingProduct {
+  category: string;
+  subcategory: string;
+  name: string;
+  price: string;
+  quantity: string;
+  brand: string;
+  description: string;
+  thumbnail: object;
+  images: object;
 }
