@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { TableTheme } from "../../../forms/TableTheme";
 import {
   Flowbite,
@@ -15,18 +18,17 @@ import PaginationComponent from "../../../pagination/PaginationComponent";
 import TableCellFullName from "./TableCellFullName";
 
 const moment = require("moment-jalaali");
-let page: number = 2;
 
 const DeliveryOrdersTable = () => {
-  const { OrdersDeliveryData } = useAdminPanel();
-
-  // if (!isPlaceholderData && data) {
-  //   setCurrentPage((currentPage: number) => currentPage + 1);
-  // }
+  const { OrdersDeliveryData, setOpenOrdersModal, orderId, setOrderId } =
+    useAdminPanel();
 
   return OrdersDeliveryData.isPending ? (
     <div>
-      <span className="text-lg text-gray-800 dark:text-white"> در حال بارگذاری </span>
+      <span className="text-lg text-gray-800 dark:text-white">
+        {" "}
+        در حال بارگذاری{" "}
+      </span>
       <Spinner aria-label="Large spinner example" size="lg" />
     </div>
   ) : OrdersDeliveryData.isError ? (
@@ -43,33 +45,39 @@ const DeliveryOrdersTable = () => {
               <span className="sr-only">بررسی سفارش</span>
             </TableHeadCell>
           </TableHead>
-          {OrdersDeliveryData.data.data.orders.map(
-            (order: IOrders, index: number) => (
-              <TableBody className="divide-y" key={order._id}>
-                <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <TableBody className="divide-y">
+            {OrdersDeliveryData.data.data.orders.map(
+              (order: IOrders, index: number) => (
+                <TableRow
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  key={order._id}
+                >
                   <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     <TableCellFullName index={index} />
                   </TableCell>
                   <TableCell className="font-IRANSans">
                     {order.totalPrice.toLocaleString()}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="font-IRANSans">
                     {moment(order.createdAt.split("T")[0], "YYYY-MM-DD").format(
                       "jYYYY/jMM/jDD",
                     )}
                   </TableCell>
                   <TableCell>
-                    <a
-                      href="#"
+                    <button
+                      onClick={() => {
+                        setOrderId(order._id);
+                        setOpenOrdersModal(true);
+                      }}
                       className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                     >
                       بررسی سفارش
-                    </a>
+                    </button>
                   </TableCell>
                 </TableRow>
-              </TableBody>
-            ),
-          )}
+              ),
+            )}
+          </TableBody>
         </Table>
         {OrdersDeliveryData.isFetching ? (
           <>

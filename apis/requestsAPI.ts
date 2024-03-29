@@ -25,6 +25,11 @@ export const getNameById = async (id: string) => {
   return response.data.data.user;
 };
 
+export const getOrderById = async (id: string) => {
+  const response = await requestClient.get(`/orders/${id}`);
+  return response.data.data.order;
+};
+
 export const getInventoryAndPrices = async (page: number) => {
   const response = await requestClient.get(`/products?page=${page}`);
   return response.data;
@@ -121,4 +126,11 @@ export const editProductApi = async (
     console.error("Error adding new product:", error);
     throw error;
   }
+};
+
+export const deliveredOrder = async (id: string) => {
+  const response = await requestClient.patch(`/orders/${id}`, {
+    deliveryStatus: true,
+  });
+  return response.data;
 };

@@ -114,6 +114,13 @@ interface ICreateContext {
   showEditingModal: boolean;
   setShowEditingModal: Dispatch<SetStateAction<boolean>>;
   onCloseEditingModal: ModalProps;
+  openOrdersModal: boolean;
+  setOpenOrdersModal: Dispatch<SetStateAction<boolean>>;
+  currentPageOrders: number;
+  setCurrentPageOrders: Dispatch<SetStateAction<boolean>>;
+  onPageChangeOrders: Function;
+  orderId: null | string;
+  setOrderId: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUserPanelContext {
@@ -145,6 +152,12 @@ interface IProduct {
   price: number;
 }
 
+interface IProducts {
+  product: IProduct;
+  count: number;
+  _id: string;
+}
+
 interface IAddingProduct {
   category: string;
   subcategory: string;
@@ -155,4 +168,16 @@ interface IAddingProduct {
   description: string;
   thumbnail: object;
   images: object;
+}
+
+interface IUser {
+  address: string;
+  createdAt: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
+  role: string;
+  updatedAt: string;
+  username: string;
+  _id: string;
 }
