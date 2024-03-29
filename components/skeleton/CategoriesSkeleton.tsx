@@ -37,7 +37,7 @@ function CategoriesSkeleton() {
           <div className="h-2 w-48 rounded-full bg-gray-200 dark:bg-gray-700"></div>
         </div>
       </div>
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only">در حال بارگذاری</span>
     </div>
   );
 }

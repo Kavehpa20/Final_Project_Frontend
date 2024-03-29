@@ -1,3 +1,4 @@
+import { Spinner } from "flowbite-react";
 import React from "react";
 
 function LandingSkeleton() {
@@ -18,7 +19,13 @@ function LandingSkeleton() {
         <div className="me-3 h-2.5 w-20 rounded-full bg-gray-200 dark:bg-gray-700"></div>
         <div className="h-2 w-24 rounded-full bg-gray-200 dark:bg-gray-700"></div>
       </div>
-      <span className="sr-only">Loading...</span>
+      <div>
+        <span className="text-lg text-gray-800 dark:text-white">
+          {" "}
+          در حال بارگذاری{" "}
+        </span>
+        <Spinner aria-label="Large spinner example" size="lg" />
+      </div>
     </div>
   );
 }

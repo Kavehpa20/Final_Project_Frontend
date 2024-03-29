@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import "../globals.css";
 import FooterComponent from "@/components/Footer";
 import AdminNavbar from "@/components/AdminNavbar";
+import { AdminPanelProvider } from "@/contexts/AdminPanelContext";
+import TabsComponent from "@/components/TabsComponent";
+import LogoutModal from "@/components/modals/LogoutModal";
+import AddingProductModal from "@/components/modals/addingProductModal/AddingProductModal";
+import EditingProductModal from "@/components/modals/editingProductModal/EditingProductModal";
+import ManageOrdersModal from "@/components/modals/manageOrders/ManageOrdersModal";
 
 export const metadata: Metadata = {
   title: "پنل مدیریت قهوه آلفا",
@@ -14,10 +20,17 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-gray-50 font-Payda dark:bg-gray-500">
-      <AdminNavbar />
-      {children}
-      <FooterComponent />
-    </div>
+    <AdminPanelProvider>
+      <div className="bg-gray-50 font-Payda dark:bg-gray-500">
+        <AdminNavbar />
+        <TabsComponent />
+        {children}
+        <LogoutModal />
+        <ManageOrdersModal />
+        <AddingProductModal />
+        <EditingProductModal />
+        <FooterComponent />
+      </div>
+    </AdminPanelProvider>
   );
 }

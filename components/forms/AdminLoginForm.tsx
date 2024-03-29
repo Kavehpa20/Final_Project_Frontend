@@ -1,19 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { classNames, errorHandler } from "@/libs/tools";
+import { classNames } from "@/libs/tools";
 import { adminLoginFormSchema } from "@/libs/validations/admin-login-form";
-import { login } from "@/apis/auth-services";
-import { setSessionToken } from "@/libs/session-manager";
+import { loginRequest } from "@/apis/requestsAPI";
+import { setToken } from "@/libs/tokenManager";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { AxiosError } from "axios";
+import { LoadingButton } from "../LoadingButton";
 
-function AdminLoginForm() {
+const AdminLoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
     mode: "all",
     resolver: zodResolver(adminLoginFormSchema),
@@ -22,14 +24,17 @@ function AdminLoginForm() {
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
     const body = { username: data.username, password: data.password };
+    setIsLoading((isLoading) => true);
     try {
-      const res = await login(body);
-      setSessionToken(res.token.accessToken);
-      console.log(res.token.accessToken);
-      toast.success("Successfully login: Welcome", { theme: "colored" });
+      const res = await loginRequest(body);
+      setToken("access_token", res.token.accessToken);
+      setToken("refresh_token", res.token.refreshToken);
+      toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
+      setIsLoading((isLoading) => false);
     } catch (error) {
-      errorHandler(error as AxiosError);
+      // errorHandler(error as AxiosError);
+      setIsLoading((isLoading) => false);
     }
   };
 
@@ -41,18 +46,18 @@ function AdminLoginForm() {
           className="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
         >
           <Image
-            width={1000}
-            height={1000}
+            width={500}
+            height={500}
             src="/Assets/pictures/alpha-coffee-logo-dark.png"
             alt="alpha-coffee-logo"
-            className="mr-2 hidden h-16 w-28 dark:block"
+            className="mr-2 hidden h-20 w-32 dark:block"
           />
           <Image
-            width={1000}
-            height={1000}
+            width={500}
+            height={500}
             src="/Assets/pictures/alpha-coffee-logo.png"
             alt="alpha-coffee-logo"
-            className="mr-2 block h-16 w-28 dark:hidden"
+            className="mr-2 block h-20 w-32 dark:hidden"
           />
         </Link>
         <div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
@@ -83,7 +88,7 @@ function AdminLoginForm() {
                       ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
                       : "",
                   )}
-                  placeholder="username"
+                  placeholder="نام کاربری"
                   {...register("username")}
                 />
                 <p className="mt-1 text-xs font-semibold text-red-600">
@@ -100,7 +105,7 @@ function AdminLoginForm() {
                 <input
                   type="password"
                   id="password"
-                  placeholder="••••••••"
+                  placeholder="پسورد"
                   className={classNames(
                     "block w-full rounded-lg border",
                     "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
@@ -142,12 +147,21 @@ function AdminLoginForm() {
                   رمز عبور خود را فراموش کرده اید؟
                 </a>
               </div>
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                ورود
-              </button>
+              {!isLoading ? (
+                <button
+                  type="submit"
+                  className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  ورود
+                </button>
+              ) : (
+                <LoadingButton
+                  name={"ورود"}
+                  className={
+                    "w-full rounded-lg bg-primary-600 px-5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  }
+                />
+              )}
 
               <div className="flex justify-between">
                 <p className="text-sm font-light text-brown-900 dark:text-brown-200">
@@ -166,6 +180,6 @@ function AdminLoginForm() {
       </div>
     </section>
   );
-}
+};
 
 export default AdminLoginForm;

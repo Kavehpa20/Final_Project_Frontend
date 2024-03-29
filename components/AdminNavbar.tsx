@@ -5,6 +5,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { DarkThemeToggle } from "flowbite-react";
 import Link from "next/link";
+import LogoutButtonMobile from "@/libs/LogoutButtonMobile";
+import LogoutButton from "@/libs/LogoutButton";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -24,15 +26,15 @@ const AdminNavbar = () => {
                 <Link href="/">
                   <div className="flex grow items-center">
                     <Image
-                      width={1000}
-                      height={1000}
+                      width={500}
+                      height={500}
                       className="block h-16 w-auto dark:hidden"
                       src="/Assets/pictures/alpha-coffee-logo.png"
                       alt="Logo"
                     />
                     <Image
-                      width={1000}
-                      height={1000}
+                      width={500}
+                      height={500}
                       className="hidden h-16 w-auto dark:block"
                       src="/Assets/pictures/alpha-coffee-logo-dark.png"
                       alt="Logo"
@@ -62,32 +64,13 @@ const AdminNavbar = () => {
                       className="h-6 w-6"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                       />
                     </svg>
                   </Link>
-                  <Link
-                    href="/cart"
-                    className="ml-2 inline-flex items-center justify-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
-                  >
-                    <span className="ml-1 whitespace-nowrap">خروج</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-                      />
-                    </svg>
-                  </Link>
+                  <LogoutButton />
                 </div>
                 <div className="ml-3">
                   <DarkThemeToggle />
@@ -115,7 +98,7 @@ const AdminNavbar = () => {
                 className="dark:hover:border-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium text-brown-900 hover:border-brown-500 hover:bg-brown-50 hover:text-brown-500
                     dark:text-brown-200  dark:hover:text-brown-900"
               >
-                <span classname="ml-2"> خانه</span>
+                <span className="ml-2"> خانه</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -125,33 +108,13 @@ const AdminNavbar = () => {
                   className="h-6 w-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                   />
                 </svg>
               </Link>
-              <Link
-                href="/user"
-                className="dark:hover:border-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium text-brown-900 hover:border-brown-500 hover:bg-brown-50 hover:text-brown-500
-                    dark:text-brown-200  dark:hover:text-brown-900"
-              >
-                <span className="ml-2"> خروج</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-                  />
-                </svg>
-              </Link>
+              <LogoutButtonMobile />
             </div>
           </Disclosure.Panel>
         </>
