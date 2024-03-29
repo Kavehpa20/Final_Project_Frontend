@@ -19,10 +19,13 @@ const AdminPanelProvider = ({
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageOrders, setCurrentPageOrders] = useState(1);
   const [selectedValue, setSelectedValue] = useState("option1");
   const [showAddingModal, setShowAddingModal] = useState(false);
   const [showEditingModal, setShowEditingModal] = useState(false);
   const [productId, setProductId] = useState(null);
+  const [orderId, setOrderId] = useState(null);
+  const [openOrdersModal, setOpenOrdersModal] = useState(false);
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
@@ -98,7 +101,9 @@ const AdminPanelProvider = ({
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
-
+  const onPageChangeOrders = (page: number) => {
+    setCurrentPageOrders(page);
+  };
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
   };
@@ -144,6 +149,13 @@ const AdminPanelProvider = ({
         showEditingModal,
         setShowEditingModal,
         onCloseEditingModal,
+        openOrdersModal,
+        setOpenOrdersModal,
+        currentPageOrders,
+        setCurrentPageOrders,
+        onPageChangeOrders,
+        orderId,
+        setOrderId,
       }}
     >
       {children}

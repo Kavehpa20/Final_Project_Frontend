@@ -7,6 +7,7 @@ import TabsComponent from "@/components/TabsComponent";
 import LogoutModal from "@/components/modals/LogoutModal";
 import AddingProductModal from "@/components/modals/addingProductModal/AddingProductModal";
 import EditingProductModal from "@/components/modals/editingProductModal/EditingProductModal";
+import ManageOrdersModal from "@/components/modals/manageOrders/ManageOrdersModal";
 
 export const metadata: Metadata = {
   title: "پنل مدیریت قهوه آلفا",
@@ -25,6 +26,7 @@ export default function AdminLayout({
         <TabsComponent />
         {children}
         <LogoutModal />
+        <ManageOrdersModal />
         <AddingProductModal />
         <EditingProductModal />
         <FooterComponent />

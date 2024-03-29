@@ -77,11 +77,11 @@ const AddingProductModal = () => {
 
   return CategoriesNameData.isPending ? (
     <div>
-      <span className="text-lg text-gray-800 dark:text-white">
+      {/* <span className="text-lg text-gray-800 dark:text-white">
         {" "}
         در حال بارگذاری{" "}
       </span>
-      <Spinner aria-label="Large spinner example" size="lg" />
+      <Spinner aria-label="Large spinner example" size="lg" /> */}
     </div>
   ) : CategoriesNameData.isError ? (
     <div>Error: {CategoriesNameData.error.message}</div>
