@@ -12,11 +12,10 @@ import {
   TableRow,
 } from "flowbite-react";
 
-import { getInventoryAndPrices, getOrderById } from "@/apis/requestsAPI";
+import { deliveredOrder, getOrderById } from "@/apis/requestsAPI";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { TableTheme } from "../manageOrders/TableTheme";
-import PaginationComponent from "../manageOrders/pagination/PaginationComponent";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const ModalManagerOrdersTheme: CustomFlowbiteTheme = {
   modal: {
@@ -71,6 +70,35 @@ const ModalManagerOrdersTheme: CustomFlowbiteTheme = {
     footer: {
       base: "flex items-center justify-center space-x-2 rounded-b border-gray-200 p-6 dark:border-gray-600",
       popup: "border-t",
+    },
+  },
+};
+
+const TableTheme: CustomFlowbiteTheme = {
+  table: {
+    root: {
+      base: "w-full text-center text-base text-gray-500 dark:text-gray-400",
+      shadow:
+        "absolute bg-white dark:bg-black w-full h-full top-0 left-0 rounded-lg drop-shadow-md -z-10",
+      wrapper: "relative",
+    },
+    body: {
+      base: "group/body",
+      cell: {
+        base: "group-first/body:group-first/row:first:rounded-tr-lg group-first/body:group-first/row:last:rounded-tr-lg group-last/body:group-last/row:first:rounded-br-lg group-last/body:group-last/row:last:rounded-bl-lg px-6 py-4",
+      },
+    },
+    head: {
+      base: "group/head text-xs uppercase text-gray-700 dark:text-gray-400",
+      cell: {
+        base: "group-first/head:first:rounded-tr-lg group-first/head:last:rounded-tl-lg bg-gray-50 dark:bg-gray-700 px-6 py-3",
+      },
+    },
+    row: {
+      base: "group/row",
+      hovered: "hover:bg-gray-50 dark:hover:bg-gray-600",
+      striped:
+        "odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700",
     },
   },
 };
@@ -215,20 +243,37 @@ const ManageOrdersModal = () => {
           </Modal.Body>
           <Modal.Footer>
             {!data.deliveryStatus ? (
-              <Button color="success" onClick={() => setOpenOrdersModal(false)}>
-                تحویل شد
-              </Button>
+              <div className="flex justify-center">
+                <Button
+                  color="success"
+                  onClick={async () => {
+                    const res = await deliveredOrder(orderId);
+                    if (res.status === "success") {
+                      toast.success("سفارش با موفقیت به مشتری تحویل گردید.", {
+                        theme: "colored",
+                      });
+                    } else {
+                      toast.error("خطایی رخ داده است!! دوباره تلاش کنید ", {
+                        theme: "colored",
+                      });
+                    }
+                    setOpenOrdersModal(false);
+                  }}
+                >
+                  تحویل شد
+                </Button>
+              </div>
             ) : (
               <p className="text-lg font-bold leading-relaxed text-brown-900 dark:text-brown-200">
                 زمان تحویل به مشتری:{" "}
                 <span>
-                  {moment(data.deliveryDate.split("T")[1], "HH:mm").format(
+                  {moment(data.updatedAt.split("T")[1], "HH:mm").format(
                     "HH:mm",
                   )}
                   ⌚
                 </span>{" "}
                 <span>
-                  {moment(data.deliveryDate.split("T")[0], "YYYY-MM-DD").format(
+                  {moment(data.updatedAt.split("T")[0], "YYYY-MM-DD").format(
                     "jYYYY/jMM/jDD",
                   )}
                   📅

@@ -23,10 +23,6 @@ const DeliveryOrdersTable = () => {
   const { OrdersDeliveryData, setOpenOrdersModal, orderId, setOrderId } =
     useAdminPanel();
 
-  // if (!isPlaceholderData && data) {
-  //   setCurrentPage((currentPage: number) => currentPage + 1);
-  // }
-
   return OrdersDeliveryData.isPending ? (
     <div>
       <span className="text-lg text-gray-800 dark:text-white">

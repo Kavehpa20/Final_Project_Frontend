@@ -127,3 +127,10 @@ export const editProductApi = async (
     throw error;
   }
 };
+
+export const deliveredOrder = async (id: string) => {
+  const response = await requestClient.patch(`/orders/${id}`, {
+    deliveryStatus: true,
+  });
+  return response.data;
+};

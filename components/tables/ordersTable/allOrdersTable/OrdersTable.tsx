@@ -17,7 +17,8 @@ import TableCellFullName from "./TableCellFullName";
 const moment = require("moment-jalaali");
 
 const OrdersTable = () => {
-  const { OrdersTableData } = useAdminPanel();
+  const { OrdersTableData, setOpenOrdersModal, orderId, setOrderId } =
+    useAdminPanel();
 
   return OrdersTableData.isPending ? (
     <div>
@@ -60,12 +61,15 @@ const OrdersTable = () => {
                     )}
                   </TableCell>
                   <TableCell>
-                    <a
-                      href="#"
+                    <button
+                      onClick={() => {
+                        setOrderId(order._id);
+                        setOpenOrdersModal(true);
+                      }}
                       className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                     >
                       بررسی سفارش
-                    </a>
+                    </button>
                   </TableCell>
                 </TableRow>
               ),
