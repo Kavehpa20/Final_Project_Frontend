@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Flowbite,
   Spinner,
@@ -14,11 +15,14 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { TableTheme } from "../../forms/TableTheme";
 import PaginationComponent from "../../pagination/PaginationComponent";
+import { classNames } from "@/libs/tools";
 
 const moment = require("moment-jalaali");
 
 const InventoryAndPrices = () => {
   const { currentPage } = useAdminPanel();
+  const [hidden, setHidden] = useState(false);
+  const [productId, setProductId] = useState(null);
 
   const inventoryAndPricesReq = async () => {
     try {
@@ -54,21 +58,40 @@ const InventoryAndPrices = () => {
             <TableHeadCell>قیمت</TableHeadCell>
             <TableHeadCell>موجودی</TableHeadCell>
           </TableHead>
-          {data.data.products.map((product: IProduct) => (
-            <TableBody className="divide-y" key={product._id}>
-              <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <TableBody className="divide-y">
+            {data.data.products.map((product: IProduct) => (
+              <TableRow
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                key={product._id}
+              >
                 <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {product.name}
                 </TableCell>
-                <TableCell className="font-IRANSans">
-                  {product.price.toLocaleString()}
+                <TableCell
+                  id={product._id}
+                  className={classNames("cursor-pointer font-IRANSans")}
+                  onClick={(e) => {
+                    console.log(e.target.id);
+                    setHidden(true);
+                  }}
+                  onKeyDown={(e) => console.log(e.target)}
+                >
+                  <span id={product._id} className={hidden ? "hidden" : ""}>
+                    {product.price.toLocaleString()}
+                  </span>
+                  <input
+                    className={!hidden ? "hidden" : ""}
+                    onChange={(e) => e.target.value}
+                    value={product.price.toLocaleString()}
+                  />
                 </TableCell>
+
                 <TableCell className="font-IRANSans">
                   {product.quantity}
                 </TableCell>
               </TableRow>
-            </TableBody>
-          ))}
+            ))}
+          </TableBody>
         </Table>
         {isFetching ? (
           <>

@@ -38,7 +38,9 @@ const TabsComponent = () => {
             <span className="font-medium text-gray-800 dark:text-white">
               مدیریت موجودی و قیمت ها
             </span>
-            <Button color="success">ذخیره</Button>
+            <Button disabled color="success">
+              ذخیره
+            </Button>
           </div>
           {/* <TableComponent /> */}
           <InventoryAndPrices />

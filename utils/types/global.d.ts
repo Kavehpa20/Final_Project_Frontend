@@ -150,6 +150,7 @@ interface IProduct {
   category: ICategory;
   _id?: string;
   price: number;
+  slugname: string;
 }
 
 interface IProducts {

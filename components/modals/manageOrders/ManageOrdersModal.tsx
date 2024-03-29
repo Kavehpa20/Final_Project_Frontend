@@ -208,9 +208,12 @@ const ManageOrdersModal = () => {
                     <TableHeadCell>قیمت</TableHeadCell>
                     <TableHeadCell>موجودی</TableHeadCell>
                   </TableHead>
-                  {data.products.map((product: IProducts) => (
-                    <TableBody className="divide-y" key={product.product._id}>
-                      <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <TableBody className="divide-y">
+                    {data.products.map((product: IProducts) => (
+                      <TableRow
+                        className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                        key={product.product._id}
+                      >
                         <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                           {product.product.name}
                         </TableCell>
@@ -221,8 +224,8 @@ const ManageOrdersModal = () => {
                           {product.count}
                         </TableCell>
                       </TableRow>
-                    </TableBody>
-                  ))}
+                    ))}
+                  </TableBody>
                 </Table>
                 {/* {isFetching ? (
                 <>
