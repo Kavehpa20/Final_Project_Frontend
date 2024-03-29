@@ -94,10 +94,10 @@ interface ICreateContext {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<boolean>>;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
   onPageChange: Function;
   selectedValue: string;
-  setSelectedValue: Dispatch<SetStateAction<boolean>>;
+  setSelectedValue: Dispatch<SetStateAction<string>>;
   handleRadioChange: Function;
   OrdersTableData: UseQueryResult<Group[], Error>;
   OrdersDeliveryData: UseQueryResult<Group[], Error>;
@@ -110,17 +110,23 @@ interface ICreateContext {
   openDeleteModal: boolean;
   setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
   productId: null | string;
-  setProductId: Dispatch<SetStateAction<boolean>>;
+  setProductId: Dispatch<SetStateAction<string>>;
   showEditingModal: boolean;
   setShowEditingModal: Dispatch<SetStateAction<boolean>>;
   onCloseEditingModal: ModalProps;
   openOrdersModal: boolean;
   setOpenOrdersModal: Dispatch<SetStateAction<boolean>>;
   currentPageOrders: number;
-  setCurrentPageOrders: Dispatch<SetStateAction<boolean>>;
+  setCurrentPageOrders: Dispatch<SetStateAction<number>>;
   onPageChangeOrders: Function;
   orderId: null | string;
   setOrderId: Dispatch<SetStateAction<boolean>>;
+  // categoryAndSubcategoryList: string;
+  // setCategoryAndSubcategoryList: Dispatch<SetStateAction<boolean>>;
+  productDetail: IProduct;
+  setProductDetail: Dispatch<SetStateAction<object>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUserPanelContext {
@@ -150,7 +156,7 @@ interface IProduct {
   category: ICategory;
   _id?: string;
   price: number;
-  slugname: string;
+  slugname?: string;
 }
 
 interface IProducts {

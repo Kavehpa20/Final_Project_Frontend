@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  FileInput,
-  Label,
-  Modal,
-  Textarea,
-  Select,
-  Spinner,
-} from "flowbite-react";
+import { FileInput, Label, Modal, Textarea, Select } from "flowbite-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -21,10 +14,13 @@ import SubCategoriesOptions from "./SubCategoriesOptions";
 import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
 
 const AddingProductModal = () => {
-  const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
-    useAdminPanel();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    showAddingModal,
+    onCloseAddingModal,
+    CategoriesNameData,
+    isLoading,
+    setIsLoading,
+  } = useAdminPanel();
 
   const { register, handleSubmit, formState, watch, control, setValue } =
     useForm<IAddingProduct>({
@@ -38,6 +34,8 @@ const AddingProductModal = () => {
     const category = await CategoriesNameData.data.find(
       (el: ICategory) => data.category === el.name,
     );
+
+    CategoriesNameData.refetch({ throwOnError: true, cancelRefetch: false });
 
     let subCatId: ISubcategories;
 
@@ -61,17 +59,17 @@ const AddingProductModal = () => {
       images: data.images,
     };
 
-    setIsLoading((isLoading) => true);
+    setIsLoading(true);
     try {
       const res = await addNewProductApi(body);
       if (res.status === 201) {
         toast.success("محصول با موفقیت اضافه شد.", { theme: "colored" });
         onCloseAddingModal();
       }
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     }
   };
 

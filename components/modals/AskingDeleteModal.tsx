@@ -12,7 +12,7 @@ const AskingDeleteModal = () => {
     useAdminPanel();
 
   const productName = async () => {
-    if (productId)
+    if (typeof productId === "string")
       try {
         const res = await getProductNameById(productId);
         return res.name;
@@ -42,7 +42,8 @@ const AskingDeleteModal = () => {
               <Button
                 color="failure"
                 onClick={async () => {
-                  const response = await deleteProductById(productId || "");
+                  if (!productId) return;
+                  const response = await deleteProductById(productId);
                   if (response.status === "success") {
                     toast.success("کالا با موفقیت حذف گردید", {
                       theme: "colored",

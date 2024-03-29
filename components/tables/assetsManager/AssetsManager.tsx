@@ -38,6 +38,14 @@ const AssetsManager = () => {
     </div>
   ) : CategoryAndSubcategory.isError ? (
     <div>Error: {CategoryAndSubcategory.error.message}</div>
+  ) : CategoryAndSubcategory.isFetching ? (
+    <div>
+      <span className="text-lg text-gray-800 dark:text-white">
+        {" "}
+        در حال بارگذاری{" "}
+      </span>
+      <Spinner aria-label="Large spinner example" size="lg" />
+    </div>
   ) : (
     <Flowbite theme={{ theme: TableTheme }}>
       <div className="mx-4 mt-2 overflow-x-auto">

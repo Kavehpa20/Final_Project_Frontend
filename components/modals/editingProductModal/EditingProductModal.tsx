@@ -6,7 +6,6 @@ import {
   Modal,
   Textarea,
   Select,
-  Spinner,
   Avatar,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
@@ -26,14 +25,18 @@ import {
 } from "@/apis/requestsAPI";
 
 const EditingProductModal = () => {
-  const [productDetail, setProductDetail] = useState({} as IProduct);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [productDetail, setProductDetail] = useState({} as IProduct);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const {
     showEditingModal,
     onCloseEditingModal,
     CategoriesNameData,
     productId,
+    productDetail,
+    setProductDetail,
+    isLoading,
+    setIsLoading,
   } = useAdminPanel();
 
   const productDetailsFunc = async () => {
@@ -68,6 +71,8 @@ const EditingProductModal = () => {
       (el: ICategory) => data.category === el.name,
     );
 
+    CategoriesNameData.refetch({ throwOnError: true, cancelRefetch: false });
+
     let subCatId: ISubcategories;
 
     const subcategoryId = async () => {
@@ -90,18 +95,18 @@ const EditingProductModal = () => {
       images: data.images,
     };
 
-    setIsLoading((isLoading) => true);
+    setIsLoading(true);
     try {
       const res = await editProductApi(body, productId as string);
       if (res.status === 200) {
         toast.success("محصول با موفقیت ویرایش شد.", { theme: "colored" });
         onCloseEditingModal();
       }
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     } catch (error) {
       toast.error("خطایی رخ داده است.", { theme: "colored" });
       console.log(error);
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     }
   };
 
