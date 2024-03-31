@@ -23,8 +23,6 @@ import PaginationComponent from "../../pagination/PaginationComponent";
 import { toast } from "react-toastify";
 import { AxiosResponse } from "axios";
 
-const moment = require("moment-jalaali");
-
 const InventoryAndPrices = () => {
   const { currentPage } = useAdminPanel();
 
