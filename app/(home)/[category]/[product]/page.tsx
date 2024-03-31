@@ -9,11 +9,13 @@ const ProductPage = async ({
 }) => {
   const getCategoriesName = await getCategories();
   const categories = getCategoriesName.data.categories;
-  const category = categories.find((el) => el.slugname === params.category);
+  const category = categories.find(
+    (el: ICategory) => el.slugname === params.category,
+  );
   const categoryId = category?._id;
   const products = await categoryProductsRequest(categoryId);
   const product = products.data.products.find(
-    (el) => el.slugname === params.product,
+    (el: ICategory) => el.slugname === params.product,
   );
 
   if (!product) throw new Error("Not found");
@@ -23,6 +25,7 @@ const ProductPage = async ({
       name={product.name}
       price={product.price}
       thumbnail={product.thumbnail}
+      slugname={product.slugname}
     />
   );
 };

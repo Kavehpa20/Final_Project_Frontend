@@ -3,7 +3,7 @@ import React from "react";
 
 function ProductsHeaderLink({ text }: Props) {
   return (
-    <div className="block cursor-pointer px-4 py-4">
+    <div className="mx-8 mb-6 mt-8 flex justify-center text-3xl font-bold text-brown-800 dark:text-brown-50 md:block">
       <Link
         href={`/${text}`}
         className="text-2xl font-semibold text-brown-800 hover:text-brown-500 hover:underline dark:text-brown-50 dark:hover:text-brown-200"

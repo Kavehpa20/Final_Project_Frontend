@@ -239,7 +239,7 @@ const InventoryAndPrices = () => {
                         handleEdit(rowIndex, "price", product._id as string)
                       }
                     >
-                      {product.price.toLocaleString()}
+                      {product.price?.toLocaleString()}
                     </p>
                   )}
                 </TableCell>

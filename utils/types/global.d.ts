@@ -24,25 +24,6 @@ interface ButtonProps {
   type: string;
 }
 
-// interface categories {
-//   id: number;
-//   title: string;
-//   name: string;
-//   path: string;
-//   products: products[];
-// }
-
-// interface products {
-//   id: number;
-//   name: string;
-//   link: string;
-//   type: string;
-// }
-
-// interface IProductsProps {
-//   data: categories[];
-// }
-
 interface ILoginAdmin {
   username: string;
   password: string;
@@ -146,16 +127,16 @@ interface IOrders {
 }
 
 interface IProduct {
-  brand: string;
-  description: string;
-  quantity: number;
+  brand?: string;
+  description?: string;
+  quantity?: number;
   thumbnail?: File[] | Array;
   images?: File[] | Array;
-  name: string;
-  subcategory: ISubcategories;
-  category: ICategory;
+  name?: string;
+  subcategory?: ISubcategories;
+  category?: ICategory;
   _id?: string;
-  price: number;
+  price?: number;
   slugname?: string;
 }
 

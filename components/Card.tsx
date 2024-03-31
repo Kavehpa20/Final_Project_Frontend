@@ -1,9 +1,14 @@
 import { Card } from "flowbite-react";
 
-export default async function CardComponent({ name, price, thumbnail }) {
+export default async function CardComponent({
+  name,
+  price,
+  thumbnail,
+  slugname,
+}: IProduct) {
   return (
     <Card
-      className="mx-auto max-w-sm"
+      className="mx-auto max-w-sm md:h-44"
       imgSrc={`http://localhost:8000/images/products/thumbnails/${await thumbnail}`}
       horizontal
     >
@@ -11,8 +16,8 @@ export default async function CardComponent({ name, price, thumbnail }) {
         {await name}
       </h5>
       <p className="font-IRANSans font-normal text-gray-700 dark:text-gray-400">
-        {await price} تومان
+        {await price?.toLocaleString()} تومان
       </p>
     </Card>
-  );
-}
+  )
+};

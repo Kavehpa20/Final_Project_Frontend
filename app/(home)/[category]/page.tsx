@@ -17,14 +17,13 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
 
   return (
     <div>
-      <p className="mx-8 mb-6 mt-8 text-2xl font-semibold text-brown-800 dark:text-brown-50">
+      <p className="mx-8 mb-6 mt-8 flex justify-center text-3xl font-bold text-brown-800 dark:text-brown-50 md:block">
         {params.category === "coffee" ? " گروه انواع قهوه ◀" : ""}
         {params.category === "tea_herbal" ? "گروه انواع چای و دمنوش ◀" : ""}
         {params.category === "snacks" ? " گروه انواع تنقلات و نوشیدنی ◀" : ""}
         {params.category === "chocolate" ? "گروه انواع شکلات ◀" : ""}
       </p>
 
-      {/* {params.category} */}
       <div className="grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-2 lg:grid-cols-3">
         {products.data.products.map((el: IProduct) => (
           <Link key={el.name} href={`/${params.category}/${el.slugname}`}>
@@ -32,6 +31,7 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
               name={el.name}
               price={el.price}
               thumbnail={el.thumbnail}
+              slugname={el.slugname}
             />
           </Link>
         ))}
@@ -41,15 +41,3 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
 };
 
 export default CatagoriesPage;
-
-{
-  /* <div>
-{products?.map((el, i) => (
-  <div key={i}>
-    <Link href={`/${params.category}/${el.id}`}>
-      <p>{el.name}</p>
-    </Link>
-  </div>
-))}
-</div> */
-}
