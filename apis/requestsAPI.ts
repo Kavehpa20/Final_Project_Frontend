@@ -134,3 +134,21 @@ export const deliveredOrder = async (id: string) => {
   });
   return response.data;
 };
+
+export const editProductInventoryApi = async (
+  { quantity, price }: IProduct,
+  id: string,
+) => {
+  const formData = new FormData();
+
+  if (quantity) formData.append("quantity", quantity.toString());
+  if (price) formData.append("price", price.toString());
+
+  try {
+    const response = await requestClient.patch(`products/${id}`, formData);
+    return response;
+  } catch (error) {
+    console.error("خطا در ویرایش کردن محصولات:", error);
+    throw error;
+  }
+};

@@ -20,7 +20,6 @@ const TabsComponent = () => {
         className="mt-1 inline-flex w-full justify-center gap-x-4"
         aria-label="Default tabs"
         style="default"
-        // onClick={(e) => console.log(e.target.innerText)}
       >
         <Tabs.Item title="کالاها" icon={MdDashboard}>
           <div className="mx-10 flex justify-between">
@@ -34,15 +33,6 @@ const TabsComponent = () => {
           <AssetsManager />
         </Tabs.Item>
         <Tabs.Item title="موجودی و قیمت ها" icon={HiAdjustments}>
-          <div className="mx-10 flex justify-between">
-            <span className="font-medium text-gray-800 dark:text-white">
-              مدیریت موجودی و قیمت ها
-            </span>
-            <Button disabled color="success">
-              ذخیره
-            </Button>
-          </div>
-          {/* <TableComponent /> */}
           <InventoryAndPrices />
         </Tabs.Item>
         <Tabs.Item active title="سفارش ها" icon={HiClipboardList}>

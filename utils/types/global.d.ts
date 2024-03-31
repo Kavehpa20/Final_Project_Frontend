@@ -121,8 +121,8 @@ interface ICreateContext {
   onPageChangeOrders: Function;
   orderId: null | string;
   setOrderId: Dispatch<SetStateAction<boolean>>;
-  // categoryAndSubcategoryList: string;
-  // setCategoryAndSubcategoryList: Dispatch<SetStateAction<boolean>>;
+  // disableButton: boolean;
+  // setDisableButton: Dispatch<SetStateAction<boolean>>;
   productDetail: IProduct;
   setProductDetail: Dispatch<SetStateAction<object>>;
   isLoading: boolean;
@@ -187,4 +187,12 @@ interface IUser {
   updatedAt: string;
   username: string;
   _id: string;
+}
+
+interface IEditedCell {
+  rowIndex?: number;
+  key?: string;
+  productId?: string;
+  price?: string;
+  quantity?: string;
 }

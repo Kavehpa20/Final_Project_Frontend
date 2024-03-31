@@ -25,9 +25,6 @@ import {
 } from "@/apis/requestsAPI";
 
 const EditingProductModal = () => {
-  // const [productDetail, setProductDetail] = useState({} as IProduct);
-  // const [isLoading, setIsLoading] = useState(false);
-
   const {
     showEditingModal,
     onCloseEditingModal,

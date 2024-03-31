@@ -28,9 +28,8 @@ const AdminPanelProvider = ({
   const [productId, setProductId] = useState(null);
   const [orderId, setOrderId] = useState(null);
   const [openOrdersModal, setOpenOrdersModal] = useState(false);
-  // const [categoryAndSubcategoryList, setCategoryAndSubcategoryList] =
-  //   useState(null);
   const [productDetail, setProductDetail] = useState({} as IProduct);
+  // const [disableButton, setDisableButton] = useState(true);
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
@@ -90,16 +89,6 @@ const AdminPanelProvider = ({
     try {
       const CategoryAndSubcategoryList =
         await getInventoryAndPrices(currentPage);
-      // const myProduct = CategoryAndSubcategoryList.data.products.find(
-      //   (product) => product._id === productId,
-      // );
-      // if (myProduct) {
-      //   setCategoryAndSubcategoryList(myProduct.updatedAt);
-      //   console.log(categoryAndSubcategoryList);
-      // }
-
-      console.log(productId);
-
       return CategoryAndSubcategoryList;
     } catch (error) {
       // console.log(error.message);
@@ -183,6 +172,8 @@ const AdminPanelProvider = ({
         setProductDetail,
         isLoading,
         setIsLoading,
+        // disableButton,
+        // setDisableButton,
       }}
     >
       {children}
