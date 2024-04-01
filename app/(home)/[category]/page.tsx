@@ -3,6 +3,7 @@ import Link from "next/link";
 import { categoryProductsRequest } from "@/apis/axiosBaseURL";
 import { getCategories } from "@/apis/getCategories";
 import CardComponent from "@/components/Card";
+import PaginationServerSide from "@/components/paginationServerSide/paginationServerSide";
 
 const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
   const getCategoriesName = await getCategories();
@@ -23,7 +24,6 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
         {params.category === "snacks" ? " گروه انواع تنقلات و نوشیدنی ◀" : ""}
         {params.category === "chocolate" ? "گروه انواع شکلات ◀" : ""}
       </p>
-
       <div className="grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-2 lg:grid-cols-3">
         {products.data.products.map((el: IProduct) => (
           <Link key={el.name} href={`/${params.category}/${el.slugname}`}>
@@ -36,6 +36,10 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
           </Link>
         ))}
       </div>
+      <PaginationServerSide
+        page={products.page}
+        total_pages={products.total_pages}
+      />
     </div>
   );
 };

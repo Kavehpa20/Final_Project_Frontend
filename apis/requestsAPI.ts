@@ -61,25 +61,22 @@ export const addNewProductApi = async ({
   category,
   price,
 }: IProduct) => {
-  // Create FormData object
   const formData = new FormData();
 
-  // Append data fields to FormData object
-  formData.append("brand", brand);
-  formData.append("description", description);
-  formData.append("category", category._id);
-  formData.append("name", name);
-  formData.append("subcategory", subcategory._id);
-  formData.append("quantity", quantity.toString()); // Ensure quantity is converted to string
-  formData.append("thumbnail", thumbnail[0]); // Assuming thumbnail is a File object
-  formData.append("images", images[0]); // Assuming thumbnail is a File object
-  formData.append("price", price.toString()); // Ensure price is converted to string
+  if (name) formData.append("name", name);
+  if (brand) formData.append("brand", brand);
+  if (description) formData.append("description", description);
+  if (category) formData.append("category", category._id);
+  if (subcategory) formData.append("subcategory", subcategory._id);
+  if (quantity) formData.append("quantity", quantity.toString());
+  formData.append("thumbnail", thumbnail[0]);
+  formData.append("images", images[0]);
+  if (price) formData.append("price", price.toString());
 
   try {
     const response = await requestClient.post("products", formData);
     return response;
   } catch (error) {
-    // Handle error
     console.error("Error adding new product:", error);
     throw error;
   }
@@ -109,19 +106,17 @@ export const editProductApi = async (
   }: IProduct,
   id: string,
 ) => {
-  // Create FormData object
   const formData = new FormData();
 
-  // Append data fields to FormData object
-  formData.append("brand", brand);
-  formData.append("description", description);
-  formData.append("category", category._id);
-  formData.append("name", name);
-  formData.append("subcategory", subcategory._id);
-  formData.append("quantity", quantity.toString()); // Ensure quantity is converted to string
-  formData.append("thumbnail", thumbnail[0]); // Assuming thumbnail is a File object
-  formData.append("images", images[0]); // Assuming thumbnail is a File object
-  formData.append("price", price.toString()); // Ensure price is converted to string
+  if (name) formData.append("name", name);
+  if (brand) formData.append("brand", brand);
+  if (description) formData.append("description", description);
+  if (category) formData.append("category", category._id);
+  if (subcategory) formData.append("subcategory", subcategory._id);
+  if (quantity) formData.append("quantity", quantity.toString());
+  formData.append("thumbnail", thumbnail[0]);
+  formData.append("images", images[0]);
+  if (price) formData.append("price", price.toString());
 
   try {
     const response = await requestClient.patch(`products/${id}`, formData);
@@ -156,4 +151,9 @@ export const editProductInventoryApi = async (
     console.error("خطا در ویرایش کردن محصولات:", error);
     throw error;
   }
+};
+
+export const findProductBySlugname = async (slugname: string) => {
+  const response = await requestClient.get(`/products?slugname=${slugname}`);
+  return response.data.data.products;
 };

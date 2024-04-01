@@ -158,6 +158,18 @@ interface IAddingProduct {
   images: object;
 }
 
+interface IProductsWithPage {
+  paramsCategory?: string;
+  status?: string;
+  page: number;
+  per_page?: number;
+  total?: number;
+  total_pages: number;
+  data?: {
+    products: [IProduct];
+  };
+}
+
 interface IUser {
   address: string;
   createdAt: string;
