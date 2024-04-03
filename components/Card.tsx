@@ -8,7 +8,7 @@ export default async function CardComponent({
 }: IProduct) {
   return (
     <Card
-      className="mx-auto max-w-sm md:h-44"
+      className="mx-auto max-w-sm overflow-hidden md:h-48"
       imgSrc={`http://localhost:8000/images/products/thumbnails/${await thumbnail}`}
       horizontal
     >
@@ -19,5 +19,5 @@ export default async function CardComponent({
         {await price?.toLocaleString()} تومان
       </p>
     </Card>
-  )
-};
+  );
+}

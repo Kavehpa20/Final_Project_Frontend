@@ -157,3 +157,25 @@ export const findProductBySlugname = async (slugname: string) => {
   const response = await requestClient.get(`/products?slugname=${slugname}`);
   return response.data.data.products;
 };
+
+export const getCategories = async () => {
+  const response = await requestClient.get(`/categories`);
+  return response.data.data.categories;
+};
+
+export const findSubcategoryBySlugname = async (slugname: string) => {
+  const response = await requestClient.get(
+    `/subcategories?slugname=${slugname}`,
+  );
+  return response.data.data.subcategories;
+};
+
+export const getProductsBySubcategoryAndCategory = async (
+  category: string,
+  subcategory: string,
+) => {
+  const response = await requestClient.get(
+    `/products?category=${category}&subcategory=${subcategory}`,
+  );
+  return response;
+};

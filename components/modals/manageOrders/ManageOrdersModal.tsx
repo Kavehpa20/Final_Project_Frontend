@@ -218,7 +218,7 @@ const ManageOrdersModal = () => {
                           {product.product.name}
                         </TableCell>
                         <TableCell className="font-IRANSans">
-                          {product.product.price.toLocaleString()}
+                          {product.product.price?.toLocaleString()}
                         </TableCell>
                         <TableCell className="font-IRANSans">
                           {product.count}
@@ -227,20 +227,6 @@ const ManageOrdersModal = () => {
                     ))}
                   </TableBody>
                 </Table>
-                {/* {isFetching ? (
-                <>
-                  <span className="text-lg text-gray-800 dark:text-white">
-                    {" "}
-                    در حال بارگذاری{" "}
-                  </span>
-                  <Spinner aria-label="Large spinner example" size="lg" />
-                </>
-              ) : null}{" "}
-              {data.total_pages === 1 ? (
-                ""
-              ) : (
-                <PaginationComponent totalPages={data.total_pages} />
-              )} */}
               </div>
             </Flowbite>
           </Modal.Body>

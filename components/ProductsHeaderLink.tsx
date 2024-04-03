@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React from "react";
 
-import { getCategories } from "@/apis/getCategories";
-
 const ProductsHeaderLink = async ({ text }: { text: string }) => {
   return (
     <div className="mx-8 mb-6 mt-8 flex justify-center text-3xl font-bold text-brown-800 dark:text-brown-50 md:block">
