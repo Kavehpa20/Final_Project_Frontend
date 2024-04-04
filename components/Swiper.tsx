@@ -1,4 +1,4 @@
-"use client"; // <===== REQUIRED
+"use client";
 import React, { CSSProperties } from "react";
 
 // Our custom button component

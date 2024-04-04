@@ -1,9 +1,15 @@
+import Link from "next/link";
+import { Button } from "flowbite-react";
+
 import { categoryProductsRequest } from "@/apis/axiosBaseURL";
 import { getCategories } from "@/apis/getCategories";
 import { findProductBySlugname } from "@/apis/requestsAPI";
 import CardComponent from "@/components/Card";
+import SwiperComponent from "@/components/swiper/SwiperComponent";
 import PaginationServerSide from "@/components/paginationServerSide/paginationServerSide";
-import Link from "next/link";
+import BreadcrumbComponent from "@/components/Breadcrumb";
+import ProductDescription from "@/components/ProductDescription";
+import ProductCountComponent from "@/components/ProductCountComponent";
 
 const ProductPage = async ({
   params,
@@ -33,12 +39,51 @@ const ProductPage = async ({
   }
 
   return params.product !== `page%3D${products.page}` ? (
-    <CardComponent
-      name={product[0].name}
-      price={product[0].price}
-      thumbnail={product[0].thumbnail}
-      slugname={product[0].slugname}
-    />
+    <div className="mx-5 mt-5">
+      <div className="grid grid-cols-1 justify-center gap-5 md:grid-cols-2">
+        <div>
+          <SwiperComponent data={product[0].images} />
+        </div>
+        <div>
+          <p className="mb-5 whitespace-nowrap text-right text-xl font-bold text-brown-900 dark:text-brown-200">
+            {product[0].name}
+          </p>
+          <div className="mb-8">
+            <BreadcrumbComponent product={product[0]} />
+          </div>
+          <p className="mb-5 whitespace-nowrap text-right font-IRANSans text-3xl font-bold text-gray-800 dark:text-white">
+            {product[0].price?.toLocaleString()}{" "}
+            <span className="font-IRANSans text-lg font-bold text-gray-800 dark:text-white">
+              تومان
+            </span>
+          </p>
+          <div className="inline-flex gap-x-5">
+            <ProductCountComponent product={product[0]} />
+            <Button color="success">
+              <span>افزودن به سبد خرید</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="25"
+                height="25"
+                viewBox="0 0 48 48"
+              >
+                <path
+                  fill="#4caf50"
+                  d="M44,24c0,11-9,20-20,20S4,35,4,24S13,4,24,4S44,13,44,24z"
+                ></path>
+                <path fill="#fff" d="M21,14h6v20h-6V14z"></path>
+                <path fill="#fff" d="M14,21h20v6H14V21z"></path>
+              </svg>
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <ProductDescription description={product[0].description} />
+      </div>
+    </div>
   ) : (
     <div>
       <p className="mx-8 mb-6 mt-8 flex justify-center text-3xl font-bold text-brown-800 dark:text-brown-50 md:block">

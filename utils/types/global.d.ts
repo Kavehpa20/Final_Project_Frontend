@@ -142,8 +142,8 @@ interface IProduct {
 
 interface IProducts {
   product: IProduct;
-  count: number;
-  _id: string;
+  count?: number;
+  _id?: string;
 }
 
 interface IAddingProduct {
@@ -188,4 +188,11 @@ interface IEditedCell {
   productId?: string;
   price?: string;
   quantity?: string;
+}
+
+interface IImage {
+  src: string;
+  width: number;
+  height?: number;
+  quality: number;
 }

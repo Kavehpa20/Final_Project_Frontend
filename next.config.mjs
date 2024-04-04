@@ -2,5 +2,4 @@
 const nextConfig = {
   transpilePackages: ["my-auth-module"],
 };
-
 export default nextConfig;

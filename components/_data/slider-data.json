@@ -8,7 +8,7 @@
       {
         "id": 1,
         "text": "خرید قهوه",
-        "link": "https://www.pexels.com/@rpnickson/",
+        "link": "http://localhost:3000/coffee",
         "type": "btn-dark btn-circle"
       }
     ]
@@ -22,7 +22,49 @@
       {
         "id": 1,
         "text": "خرید گانودرما ماسالا",
-        "link": "https://www.pexels.com/@julia-m-cameron/",
+        "link": "http://localhost:3000/coffee/qhwh-masala-ba-qarch-ganwdrma-20-addy",
+        "type": "btn-dark btn-circle"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "گانودرما",
+    "tagline": "گانودرما ضامن سلامتی",
+    "image": "/Assets/pictures/ganoderma5.gif",
+    "buttons": [
+      {
+        "id": 1,
+        "text": "خرید قهوه های گانودرما",
+        "link": "http://localhost:3000/coffee/ganoderma",
+        "type": "btn-dark btn-circle"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "چای",
+    "tagline": "کنار پنجره، بوی بهار می آید ...",
+    "image": "/Assets/pictures/tea.gif",
+    "buttons": [
+      {
+        "id": 4,
+        "text": "خرید چای",
+        "link": "http://localhost:3000/tea",
+        "type": "btn-dark btn-circle"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "خرما",
+    "tagline": "پر از انرژی با خرما بار",
+    "image": "/Assets/pictures/khorma.gif",
+    "buttons": [
+      {
+        "id": 5,
+        "text": "خرید خرما بار",
+        "link": "http://localhost:3000/khorma",
         "type": "btn-dark btn-circle"
       }
     ]
