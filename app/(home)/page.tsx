@@ -15,7 +15,6 @@ export default async function Landing() {
   return (
     <div className="mx-auto mb-auto max-w-8xl bg-gray-50 dark:bg-gray-500 ">
       <BannerComponent />
-
       <div className="my-2 flex justify-center">
         <CategoryButtonGroups />
       </div>
