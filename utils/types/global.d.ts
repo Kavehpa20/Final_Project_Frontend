@@ -138,12 +138,14 @@ interface IProduct {
   _id?: string;
   price?: number;
   slugname?: string;
+  count?: number;
 }
 
 interface IProducts {
   product: IProduct;
   count?: number;
   _id?: string;
+  count?: number;
 }
 
 interface IAddingProduct {

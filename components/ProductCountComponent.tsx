@@ -1,19 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Button } from "flowbite-react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addingCountProductAction,
+  removingCountProductAction,
+} from "@/redux/slices/cart/cartSlice";
 
 const ProductCountComponent = ({ product }: IProducts) => {
-  const [productCount, setProductCount] = useState(1);
-  const [countValue, setCountValue] = useState(1);
+  const dispatch = useDispatch();
+  const productAddingCount = useSelector(
+    (state) => state.cart.productAddingCount,
+  );
+  console.log(productAddingCount);
 
   return (
     <div className="mx-auto max-w-xs">
       <div className="relative flex max-w-[11rem] items-center">
         <button
           type="button"
-          onClick={() => setProductCount(productCount - 1)}
-          disabled={productCount <= 1}
+          onClick={() => dispatch(removingCountProductAction())}
+          disabled={productAddingCount <= 1}
           data-input-counter-decrement="bedrooms-input"
           className="h-11 rounded-s-lg border border-gray-300 bg-gray-100 p-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
         >
@@ -33,17 +40,12 @@ const ProductCountComponent = ({ product }: IProducts) => {
             />
           </svg>
         </button>
-        <input
-          type="number"
+        <p
           aria-describedby="helper-text-explanation"
-          className="remove-arrow block h-11 w-full border-x-0 border-gray-300 bg-gray-50 pb-6 text-center font-IRANSans text-sm font-medium text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          defaultValue={productCount}
-          value={productCount}
-          onChange={(e) => {
-            setCountValue(Number(e.target.value));
-          }}
-          required
-        />
+          className="remove-arrow block h-11 w-full border-x-0 border-gray-300 bg-gray-50 px-8 pb-6 pt-1 text-center font-IRANSans text-sm font-medium text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        >
+          {productAddingCount}
+        </p>
         <div className="absolute bottom-1 start-1/2 flex -translate-x-1/2 items-center space-x-1 font-IRANSans text-xs text-gray-400 rtl:translate-x-1/2 rtl:space-x-reverse">
           <span>تعداد</span>
           <svg
@@ -64,8 +66,8 @@ const ProductCountComponent = ({ product }: IProducts) => {
         </div>
         <button
           type="button"
-          onClick={() => setProductCount(productCount + 1)}
-          disabled={productCount === product.quantity}
+          onClick={() => dispatch(addingCountProductAction(1))}
+          disabled={productAddingCount === product.quantity}
           data-input-counter-increment="bedrooms-input"
           className="h-11 rounded-e-lg border border-gray-300 bg-gray-100 p-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
         >

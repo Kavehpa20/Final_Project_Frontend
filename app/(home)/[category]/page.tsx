@@ -33,11 +33,10 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
         subcategory[0].category,
         subcategory[0]._id,
       );
+      console.log(getProducts);
       return [getProducts, category];
     }
   };
-
-  // await products();
 
   return category ? (
     <div>
@@ -87,7 +86,7 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
             total_pages={await products().then(
               (res) => res[0]?.data.total_pages,
             )}
-            paramsCategory={await products().then((res) => res[1])}
+            paramsCategory={await products().then((res) => res[1].slugname)}
           />
         </div>
       ) : (

@@ -5,6 +5,7 @@ import { HiHome } from "react-icons/hi";
 import type { CustomFlowbiteTheme } from "flowbite-react";
 import { getCategoryNameById } from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 const BreadcrumbTheme: CustomFlowbiteTheme = {
   breadcrumb: {
@@ -53,11 +54,18 @@ const BreadcrumbComponent = ({ product }: IProducts) => {
   ) : (
     <Flowbite theme={{ theme: BreadcrumbTheme }}>
       <Breadcrumb aria-label="Default breadcrumb example">
-        <Breadcrumb.Item href="/" icon={HiHome}>
-          صفحه اصلی
+        <Breadcrumb.Item icon={HiHome}>
+          <Link className="hover:font-semibold hover:underline" href="/">
+            صفحه اصلی
+          </Link>
         </Breadcrumb.Item>
-        <Breadcrumb.Item href={`/${data.slugname}`}>
-          {data.name}
+        <Breadcrumb.Item>
+          <Link
+            className="hover:font-semibold hover:underline"
+            href={`/${data.slugname}`}
+          >
+            {data.name}
+          </Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
       </Breadcrumb>

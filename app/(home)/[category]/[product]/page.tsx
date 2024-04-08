@@ -10,6 +10,7 @@ import PaginationServerSide from "@/components/paginationServerSide/paginationSe
 import BreadcrumbComponent from "@/components/Breadcrumb";
 import ProductDescription from "@/components/ProductDescription";
 import ProductCountComponent from "@/components/ProductCountComponent";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const ProductPage = async ({
   params,
@@ -38,6 +39,8 @@ const ProductPage = async ({
     if (!product[0]) throw new Error("Not Found");
   }
 
+  // console.log(product[0]);
+
   return params.product !== `page%3D${products.page}` ? (
     <div className="mx-5 mt-5">
       <div className="grid grid-cols-1 justify-center gap-5 md:grid-cols-2">
@@ -59,24 +62,7 @@ const ProductPage = async ({
           </p>
           <div className="inline-flex gap-x-5">
             <ProductCountComponent product={product[0]} />
-            <Button color="success">
-              <span>افزودن به سبد خرید</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                x="0px"
-                y="0px"
-                width="25"
-                height="25"
-                viewBox="0 0 48 48"
-              >
-                <path
-                  fill="#4caf50"
-                  d="M44,24c0,11-9,20-20,20S4,35,4,24S13,4,24,4S44,13,44,24z"
-                ></path>
-                <path fill="#fff" d="M21,14h6v20h-6V14z"></path>
-                <path fill="#fff" d="M14,21h20v6H14V21z"></path>
-              </svg>
-            </Button>
+            <AddToCartButton product={product[0]} />
           </div>
         </div>
       </div>

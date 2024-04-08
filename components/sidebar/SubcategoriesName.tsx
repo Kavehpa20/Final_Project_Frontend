@@ -4,6 +4,7 @@ import React from "react";
 import { getSubcategoryByCategory } from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Spinner, Sidebar } from "flowbite-react";
+import Link from "next/link";
 
 const SubcategoriesName = ({ categoryId }: { categoryId: string }) => {
   const subcategoriesList = async (id: string) => {
@@ -33,9 +34,9 @@ const SubcategoriesName = ({ categoryId }: { categoryId: string }) => {
     <div>Error: {error?.message}</div>
   ) : (
     data.data.subcategories.map((subcat: ISubcategories) => (
-      <Sidebar.Item key={subcat._id} href={subcat.slugname}>
-        {subcat.name}
-      </Sidebar.Item>
+      <Link key={subcat._id} href={subcat.slugname}>
+        <Sidebar.Item>{subcat.name}</Sidebar.Item>
+      </Link>
     ))
   );
 };

@@ -221,7 +221,7 @@ const InventoryAndPrices = () => {
                   ) ? (
                     <div className="flex justify-center">
                       <TextInput
-                        className="w-1/2"
+                        className="remove-arrow w-1/2"
                         type="number"
                         value={
                           editedValues[`${rowIndex}-price`] ?? product.price
@@ -252,7 +252,7 @@ const InventoryAndPrices = () => {
                     <div className="flex justify-center">
                       <TextInput
                         sizing="sm"
-                        className="w-1/3"
+                        className="remove-arrow w-1/3"
                         type="number"
                         value={
                           editedValues[`${rowIndex}-quantity`] ??

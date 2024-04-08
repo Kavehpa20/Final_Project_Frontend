@@ -5,10 +5,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { DarkThemeToggle } from "flowbite-react";
 import Link from "next/link";
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import BadgeComponent from "./BadgeComponent";
 
 export default function Navbar() {
   return (
@@ -89,7 +86,8 @@ export default function Navbar() {
                     </svg>
                   </Link>
                 </div>
-                <div>
+                <div className="relative">
+                  <BadgeComponent />
                   <Link
                     href="/cart"
                     className="ml-2 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
