@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userFuncAction } from "@/redux/slices/user/userSlice";
 
 const AdminLoginForm = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state: IRootState) => state.user.user);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +28,7 @@ const AdminLoginForm = () => {
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
     const body = { username: data.username, password: data.password };
-    setIsLoading((isLoading) => true);
+    setIsLoading(true);
     try {
       const res = await loginRequest(body);
       setToken("access_token", res.token.accessToken);
@@ -37,10 +37,10 @@ const AdminLoginForm = () => {
       toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
       dispatch(userFuncAction(res.data.user));
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     } catch (error) {
       // errorHandler(error as AxiosError);
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     }
   };
 

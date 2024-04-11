@@ -37,11 +37,10 @@ const BuyerFormComponent = () => {
     );
   };
 
-  const user: IUser[] = useSelector((state) => state.user.user);
-  const productStore = useSelector((state) => state.cart.product);
+  const user: IUser[] = useSelector((state: IRootState) => state.user.user);
+  const productStore = useSelector((state: IRootState) => state.cart.product);
 
-  // console.log(productStore);
-  const extractedData = productStore.map(({ count, _id }) => ({
+  const extractedData = productStore?.map(({ count, _id }) => ({
     count,
     product: _id,
   }));
@@ -57,13 +56,12 @@ const BuyerFormComponent = () => {
   });
 
   const onSubmitHandler = (data: IBuyerCart) => {
-    const body: IBuyerCart = {
+    const body = {
       user: user[0]._id,
       products: extractedData,
       deliveryStatus: false,
       deliveryDate: moment(selectedDate, "jYYYY/jMM/jDD").format("YYYY/MM/DD"),
     };
-    console.log(body);
     sessionStorage.setItem("body order", JSON.stringify(body));
     handleOpenNewTab();
   };
@@ -92,8 +90,8 @@ const BuyerFormComponent = () => {
               placeholder="نام"
               className={classNames(
                 "block w-full rounded-lg border",
-                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
-                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600 disabled:text-gray-700 disabled:opacity-50",
+                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white disabled:dark:text-gray-200",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.firstName?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
@@ -127,9 +125,9 @@ const BuyerFormComponent = () => {
               id="lastName"
               placeholder="نام خانوادگی"
               className={classNames(
-                "remove-arrow block w-full rounded-lg border",
-                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
-                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                "block w-full rounded-lg border",
+                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600 disabled:text-gray-700 disabled:opacity-50",
+                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white disabled:dark:text-gray-200",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.lastName?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
@@ -163,9 +161,9 @@ const BuyerFormComponent = () => {
               placeholder="آدرس"
               rows={8}
               className={classNames(
-                "block w-full rounded-b-lg rounded-t-none border",
-                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
-                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                "rounded-t-0 block w-full rounded-b-lg border",
+                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600 disabled:text-gray-700 disabled:opacity-50",
+                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white disabled:dark:text-gray-200",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.address?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
@@ -201,9 +199,9 @@ const BuyerFormComponent = () => {
               id="phoneNumber"
               placeholder="تلفن همراه"
               className={classNames(
-                "remove-arrow block w-full rounded-lg border font-IRANSans",
-                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
-                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+                "block w-full rounded-lg border",
+                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600 disabled:text-gray-700 disabled:opacity-50",
+                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white disabled:dark:text-gray-200",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.phoneNumber?.message
                   ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
@@ -238,12 +236,6 @@ const BuyerFormComponent = () => {
             weekStart={6}
             minDate={currentDate}
             maxDate={maxDeliveryDate}
-            // {...field}
-            // onChange={(e) => {
-            //   field.onChange(e.target);
-            //   console.log(e);
-            // }}
-            // value={field.value}
           />
         </Flowbite>
         <p className="mt-1 text-xs font-semibold text-red-600">

@@ -23,7 +23,6 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
   const products = async () => {
     if (category) {
       const getProducts = await categoryProductsRequest(category?._id);
-      // console.log(getProducts);
       return getProducts;
     } else if (!category) {
       const subcategory = await findSubcategoryBySlugname(params.category);
@@ -33,7 +32,6 @@ const CatagoriesPage = async ({ params }: { params: { category: string } }) => {
         subcategory[0].category,
         subcategory[0]._id,
       );
-      console.log(getProducts);
       return [getProducts, category];
     }
   };

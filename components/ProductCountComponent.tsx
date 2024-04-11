@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addingCountProductAction,
@@ -10,7 +10,7 @@ import {
 const ProductCountComponent = ({ product }: IProducts) => {
   const dispatch = useDispatch();
   const productAddingCount = useSelector(
-    (state) => state.cart.productAddingCount,
+    (state: IRootState) => state.cart.productAddingCount,
   );
 
   return (
@@ -65,7 +65,7 @@ const ProductCountComponent = ({ product }: IProducts) => {
         </div>
         <button
           type="button"
-          onClick={() => dispatch(addingCountProductAction(1))}
+          onClick={() => dispatch(addingCountProductAction())}
           disabled={productAddingCount === product.quantity}
           data-input-counter-increment="bedrooms-input"
           className="h-11 rounded-e-lg border border-gray-300 bg-gray-100 p-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"

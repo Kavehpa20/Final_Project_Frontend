@@ -106,6 +106,8 @@ interface ICreateContext {
   setProductDetail: Dispatch<SetStateAction<object>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  deliveryStatus: boolean;
+  setDeliveryStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUserPanelContext {
@@ -138,6 +140,8 @@ interface IProduct {
   slugname?: string;
   count?: number;
   categoryName?: string;
+  productId?: string;
+  newCount?: number;
 }
 
 interface IProducts {
@@ -213,4 +217,27 @@ interface IBuyerCart {
   ];
   deliveryStatus: boolean;
   deliveryDate: string;
+}
+
+interface ICartSlice {
+  productCount: number;
+  productAddingCount: number;
+  product?: IProduct[];
+}
+
+interface IUserSlice {
+  user: IUser[];
+}
+
+interface IPayment {
+  payment: boolean;
+}
+
+interface IPaymentState {
+  payment: IPayment;
+}
+
+interface IRootState {
+  cart: ICartSlice;
+  user: IUserSlice;
 }

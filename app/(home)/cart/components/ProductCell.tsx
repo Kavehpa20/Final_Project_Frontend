@@ -10,15 +10,15 @@ const ProductCell = ({
   index,
   quantity,
 }: {
-  initialValue: number;
+  initialValue: number | undefined;
   onSave: Function;
   index: number;
-  quantity: number;
+  quantity: number | undefined;
 }) => {
   const dispatch = useDispatch();
-  const productStore = useSelector((state) => state.cart.product);
+  const productStore = useSelector((state: IRootState) => state.cart.product);
   const productAddingCount = useSelector(
-    (state) => state.cart.productAddingCount,
+    (state: IRootState) => state.cart.productAddingCount,
   );
 
   const [value, setValue] = useState(initialValue);
@@ -32,13 +32,13 @@ const ProductCell = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (newValue < 1) {
+    if (newValue && newValue < 1) {
       setError("تعداد نمی تواند کمتر از 1 باشد !!");
       setNewValue(1);
-    } else if (newValue > quantity) {
+    } else if (newValue && quantity && newValue > quantity) {
       setError(`حداکثر تعداد قابل خرید ${quantity} می باشد!!`);
       setNewValue(quantity);
-    } else if (newValue >= 1 && newValue <= quantity) {
+    } else if (newValue && quantity && newValue >= 1 && newValue <= quantity) {
       setNewValue(Number(e.target.value));
     } else {
       setError("تعداد وارد شده صحیح نمی باشد");
@@ -55,13 +55,13 @@ const ProductCell = ({
   };
 
   const saveValue = () => {
-    if (newValue < 1) {
+    if (newValue && newValue < 1) {
       setError("تعداد نمی تواند کمتر از 1 باشد !!");
       setNewValue(1);
-    } else if (newValue > quantity) {
+    } else if (newValue && quantity && newValue > quantity) {
       setError(`حداکثر تعداد قابل خرید ${quantity} می باشد!!`);
       setNewValue(quantity);
-    } else if (newValue >= 1 && newValue <= quantity) {
+    } else if (newValue && quantity && newValue >= 1 && newValue <= quantity) {
       onSave(newValue);
       setValue(newValue);
       setError("");

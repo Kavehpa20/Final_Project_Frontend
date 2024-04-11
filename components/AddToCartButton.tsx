@@ -18,11 +18,13 @@ const AddToCartButton = ({
   category: string;
 }) => {
   const dispatch = useDispatch();
-  const productStore = useSelector((state) => state.cart.product);
-  const count = useSelector((state) => state.cart.productAddingCount);
+  const productStore = useSelector((state: IRootState) => state.cart.product);
+  const count = useSelector(
+    (state: IRootState) => state.cart.productAddingCount,
+  );
 
   const handleAddToCart = () => {
-    const find = productStore.find((p: IProduct) => p._id === product._id);
+    const find = productStore?.find((p: IProduct) => p._id === product._id);
     if (!find) {
       product.count = count;
       product.categoryName = category;

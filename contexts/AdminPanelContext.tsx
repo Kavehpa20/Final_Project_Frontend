@@ -29,7 +29,7 @@ const AdminPanelProvider = ({
   const [orderId, setOrderId] = useState(null);
   const [openOrdersModal, setOpenOrdersModal] = useState(false);
   const [productDetail, setProductDetail] = useState({} as IProduct);
-  // const [disableButton, setDisableButton] = useState(true);
+  const [deliveryStatus, setDeliveryStatus] = useState(false);
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
@@ -49,9 +49,8 @@ const AdminPanelProvider = ({
   };
 
   const OrdersTableData = useQuery({
-    queryKey: ["ordersList", currentPage],
+    queryKey: ["ordersList", currentPage, deliveryStatus],
     queryFn: getOrdersData,
-    placeholderData: keepPreviousData,
   });
 
   const getOrdersDeliveryData = async () => {
@@ -64,9 +63,8 @@ const AdminPanelProvider = ({
   };
 
   const OrdersDeliveryData = useQuery({
-    queryKey: ["OrdersDeliveryData", currentPage],
+    queryKey: ["OrdersDeliveryData", currentPage, deliveryStatus],
     queryFn: getOrdersDeliveryData,
-    placeholderData: keepPreviousData,
   });
 
   const getNoOrdersDeliveryData = async () => {
@@ -80,9 +78,8 @@ const AdminPanelProvider = ({
   };
 
   const NoOrdersDeliveryData = useQuery({
-    queryKey: ["NoOrdersDeliveryData", currentPage],
+    queryKey: ["NoOrdersDeliveryData", currentPage, deliveryStatus],
     queryFn: getNoOrdersDeliveryData,
-    placeholderData: keepPreviousData,
   });
 
   const getCategoryAndSubcategoryData = async () => {
@@ -172,8 +169,8 @@ const AdminPanelProvider = ({
         setProductDetail,
         isLoading,
         setIsLoading,
-        // disableButton,
-        // setDisableButton,
+        deliveryStatus,
+        setDeliveryStatus,
       }}
     >
       {children}

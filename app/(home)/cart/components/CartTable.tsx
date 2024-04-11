@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar, Spinner } from "flowbite-react";
+import { Avatar } from "flowbite-react";
 import {
   Button,
   Flowbite,
@@ -26,15 +26,15 @@ const CartTable = () => {
   const [productId, setProductId] = useState("0");
 
   const dispatch = useDispatch();
-  const productStore = useSelector((state) => state.cart.product);
+  const productStore = useSelector((state: IRootState) => state.cart.product);
 
-  const handleSave = (productId: string, newCount: number) => {
+  const handleSave = (productId: string | undefined, newCount: number) => {
     dispatch(editCountProductAction({ productId, newCount }));
   };
 
   return (
     <Flowbite theme={{ theme: TableTheme }}>
-      {productStore.length === 0 ? (
+      {productStore?.length === 0 ? (
         <div className="mx-auto flex flex-col items-center justify-center py-4 md:max-w-lg">
           <Image
             width={1000}
@@ -65,7 +65,7 @@ const CartTable = () => {
               <TableHeadCell></TableHeadCell>
             </TableHead>
             <TableBody className="divide-y">
-              {productStore.map((product: IProduct, index: number) => (
+              {productStore?.map((product: IProduct, index: number) => (
                 <TableRow
                   className="bg-white text-xs dark:border-gray-700 dark:bg-gray-800 md:text-base"
                   key={product._id}
@@ -88,7 +88,9 @@ const CartTable = () => {
                   </TableCell>
                   <ProductCell
                     initialValue={product.count}
-                    onSave={(newCount) => handleSave(product._id, newCount)}
+                    onSave={(newCount: number) =>
+                      handleSave(product._id, newCount)
+                    }
                     index={index}
                     quantity={product.quantity}
                   />
@@ -112,13 +114,13 @@ const CartTable = () => {
           </Table>
         </div>
       )}
-      {productStore.length !== 0 && (
+      {productStore?.length !== 0 && (
         <div className="mb-6 ml-4 mr-4 mt-8 flex items-center justify-between">
           <p className="text-lg font-semibold text-gray-800 dark:text-white">
             جمع :{" "}
             <span className="font-IRANSans text-2xl font-semibold text-gray-800 dark:text-white">
               {productStore
-                .reduce(
+                ?.reduce(
                   (acc: number, product: IProduct) =>
                     acc + (product.price || 1) * (product.count || 1),
                   0,

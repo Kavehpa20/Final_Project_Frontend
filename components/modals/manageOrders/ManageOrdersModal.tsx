@@ -106,15 +106,20 @@ const TableTheme: CustomFlowbiteTheme = {
 const moment = require("moment-jalaali");
 
 const ManageOrdersModal = () => {
-  const { openOrdersModal, setOpenOrdersModal, currentPageOrders, orderId } =
-    useAdminPanel();
+  const {
+    openOrdersModal,
+    setOpenOrdersModal,
+    currentPageOrders,
+    orderId,
+    setDeliveryStatus,
+  } = useAdminPanel();
 
   const orderDetailsData = async () => {
     try {
       const orderDetails = await getOrderById(orderId as string);
       return orderDetails;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -124,19 +129,10 @@ const ManageOrdersModal = () => {
     enabled: Boolean(orderId),
   });
 
-  // !isPending && !isError && console.log(data);
-  // console.log(orderId);
-
   return orderId ? (
     <Flowbite theme={{ theme: ModalManagerOrdersTheme }}>
       {isPending ? (
-        <div>
-          {/* <span className="text-lg text-gray-800 dark:text-white">
-            {" "}
-            در حال بارگذاری{" "}
-          </span>
-          <Spinner aria-label="Large spinner example" size="lg" /> */}
-        </div>
+        <div></div>
       ) : isError ? (
         <div>Error: {error?.message}</div>
       ) : (
@@ -237,6 +233,7 @@ const ManageOrdersModal = () => {
                   color="success"
                   onClick={async () => {
                     const res = await deliveredOrder(orderId);
+                    setDeliveryStatus(true);
                     if (res.status === "success") {
                       toast.success("سفارش با موفقیت به مشتری تحویل گردید.", {
                         theme: "colored",

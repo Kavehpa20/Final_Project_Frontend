@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const initialState: IPayment = {
   payment: false,
 };
 
-function payment(state: { payment: boolean }, action) {
+function payment(state: IPayment, action: PayloadAction<boolean>) {
   state.payment = action.payload;
 }
 

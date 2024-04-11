@@ -221,8 +221,10 @@ const InventoryAndPrices = () => {
                   ) ? (
                     <div className="flex justify-center">
                       <TextInput
-                        className="remove-arrow w-1/2"
+                        className="remove-arrow w-3/4"
                         type="number"
+                        min={1000}
+                        max={50000000}
                         value={
                           editedValues[`${rowIndex}-price`] ?? product.price
                         }
@@ -254,10 +256,12 @@ const InventoryAndPrices = () => {
                         sizing="sm"
                         className="remove-arrow w-1/3"
                         type="number"
-                        value={
+                        min={1}
+                        max={1000}
+                        value={Number(
                           editedValues[`${rowIndex}-quantity`] ??
-                          product.quantity
-                        }
+                            product.quantity,
+                        )}
                         onChange={(event) =>
                           handleInputChange(event, rowIndex, "quantity")
                         }

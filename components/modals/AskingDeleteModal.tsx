@@ -17,7 +17,7 @@ const AskingDeleteModal = () => {
         const res = await getProductNameById(productId);
         return res.name;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
   };
 

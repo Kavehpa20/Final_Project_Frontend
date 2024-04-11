@@ -5,7 +5,7 @@ import {
   removeProductAction,
 } from "@/redux/slices/cart/cartSlice";
 import { Button, Modal } from "flowbite-react";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ const RemoveProductModal = ({
   productId: string;
 }) => {
   const dispatch = useDispatch();
-  const productStore = useSelector((state) => state.cart.product);
+  const productStore = useSelector((state: IRootState) => state.cart.product);
   return (
     <>
       <Modal
@@ -40,12 +40,11 @@ const RemoveProductModal = ({
                 color="failure"
                 onClick={() => {
                   setOpenModal(false);
-                  const filteredArray = productStore.filter(
+                  const filteredArray = productStore?.filter(
                     (product: IProduct) => product._id !== productId,
                   );
-                  dispatch(removeProductAction(filteredArray));
+                  if(filteredArray)dispatch(removeProductAction(filteredArray));
                   dispatch(removeFromCartAction());
-                  console.log(productStore);
                 }}
               >
                 {"بله، مطمئن هستم"}

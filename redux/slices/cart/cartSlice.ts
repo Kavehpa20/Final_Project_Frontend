@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export const cartSlice_KEY = "Cart Slice";
 export const count_KEY = "Count";
 
-const initialState = {
+const initialState: ICartSlice = {
   productCount: JSON.parse(localStorage.getItem(count_KEY) || "0") ?? 0,
   productAddingCount: 1,
   product:
@@ -45,7 +45,7 @@ function resetCountProduct(state: { productAddingCount: number }) {
   state.productAddingCount = 1;
 }
 
-function addingProduct(state: { product: [] }, action) {
+function addingProduct(state: ICartSlice, action: PayloadAction<IProduct>) {
   const existingCartSlice = localStorage.getItem("Cart Slice");
   const existingCartSliceArray = existingCartSlice
     ? JSON.parse(existingCartSlice)
@@ -53,16 +53,16 @@ function addingProduct(state: { product: [] }, action) {
   existingCartSliceArray.push(action.payload);
   const updatedArrayString = JSON.stringify(existingCartSliceArray);
   localStorage.setItem(cartSlice_KEY, updatedArrayString);
-  state.product.push(action.payload);
+  if (state.product) state.product.push(action.payload);
 }
 
-function removeProduct(state: { product: [] }, action) {
+function removeProduct(state: ICartSlice, action: PayloadAction<IProduct[]>) {
   localStorage.removeItem(cartSlice_KEY);
   state.product = action.payload;
   localStorage.setItem(cartSlice_KEY, JSON.stringify(action.payload));
 }
 
-function editCountProduct(state, action) {
+function editCountProduct(state: ICartSlice, action: PayloadAction<IProduct>) {
   const { productId, newCount } = action.payload;
 
   const existingCartSlice = localStorage.getItem(cartSlice_KEY);
@@ -71,7 +71,7 @@ function editCountProduct(state, action) {
     : [];
 
   const productToUpdateIndex = existingCartSliceArray.findIndex(
-    (pro) => pro._id === productId,
+    (pro: IProduct) => pro._id === productId,
   );
 
   if (productToUpdateIndex !== -1) {
@@ -81,16 +81,16 @@ function editCountProduct(state, action) {
 
     localStorage.setItem(cartSlice_KEY, updatedArrayString);
 
-    const productToUpdateState = state.product.find(
+    const productToUpdateState = state.product?.find(
       (pro) => pro._id === productId,
     );
     if (productToUpdateState) {
-      productToUpdateState.count = newCount;
+      productToUpdateState.count = Number(newCount) || 0;
     }
   }
 }
 
-function resetToInitialState(state) {
+function resetToInitialState(state: ICartSlice) {
   localStorage.removeItem(cartSlice_KEY);
   localStorage.removeItem(count_KEY);
   state.product = [];

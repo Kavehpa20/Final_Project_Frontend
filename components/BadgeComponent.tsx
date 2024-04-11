@@ -52,7 +52,9 @@ const BadgeTheme: CustomFlowbiteTheme = {
 };
 
 const BadgeComponent = () => {
-  const productCount = useSelector((state) => state.cart.productCount);
+  const productCount = useSelector(
+    (state: IRootState) => state.cart.productCount,
+  );
   return (
     <Flowbite theme={{ theme: BadgeTheme }}>
       <Badge className="font-IRANSans" color="red" size="sm">

@@ -43,7 +43,7 @@ const EditingProductModal = () => {
         const res = await getProductNameById(productId);
         return res;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
   };
 
@@ -103,7 +103,7 @@ const EditingProductModal = () => {
       setIsLoading(false);
     } catch (error) {
       toast.error("خطایی رخ داده است.", { theme: "colored" });
-      console.log(error);
+      // console.log(error);
       setIsLoading(false);
     }
   };

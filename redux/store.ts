@@ -12,12 +12,10 @@ import cartReducer, {
   removeProductAction,
   addToCartAction,
   removeFromCartAction,
-  cartSlice_KEY,
   editCountProductAction,
   resetToInitialStateAction,
 } from "./slices/cart/cartSlice";
 import userReducer, {
-  userSlice_KEY,
   userFuncAction,
   resetUserFuncAction,
 } from "./slices/user/userSlice";
@@ -37,12 +35,11 @@ localStorageMiddleware.startListening({
     resetUserFuncAction,
   ),
   effect: (action, listenerApi) => {
-    const state = listenerApi.getState();
-    const dataToStore = {
+    const state: IRootState = listenerApi.getState() as IRootState;
+    const dataToStore: IRootState = {
       cart: state.cart,
       user: state.user,
     };
-    localStorage.setItem("appData", JSON.stringify(dataToStore));
   },
 });
 

@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export const userSlice_KEY = "User Slice";
 
-const initialState = {
-  user: JSON.parse(localStorage.getItem(userSlice_KEY)) ?? [],
+const initialState: IUserSlice = {
+  user: JSON.parse(localStorage.getItem(userSlice_KEY) || "[]") ?? [],
 };
 
-function userFunc(state: { user: [] }, action) {
+function userFunc(state: IUserSlice, action: PayloadAction<IUser>) {
   const existingUserSlice = localStorage.getItem("User Slice");
   const existingUserSliceArray = existingUserSlice
     ? JSON.parse(existingUserSlice)
@@ -16,7 +16,7 @@ function userFunc(state: { user: [] }, action) {
   state.user.push(action.payload);
 }
 
-function resetUserFunc(state: { user: [] }) {
+function resetUserFunc(state: IUserSlice) {
   localStorage.removeItem(userSlice_KEY);
   state.user = [];
 }
