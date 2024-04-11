@@ -8,10 +8,6 @@ import Link from "next/link";
 import LogoutButtonMobile from "@/libs/LogoutButtonMobile";
 import LogoutButton from "@/libs/LogoutButton";
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const AdminNavbar = () => {
   return (
     <Disclosure
@@ -41,13 +37,13 @@ const AdminNavbar = () => {
                     />
                   </div>
                 </Link>
-                <div className=" flex grow items-center justify-center">
                   <Link href="/">
+                <div className=" flex grow items-center justify-center">
                     <p className="hidden whitespace-nowrap text-right text-4xl font-black text-brown-900 dark:text-brown-200 sm:block">
                       پنل مدیریت قهوه آلفا
                     </p>
-                  </Link>
                 </div>
+                  </Link>
 
                 <div className="hidden items-center justify-between rounded-2xl sm:flex">
                   <Link

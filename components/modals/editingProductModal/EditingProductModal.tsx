@@ -118,8 +118,7 @@ const EditingProductModal = () => {
   useEffect(() => {
     if (productDetail.subcategory)
       setSubcategoryName(productDetail.subcategory.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName]);
+  }, [productId, productDetail.subcategory, productDetail?.subcategory?.name]);
 
   const [description, setDescription] = useState("");
   useEffect(() => {
@@ -164,13 +163,7 @@ const EditingProductModal = () => {
   }, [productDetail]);
 
   return CategoriesNameData.isPending ? (
-    <div>
-      {/* <span className="text-lg text-gray-800 dark:text-white">
-        {" "}
-        در حال بارگذاری{" "}
-      </span>
-      <Spinner aria-label="Large spinner example" size="lg" /> */}
-    </div>
+    <div></div>
   ) : CategoriesNameData.isError ? (
     <div>Error: {CategoriesNameData.error.message}</div>
   ) : (
@@ -290,7 +283,7 @@ const EditingProductModal = () => {
               value={productPrice}
               placeholder="قیمت کالا"
               className={classNames(
-                "remove-arrow block w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border font-IRANSans",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -324,7 +317,7 @@ const EditingProductModal = () => {
               id="quantity"
               placeholder="تعداد"
               className={classNames(
-                "remove-arrow block w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border font-IRANSans",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "../../globals.css";
-import SidebarComponent from "@/components/sidebar/SidebarComponent";
 
 export const metadata: Metadata = {
   title: "قهوه آلفا",

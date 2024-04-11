@@ -27,17 +27,14 @@ export const SubCategoriesOptions = ({
 
   useEffect(() => {
     getSubCategory();
-    // console.log(subCategory);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryValue]);
+  }, [categoryValue, CategoriesNameData]);
 
   return loading ? (
     <option>Loading ...</option>
   ) : (
     subCategory.data.subcategories.map((subcat: ISubcat) => (
-      <option key={subcat._id} value={subcat.name}>
-        {subcat.name}
-      </option>
+      <option key={subcat._id}>{subcat.name}</option>
     ))
   );
 };

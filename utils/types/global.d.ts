@@ -56,6 +56,28 @@ type Users = {
   lastname: string;
 };
 
+interface IDataSubcategory {
+  data: {
+    subcategory: {
+      _id: string;
+      category: {
+        _id: string;
+        name: string;
+        icon: string;
+        createdAt: string;
+        updatedAt: string;
+        slugname: string;
+        __v: number;
+      };
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      slugname: string;
+      __v: number;
+    };
+  };
+}
+
 interface ISubcategory {
   data: {
     subcategories: ISubcat[];
@@ -76,7 +98,7 @@ interface ICreateContext {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  onPageChange: Function;
+  onPageChange: (page: number) => void;
   selectedValue: string;
   setSelectedValue: Dispatch<SetStateAction<string>>;
   handleRadioChange: Function;
@@ -99,7 +121,7 @@ interface ICreateContext {
   setOpenOrdersModal: Dispatch<SetStateAction<boolean>>;
   currentPageOrders: number;
   setCurrentPageOrders: Dispatch<SetStateAction<number>>;
-  onPageChangeOrders: Function;
+  onPageChangeOrders: (page: number) => void;
   orderId: null | string;
   setOrderId: Dispatch<SetStateAction<boolean>>;
   productDetail: IProduct;

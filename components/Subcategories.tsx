@@ -27,11 +27,6 @@ const Subcategories = ({ categoryId }: { categoryId: string }) => {
 
   return isPending ? (
     <div>
-      {/* <span className="text-lg text-gray-800 dark:text-white">
-        {" "}
-        در حال بارگذاری{" "}
-      </span>
-      <Spinner aria-label="Large spinner example" size="lg" /> */}
     </div>
   ) : isError ? (
     <div>Error: {error?.message}</div>

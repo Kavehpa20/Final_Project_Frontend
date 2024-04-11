@@ -1,7 +1,6 @@
 "use client";
 
 import { FileInput, Label, Modal, Textarea, Select } from "flowbite-react";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 

@@ -3,7 +3,7 @@
 import React from "react";
 import { getSubcategoryByCategory } from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Spinner, Sidebar } from "flowbite-react";
+import { Sidebar } from "flowbite-react";
 import Link from "next/link";
 
 const SubcategoriesName = ({ categoryId }: { categoryId: string }) => {
@@ -23,13 +23,7 @@ const SubcategoriesName = ({ categoryId }: { categoryId: string }) => {
   });
 
   return isPending ? (
-    <div>
-      {/* <span className="text-lg text-gray-800 dark:text-white">
-        {" "}
-        در حال بارگذاری{" "}
-      </span>
-      <Spinner aria-label="Large spinner example" size="lg" /> */}
-    </div>
+    <div></div>
   ) : isError ? (
     <div>Error: {error?.message}</div>
   ) : (

@@ -9,10 +9,8 @@ import {
   Flowbite,
   Spinner,
 } from "flowbite-react";
-import { HiAdjustments, HiCloudDownload, HiUserCircle } from "react-icons/hi";
 import { getCategories } from "@/apis/getCategories";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import Link from "next/link";
 
 const GroupButtonsTheme: CustomFlowbiteTheme = {

@@ -5,10 +5,7 @@ import { Flowbite, Pagination } from "flowbite-react";
 import { PaginationTheme } from "./PaginationTheme";
 
 const PaginationComponent = ({ totalPages }: { totalPages: number }) => {
-  const { currentPageOrders, setCurrentPageOrders, onPageChangeOrders } =
-    useAdminPanel();
-
-  // const onPageChange = (page: number) => setCurrentPage(page);
+  const { currentPageOrders, onPageChangeOrders } = useAdminPanel();
 
   return (
     <Flowbite theme={{ theme: PaginationTheme }}>
