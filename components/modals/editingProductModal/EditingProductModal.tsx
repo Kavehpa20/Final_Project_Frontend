@@ -23,6 +23,7 @@ import {
   getProductNameById,
   getSubcategoryByCategory,
 } from "@/apis/requestsAPI";
+import TextAreaEditor from "@/components/TextAreaEditor";
 
 const EditingProductModal = () => {
   const {
@@ -289,7 +290,7 @@ const EditingProductModal = () => {
               value={productPrice}
               placeholder="قیمت کالا"
               className={classNames(
-                "block remove-arrow w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -323,7 +324,7 @@ const EditingProductModal = () => {
               id="quantity"
               placeholder="تعداد"
               className={classNames(
-                "block remove-arrow w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -385,13 +386,14 @@ const EditingProductModal = () => {
             >
               توضیحات کالا
             </label>
+            <TextAreaEditor />
             <Textarea
               id="description"
               value={description}
               placeholder="توضیحات محصول"
               rows={8}
               className={classNames(
-                "block w-full rounded-lg border",
+                "rounded-t-0 block w-full rounded-b-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",

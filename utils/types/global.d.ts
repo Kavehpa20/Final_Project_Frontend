@@ -102,8 +102,6 @@ interface ICreateContext {
   onPageChangeOrders: Function;
   orderId: null | string;
   setOrderId: Dispatch<SetStateAction<boolean>>;
-  // disableButton: boolean;
-  // setDisableButton: Dispatch<SetStateAction<boolean>>;
   productDetail: IProduct;
   setProductDetail: Dispatch<SetStateAction<object>>;
   isLoading: boolean;
@@ -139,6 +137,7 @@ interface IProduct {
   price?: number;
   slugname?: string;
   count?: number;
+  categoryName?: string;
 }
 
 interface IProducts {
@@ -146,6 +145,7 @@ interface IProducts {
   count?: number;
   _id?: string;
   count?: number;
+  categoryName?: string;
 }
 
 interface IAddingProduct {
@@ -197,4 +197,20 @@ interface IImage {
   width: number;
   height?: number;
   quality: number;
+}
+
+interface IBuyerCart {
+  user: string;
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  phoneNumber?: string;
+  products: [
+    {
+      product: string;
+      count: number;
+    },
+  ];
+  deliveryStatus: boolean;
+  deliveryDate: string;
 }

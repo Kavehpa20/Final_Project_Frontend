@@ -179,3 +179,8 @@ export const getProductsBySubcategoryAndCategory = async (
   );
   return response;
 };
+
+export const createNewOrder = async (data: IBuyerCart) => {
+  const response = await requestClient.post("/orders", data);
+  return response.data;
+};

@@ -55,7 +55,7 @@ const BadgeComponent = () => {
   const productCount = useSelector((state) => state.cart.productCount);
   return (
     <Flowbite theme={{ theme: BadgeTheme }}>
-      <Badge color="red" size="sm">
+      <Badge className="font-IRANSans" color="red" size="sm">
         {productCount}
       </Badge>
     </Flowbite>

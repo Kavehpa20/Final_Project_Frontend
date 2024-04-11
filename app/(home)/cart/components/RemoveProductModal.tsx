@@ -1,23 +1,25 @@
 "use client";
 
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import {
+  removeFromCartAction,
+  removeProductAction,
+} from "@/redux/slices/cart/cartSlice";
 import { Button, Modal } from "flowbite-react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useAdminPanel } from "@/contexts/AdminPanelContext";
-import { resetUserFuncAction } from "@/redux/slices/user/userSlice";
-
-export const deleteToken = () => {
-  Cookies.remove("access_token");
-  Cookies.remove("refresh_token");
-};
-
-const LogoutModal = () => {
-  const router = useRouter();
+const RemoveProductModal = ({
+  openModal,
+  setOpenModal,
+  productId,
+}: {
+  openModal: boolean;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
+  productId: string;
+}) => {
   const dispatch = useDispatch();
-  const { openModal, setOpenModal } = useAdminPanel();
+  const productStore = useSelector((state) => state.cart.product);
   return (
     <>
       <Modal
@@ -31,22 +33,25 @@ const LogoutModal = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              آیا مطمئن هستید میخواهید خارج شوید؟
+              آیا مطمئن هستید می خواهید این کالا را از سبد خرید خود حذف کنید؟
             </h3>
             <div className="flex justify-center gap-4">
               <Button
                 color="failure"
                 onClick={() => {
-                  deleteToken();
-                  dispatch(resetUserFuncAction());
-                  router.push("/admin");
                   setOpenModal(false);
+                  const filteredArray = productStore.filter(
+                    (product: IProduct) => product._id !== productId,
+                  );
+                  dispatch(removeProductAction(filteredArray));
+                  dispatch(removeFromCartAction());
+                  console.log(productStore);
                 }}
               >
-                {"بله مطمئن هستم"}
+                {"بله، مطمئن هستم"}
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>
-                خیر، کنسل
+                خیر کنسل
               </Button>
             </div>
           </div>
@@ -56,4 +61,4 @@ const LogoutModal = () => {
   );
 };
 
-export default LogoutModal;
+export default RemoveProductModal;

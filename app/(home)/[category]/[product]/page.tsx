@@ -39,8 +39,6 @@ const ProductPage = async ({
     if (!product[0]) throw new Error("Not Found");
   }
 
-  // console.log(product[0]);
-
   return params.product !== `page%3D${products.page}` ? (
     <div className="mx-5 mt-5">
       <div className="grid grid-cols-1 justify-center gap-5 md:grid-cols-2">
@@ -62,7 +60,7 @@ const ProductPage = async ({
           </p>
           <div className="inline-flex gap-x-5">
             <ProductCountComponent product={product[0]} />
-            <AddToCartButton product={product[0]} />
+            <AddToCartButton category={params.category} product={product[0]} />
           </div>
         </div>
       </div>

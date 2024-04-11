@@ -10,17 +10,22 @@ import {
 } from "@/redux/slices/cart/cartSlice";
 import { toast } from "react-toastify";
 
-const AddToCartButton = ({ product }: IProducts) => {
+const AddToCartButton = ({
+  product,
+  category,
+}: {
+  product: IProducts;
+  category: string;
+}) => {
   const dispatch = useDispatch();
   const productStore = useSelector((state) => state.cart.product);
   const count = useSelector((state) => state.cart.productAddingCount);
-  // console.log(count);
 
   const handleAddToCart = () => {
     const find = productStore.find((p: IProduct) => p._id === product._id);
     if (!find) {
       product.count = count;
-      console.log(product);
+      product.categoryName = category;
 
       dispatch(addToCartAction());
       dispatch(addingProductAction(product));
@@ -36,7 +41,6 @@ const AddToCartButton = ({ product }: IProducts) => {
         },
       );
     }
-    console.log(productStore);
   };
 
   return (

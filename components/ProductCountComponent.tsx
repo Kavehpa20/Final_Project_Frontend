@@ -12,7 +12,6 @@ const ProductCountComponent = ({ product }: IProducts) => {
   const productAddingCount = useSelector(
     (state) => state.cart.productAddingCount,
   );
-  console.log(productAddingCount);
 
   return (
     <div className="mx-auto max-w-xs">

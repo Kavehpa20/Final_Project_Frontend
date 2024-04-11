@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Spinner } from "flowbite-react";
 import {
   Button,
@@ -13,17 +15,22 @@ import {
 } from "flowbite-react";
 
 import { TableTheme } from "@/components/forms/TableTheme";
-import AskingDeleteModal from "@/components/modals/AskingDeleteModal";
-import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
+import RemoveProductModal from "./RemoveProductModal";
+import ProductCell from "./ProductCell";
+import { editCountProductAction } from "@/redux/slices/cart/cartSlice";
 
 const CartTable = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [productId, setProductId] = useState("0");
+
   const dispatch = useDispatch();
   const productStore = useSelector((state) => state.cart.product);
-  // const productCount = useSelector((state) => state.cart.productAddingCount);
 
-  console.log(productStore);
+  const handleSave = (productId: string, newCount: number) => {
+    dispatch(editCountProductAction({ productId, newCount }));
+  };
 
   return (
     <Flowbite theme={{ theme: TableTheme }}>
@@ -49,7 +56,12 @@ const CartTable = () => {
               <TableHeadCell>تصویر کالا</TableHeadCell>
               <TableHeadCell>نام کالا</TableHeadCell>
               <TableHeadCell>قیمت</TableHeadCell>
-              <TableHeadCell>تعداد</TableHeadCell>
+              <TableHeadCell>
+                <p>تعداد</p>
+                <p className="text-xs font-extralight">
+                  برای ویرایش تعداد محصول بر روی آن دابل کلیک کنید
+                </p>
+              </TableHeadCell>
               <TableHeadCell></TableHeadCell>
             </TableHead>
             <TableBody className="divide-y">
@@ -66,18 +78,30 @@ const CartTable = () => {
                       size="lg"
                     />
                   </TableCell>
-                  <TableCell className="font-IRANSans">
-                    {product.name}
+                  <TableCell className="font-IRANSans hover:underline">
+                    <Link href={`/${product.categoryName}/${product.slugname}`}>
+                      {product.name}
+                    </Link>
                   </TableCell>
                   <TableCell className="font-IRANSans">
                     {product.price?.toLocaleString()} تومان
                   </TableCell>
-                  <TableCell className="font-IRANSans">
-                    {product.count}
-                  </TableCell>
+                  <ProductCell
+                    initialValue={product.count}
+                    onSave={(newCount) => handleSave(product._id, newCount)}
+                    index={index}
+                    quantity={product.quantity}
+                  />
                   <TableCell>
                     <div className="flex flex-col justify-center gap-5 md:flex-row">
-                      <Button color="failure" pill onClick={() => {}}>
+                      <Button
+                        color="failure"
+                        pill
+                        onClick={() => {
+                          setOpenModal(true);
+                          setProductId(product._id || "");
+                        }}
+                      >
                         حذف
                       </Button>
                     </div>
@@ -88,24 +112,34 @@ const CartTable = () => {
           </Table>
         </div>
       )}
-      <div className="mb-6 ml-4 mr-4 mt-8 flex items-center justify-between">
-        <p className="text-lg font-semibold text-gray-800 dark:text-white">
-          جمع :{" "}
-          <span className="font-IRANSans text-2xl font-semibold text-gray-800 dark:text-white">
-            {productStore
-              .reduce((acc, product) => acc + product.price, 0)
-              .toLocaleString()}
-            تومان{" "}
-          </span>
-        </p>
-        <Link
-          href="/cart/buyerForm"
-          className="mb-2 me-2 rounded-full bg-green-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          نهایی کردن سبد خرید
-        </Link>
-      </div>
-      <AskingDeleteModal />
+      {productStore.length !== 0 && (
+        <div className="mb-6 ml-4 mr-4 mt-8 flex items-center justify-between">
+          <p className="text-lg font-semibold text-gray-800 dark:text-white">
+            جمع :{" "}
+            <span className="font-IRANSans text-2xl font-semibold text-gray-800 dark:text-white">
+              {productStore
+                .reduce(
+                  (acc: number, product: IProduct) =>
+                    acc + (product.price || 1) * (product.count || 1),
+                  0,
+                )
+                .toLocaleString()}
+              تومان{" "}
+            </span>
+          </p>
+          <Link
+            href="/cart/buyerForm"
+            className="mb-2 me-2 rounded-full bg-green-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            نهایی کردن سبد خرید
+          </Link>
+        </div>
+      )}
+      <RemoveProductModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        productId={productId}
+      />
     </Flowbite>
   );
 };
