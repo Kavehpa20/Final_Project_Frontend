@@ -37,13 +37,13 @@ const AdminNavbar = () => {
                     />
                   </div>
                 </Link>
-                  <Link href="/">
                 <div className=" flex grow items-center justify-center">
+                  <Link href="/">
                     <p className="hidden whitespace-nowrap text-right text-4xl font-black text-brown-900 dark:text-brown-200 sm:block">
                       پنل مدیریت قهوه آلفا
                     </p>
-                </div>
                   </Link>
+                </div>
 
                 <div className="hidden items-center justify-between rounded-2xl sm:flex">
                   <Link

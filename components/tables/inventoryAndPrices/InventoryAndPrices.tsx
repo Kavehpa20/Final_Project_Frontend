@@ -223,14 +223,29 @@ const InventoryAndPrices = () => {
                       <TextInput
                         className="remove-arrow w-3/4"
                         type="number"
-                        min={1000}
-                        max={50000000}
+                        min={1}
+                        max={5000000}
                         value={
                           editedValues[`${rowIndex}-price`] ?? product.price
                         }
-                        onChange={(event) =>
-                          handleInputChange(event, rowIndex, "price")
-                        }
+                        onKeyDownCapture={(e) => {
+                          if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault;
+                          }
+                        }}
+                        onChange={(event) => {
+                          if (
+                            Number(event.target.value) < 1000 ||
+                            Number(event.target.value) > 5000000
+                          ) {
+                            <p>
+                              قیمت باید حداقل هزار تومان و حداکثر پنج میلیون
+                              باشد
+                            </p>;
+                          } else {
+                            handleInputChange(event, rowIndex, "price");
+                          }
+                        }}
                         onKeyDown={handleKeyDown}
                         autoFocus
                       />
@@ -262,9 +277,21 @@ const InventoryAndPrices = () => {
                           editedValues[`${rowIndex}-quantity`] ??
                             product.quantity,
                         )}
-                        onChange={(event) =>
-                          handleInputChange(event, rowIndex, "quantity")
-                        }
+                        onKeyDownCapture={(e) => {
+                          if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault;
+                          }
+                        }}
+                        onChange={(event) => {
+                          if (
+                            Number(event.target.value) < 1 ||
+                            Number(event.target.value) > 1000
+                          ) {
+                            <p>تعداد باید حداقل ۱ و حداکثر ۱۰۰۰ باشد</p>;
+                          } else {
+                            handleInputChange(event, rowIndex, "quantity");
+                          }
+                        }}
                         onKeyDown={handleKeyDown}
                         autoFocus
                       />

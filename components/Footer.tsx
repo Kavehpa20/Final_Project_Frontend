@@ -9,7 +9,7 @@ import {
   FooterTitle,
 } from "flowbite-react";
 import {
-  BsDribbble,
+  BsLinkedin,
   BsFacebook,
   BsGithub,
   BsInstagram,
@@ -83,8 +83,8 @@ export default function FooterComponent() {
               <div>
                 <FooterTitle title="درباره ما" />
                 <FooterLinkGroup col>
-                  <FooterLink href="#">تیم ما</FooterLink>
-                  <FooterLink href="#">تماس با ما</FooterLink>
+                  <FooterLink href="about_us">تیم ما</FooterLink>
+                  <FooterLink href="contact_us">تماس با ما</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>
@@ -111,12 +111,23 @@ export default function FooterComponent() {
               year={new Date().getFullYear()}
             />
             <div className="ml-4 mt-4 flex gap-6 sm:mt-0 sm:justify-center">
-              <FooterIcon href="#" icon={BsFacebook} />
-              <FooterIcon href="#" icon={BsInstagram} />
-              <FooterIcon href="#" icon={BsTwitter} />
-              <FooterIcon href="#" icon={BsGithub} />
-              <FooterIcon href="#" icon={BsDribbble} />
-              <FooterIcon href="#" icon={BsFacebook} />
+              <FooterIcon
+                href="https://www.facebook.com/profile.php?id=100090318496313"
+                icon={BsFacebook}
+              />
+              <FooterIcon
+                href="https://www.instagram.com/pkaveh20/"
+                icon={BsInstagram}
+              />
+              <FooterIcon
+                href="https://twitter.com/a_real_gentle"
+                icon={BsTwitter}
+              />
+              <FooterIcon href="https://github.com/Kavehpa20" icon={BsGithub} />
+              <FooterIcon
+                href="https://www.linkedin.com/in/kaveh-pajoohesh-9274b1212/"
+                icon={BsLinkedin}
+              />
             </div>
           </div>
         </div>
