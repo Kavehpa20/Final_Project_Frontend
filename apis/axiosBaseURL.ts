@@ -6,9 +6,16 @@ export const axiosBaseUrl = () => {
   });
 };
 
-export const categoryProductsRequest = async (id: string) => {
+export const categoryProductsRequest = async (id: string, page: number = 1) => {
   const response = await axiosBaseUrl().get(
-    `/products?category=${id}&limit=10`,
+    `/products?category=${id}&page=${page}&limit=9`,
   );
   return response.data;
+};
+
+export const categoryProductsReq = async (id: string, page: number = 1) => {
+  const response = await axiosBaseUrl().get(
+    `/products?category=${id}&page=${page}&limit=9`,
+  );
+  return response;
 };

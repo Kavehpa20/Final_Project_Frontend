@@ -8,10 +8,6 @@ import Link from "next/link";
 import LogoutButtonMobile from "@/libs/LogoutButtonMobile";
 import LogoutButton from "@/libs/LogoutButton";
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const AdminNavbar = () => {
   return (
     <Disclosure

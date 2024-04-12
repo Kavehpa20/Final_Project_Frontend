@@ -6,7 +6,6 @@ import {
   Modal,
   Textarea,
   Select,
-  Spinner,
   Avatar,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
@@ -24,16 +23,18 @@ import {
   getProductNameById,
   getSubcategoryByCategory,
 } from "@/apis/requestsAPI";
+import TextAreaEditor from "@/components/TextAreaEditor";
 
 const EditingProductModal = () => {
-  const [productDetail, setProductDetail] = useState({} as IProduct);
-  const [isLoading, setIsLoading] = useState(false);
-
   const {
     showEditingModal,
     onCloseEditingModal,
     CategoriesNameData,
     productId,
+    productDetail,
+    setProductDetail,
+    isLoading,
+    setIsLoading,
   } = useAdminPanel();
 
   const productDetailsFunc = async () => {
@@ -42,7 +43,7 @@ const EditingProductModal = () => {
         const res = await getProductNameById(productId);
         return res;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
   };
 
@@ -68,6 +69,8 @@ const EditingProductModal = () => {
       (el: ICategory) => data.category === el.name,
     );
 
+    CategoriesNameData.refetch({ throwOnError: true, cancelRefetch: false });
+
     let subCatId: ISubcategories;
 
     const subcategoryId = async () => {
@@ -90,18 +93,18 @@ const EditingProductModal = () => {
       images: data.images,
     };
 
-    setIsLoading((isLoading) => true);
+    setIsLoading(true);
     try {
       const res = await editProductApi(body, productId as string);
       if (res.status === 200) {
         toast.success("محصول با موفقیت ویرایش شد.", { theme: "colored" });
         onCloseEditingModal();
       }
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     } catch (error) {
       toast.error("خطایی رخ داده است.", { theme: "colored" });
-      console.log(error);
-      setIsLoading((isLoading) => false);
+      // console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -115,8 +118,7 @@ const EditingProductModal = () => {
   useEffect(() => {
     if (productDetail.subcategory)
       setSubcategoryName(productDetail.subcategory.name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName]);
+  }, [productId, productDetail.subcategory, productDetail?.subcategory?.name]);
 
   const [description, setDescription] = useState("");
   useEffect(() => {
@@ -161,13 +163,7 @@ const EditingProductModal = () => {
   }, [productDetail]);
 
   return CategoriesNameData.isPending ? (
-    <div>
-      {/* <span className="text-lg text-gray-800 dark:text-white">
-        {" "}
-        در حال بارگذاری{" "}
-      </span>
-      <Spinner aria-label="Large spinner example" size="lg" /> */}
-    </div>
+    <div></div>
   ) : CategoriesNameData.isError ? (
     <div>Error: {CategoriesNameData.error.message}</div>
   ) : (
@@ -287,7 +283,7 @@ const EditingProductModal = () => {
               value={productPrice}
               placeholder="قیمت کالا"
               className={classNames(
-                "block w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border font-IRANSans",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -321,7 +317,7 @@ const EditingProductModal = () => {
               id="quantity"
               placeholder="تعداد"
               className={classNames(
-                "block w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border font-IRANSans",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -383,13 +379,14 @@ const EditingProductModal = () => {
             >
               توضیحات کالا
             </label>
+            <TextAreaEditor />
             <Textarea
               id="description"
               value={description}
               placeholder="توضیحات محصول"
               rows={8}
               className={classNames(
-                "block w-full rounded-lg border",
+                "rounded-t-0 block w-full rounded-b-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",

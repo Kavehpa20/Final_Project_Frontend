@@ -1,8 +1,7 @@
 "use client";
 
 import { Banner } from "flowbite-react";
-import { HiArrowRight, HiX } from "react-icons/hi";
-import { MdPercent } from "react-icons/md";
+import { HiX } from "react-icons/hi";
 
 export default function BannerComponent() {
   return (

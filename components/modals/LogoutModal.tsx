@@ -1,10 +1,13 @@
 "use client";
 
-import { useAdminPanel } from "@/contexts/AdminPanelContext";
-import { Button, Modal } from "flowbite-react";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { Button, Modal } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+
+import { useAdminPanel } from "@/contexts/AdminPanelContext";
+import { resetUserFuncAction } from "@/redux/slices/user/userSlice";
 
 export const deleteToken = () => {
   Cookies.remove("access_token");
@@ -13,6 +16,7 @@ export const deleteToken = () => {
 
 const LogoutModal = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { openModal, setOpenModal } = useAdminPanel();
   return (
     <>
@@ -33,7 +37,10 @@ const LogoutModal = () => {
               <Button
                 color="failure"
                 onClick={() => {
-                  deleteToken(), router.push("/admin"), setOpenModal(false);
+                  deleteToken();
+                  dispatch(resetUserFuncAction());
+                  router.push("/admin");
+                  setOpenModal(false);
                 }}
               >
                 {"بله مطمئن هستم"}

@@ -25,6 +25,11 @@ export const getNameById = async (id: string) => {
   return response.data.data.user;
 };
 
+export const getCategoryNameById = async (id: string) => {
+  const response = await requestClient.get(`/categories/${id}`);
+  return response.data.data.category;
+};
+
 export const getOrderById = async (id: string) => {
   const response = await requestClient.get(`/orders/${id}`);
   return response.data.data.order;
@@ -56,25 +61,22 @@ export const addNewProductApi = async ({
   category,
   price,
 }: IProduct) => {
-  // Create FormData object
   const formData = new FormData();
 
-  // Append data fields to FormData object
-  formData.append("brand", brand);
-  formData.append("description", description);
-  formData.append("category", category._id);
-  formData.append("name", name);
-  formData.append("subcategory", subcategory._id);
-  formData.append("quantity", quantity.toString()); // Ensure quantity is converted to string
-  formData.append("thumbnail", thumbnail[0]); // Assuming thumbnail is a File object
-  formData.append("images", images[0]); // Assuming thumbnail is a File object
-  formData.append("price", price.toString()); // Ensure price is converted to string
+  if (name) formData.append("name", name);
+  if (brand) formData.append("brand", brand);
+  if (description) formData.append("description", description);
+  if (category) formData.append("category", category._id);
+  if (subcategory) formData.append("subcategory", subcategory._id);
+  if (quantity) formData.append("quantity", quantity.toString());
+  formData.append("thumbnail", thumbnail[0]);
+  formData.append("images", images[0]);
+  if (price) formData.append("price", price.toString());
 
   try {
     const response = await requestClient.post("products", formData);
     return response;
   } catch (error) {
-    // Handle error
     console.error("Error adding new product:", error);
     throw error;
   }
@@ -104,19 +106,17 @@ export const editProductApi = async (
   }: IProduct,
   id: string,
 ) => {
-  // Create FormData object
   const formData = new FormData();
 
-  // Append data fields to FormData object
-  formData.append("brand", brand);
-  formData.append("description", description);
-  formData.append("category", category._id);
-  formData.append("name", name);
-  formData.append("subcategory", subcategory._id);
-  formData.append("quantity", quantity.toString()); // Ensure quantity is converted to string
-  formData.append("thumbnail", thumbnail[0]); // Assuming thumbnail is a File object
-  formData.append("images", images[0]); // Assuming thumbnail is a File object
-  formData.append("price", price.toString()); // Ensure price is converted to string
+  if (name) formData.append("name", name);
+  if (brand) formData.append("brand", brand);
+  if (description) formData.append("description", description);
+  if (category) formData.append("category", category._id);
+  if (subcategory) formData.append("subcategory", subcategory._id);
+  if (quantity) formData.append("quantity", quantity.toString());
+  formData.append("thumbnail", thumbnail[0]);
+  formData.append("images", images[0]);
+  if (price) formData.append("price", price.toString());
 
   try {
     const response = await requestClient.patch(`products/${id}`, formData);
@@ -132,5 +132,55 @@ export const deliveredOrder = async (id: string) => {
   const response = await requestClient.patch(`/orders/${id}`, {
     deliveryStatus: true,
   });
+  return response.data;
+};
+
+export const editProductInventoryApi = async (
+  { quantity, price }: IProduct,
+  id: string,
+) => {
+  const formData = new FormData();
+
+  if (quantity) formData.append("quantity", quantity.toString());
+  if (price) formData.append("price", price.toString());
+
+  try {
+    const response = await requestClient.patch(`products/${id}`, formData);
+    return response;
+  } catch (error) {
+    console.error("خطا در ویرایش کردن محصولات:", error);
+    throw error;
+  }
+};
+
+export const findProductBySlugname = async (slugname: string) => {
+  const response = await requestClient.get(`/products?slugname=${slugname}`);
+  return response.data.data.products;
+};
+
+export const getCategories = async () => {
+  const response = await requestClient.get(`/categories`);
+  return response.data.data.categories;
+};
+
+export const findSubcategoryBySlugname = async (slugname: string) => {
+  const response = await requestClient.get(
+    `/subcategories?slugname=${slugname}`,
+  );
+  return response.data.data.subcategories;
+};
+
+export const getProductsBySubcategoryAndCategory = async (
+  category: string,
+  subcategory: string,
+) => {
+  const response = await requestClient.get(
+    `/products?category=${category}&subcategory=${subcategory}`,
+  );
+  return response;
+};
+
+export const createNewOrder = async (data: IBuyerCart) => {
+  const response = await requestClient.post("/orders", data);
   return response.data;
 };

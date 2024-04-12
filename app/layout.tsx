@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import QueryProvider from "@/libs/ReactQuery";
+import ReduxProvider from "@/redux/provider";
 
 export const metadata: Metadata = {
   title: "Alpha Coffee",
@@ -17,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en" dir="rtl">
       <body className="bg-gray-50 font-Payda dark:bg-gray-500">
-        <QueryProvider>
-          {children}
-          <ToastContainer rtl />
-        </QueryProvider>
+        <ReduxProvider>
+          <QueryProvider>
+            {children}
+            <ToastContainer rtl />
+          </QueryProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

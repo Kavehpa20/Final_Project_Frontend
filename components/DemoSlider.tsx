@@ -1,4 +1,4 @@
-"use client"; // <===== REQUIRED
+"use client";
 
 import React from "react";
 
@@ -9,8 +9,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Our custom button component
-// import SliderButtons from "./SliderButtons";
 
 interface Slide {
   id: number;

@@ -9,7 +9,7 @@ const CategoryAndSubcategoryName = ({ index }: { index: number }) => {
   const { CategoryAndSubcategory } = useAdminPanel();
   const [loading, setLoading] = useState(true);
   const [CategorySubcategory, setCategorySubcategory] = useState(
-    {} as ISubcategory,
+    {} as IDataSubcategory,
   );
 
   const getCategorySubcategory = async () => {
@@ -17,6 +17,8 @@ const CategoryAndSubcategoryName = ({ index }: { index: number }) => {
     const res = await getNameSubcategoryById(
       CategoryAndSubcategory.data.data.products[index].subcategory,
     );
+    console.log(res);
+
     setLoading(false);
     setCategorySubcategory(res);
   };

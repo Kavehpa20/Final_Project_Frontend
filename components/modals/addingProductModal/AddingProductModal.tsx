@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  FileInput,
-  Label,
-  Modal,
-  Textarea,
-  Select,
-  Spinner,
-} from "flowbite-react";
-import { useState } from "react";
+import { FileInput, Label, Modal, Textarea, Select } from "flowbite-react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -19,12 +11,16 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
 import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
+import TextAreaEditor from "@/components/TextAreaEditor";
 
 const AddingProductModal = () => {
-  const { showAddingModal, onCloseAddingModal, CategoriesNameData } =
-    useAdminPanel();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    showAddingModal,
+    onCloseAddingModal,
+    CategoriesNameData,
+    isLoading,
+    setIsLoading,
+  } = useAdminPanel();
 
   const { register, handleSubmit, formState, watch, control, setValue } =
     useForm<IAddingProduct>({
@@ -38,6 +34,8 @@ const AddingProductModal = () => {
     const category = await CategoriesNameData.data.find(
       (el: ICategory) => data.category === el.name,
     );
+
+    CategoriesNameData.refetch({ throwOnError: true, cancelRefetch: false });
 
     let subCatId: ISubcategories;
 
@@ -61,17 +59,17 @@ const AddingProductModal = () => {
       images: data.images,
     };
 
-    setIsLoading((isLoading) => true);
+    setIsLoading(true);
     try {
       const res = await addNewProductApi(body);
       if (res.status === 201) {
         toast.success("محصول با موفقیت اضافه شد.", { theme: "colored" });
         onCloseAddingModal();
       }
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     } catch (error) {
-      console.log(error);
-      setIsLoading((isLoading) => false);
+      // console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -177,7 +175,7 @@ const AddingProductModal = () => {
               id="price"
               placeholder="قیمت کالا"
               className={classNames(
-                "block w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -203,7 +201,7 @@ const AddingProductModal = () => {
               id="quantity"
               placeholder="تعداد"
               className={classNames(
-                "block w-full rounded-lg border",
+                "remove-arrow block w-full rounded-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
@@ -250,12 +248,13 @@ const AddingProductModal = () => {
             >
               توضیحات کالا
             </label>
+            <TextAreaEditor />
             <Textarea
               id="description"
               placeholder="توضیحات محصول"
               rows={8}
               className={classNames(
-                "block w-full rounded-lg border",
+                "rounded-t-0 block w-full rounded-b-lg border",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",

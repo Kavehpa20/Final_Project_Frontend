@@ -12,8 +12,12 @@ import { setToken } from "@/libs/tokenManager";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { LoadingButton } from "../LoadingButton";
+import { useDispatch, useSelector } from "react-redux";
+import { userFuncAction } from "@/redux/slices/user/userSlice";
 
 const AdminLoginForm = () => {
+  const user = useSelector((state: IRootState) => state.user.user);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<ILoginAdmin>({
@@ -24,17 +28,19 @@ const AdminLoginForm = () => {
 
   const onSubmitHandler = async (data: ILoginAdmin) => {
     const body = { username: data.username, password: data.password };
-    setIsLoading((isLoading) => true);
+    setIsLoading(true);
     try {
       const res = await loginRequest(body);
       setToken("access_token", res.token.accessToken);
       setToken("refresh_token", res.token.refreshToken);
+
       toast.success(" با موفقیت وارد شدید. خوش آمدید.", { theme: "colored" });
       router.push("admin/admin_panel");
-      setIsLoading((isLoading) => false);
+      dispatch(userFuncAction(res.data.user));
+      setIsLoading(false);
     } catch (error) {
       // errorHandler(error as AxiosError);
-      setIsLoading((isLoading) => false);
+      setIsLoading(false);
     }
   };
 

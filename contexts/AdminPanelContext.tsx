@@ -1,5 +1,7 @@
 "use client";
 
+import { createContext, useContext, useState } from "react";
+
 import { getCategories } from "@/apis/getCategories";
 import {
   getInventoryAndPrices,
@@ -7,7 +9,6 @@ import {
   ordersDeliveryFilter,
 } from "@/apis/requestsAPI";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { createContext, useContext, useState } from "react";
 
 const AdminPanelContext = createContext<ICreateContext>({} as ICreateContext);
 
@@ -16,6 +17,7 @@ const AdminPanelProvider = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +28,8 @@ const AdminPanelProvider = ({
   const [productId, setProductId] = useState(null);
   const [orderId, setOrderId] = useState(null);
   const [openOrdersModal, setOpenOrdersModal] = useState(false);
+  const [productDetail, setProductDetail] = useState({} as IProduct);
+  const [deliveryStatus, setDeliveryStatus] = useState(false);
 
   function onCloseAddingModal() {
     setShowAddingModal(false);
@@ -45,9 +49,8 @@ const AdminPanelProvider = ({
   };
 
   const OrdersTableData = useQuery({
-    queryKey: ["ordersList", currentPage],
+    queryKey: ["ordersList", currentPage, deliveryStatus],
     queryFn: getOrdersData,
-    placeholderData: keepPreviousData,
   });
 
   const getOrdersDeliveryData = async () => {
@@ -60,9 +63,8 @@ const AdminPanelProvider = ({
   };
 
   const OrdersDeliveryData = useQuery({
-    queryKey: ["OrdersDeliveryData", currentPage],
+    queryKey: ["OrdersDeliveryData", currentPage, deliveryStatus],
     queryFn: getOrdersDeliveryData,
-    placeholderData: keepPreviousData,
   });
 
   const getNoOrdersDeliveryData = async () => {
@@ -76,16 +78,14 @@ const AdminPanelProvider = ({
   };
 
   const NoOrdersDeliveryData = useQuery({
-    queryKey: ["NoOrdersDeliveryData", currentPage],
+    queryKey: ["NoOrdersDeliveryData", currentPage, deliveryStatus],
     queryFn: getNoOrdersDeliveryData,
-    placeholderData: keepPreviousData,
   });
 
   const getCategoryAndSubcategoryData = async () => {
     try {
       const CategoryAndSubcategoryList =
         await getInventoryAndPrices(currentPage);
-
       return CategoryAndSubcategoryList;
     } catch (error) {
       // console.log(error.message);
@@ -93,17 +93,26 @@ const AdminPanelProvider = ({
   };
 
   const CategoryAndSubcategory = useQuery({
-    queryKey: ["CategoryAndSubcategory", currentPage],
+    queryKey: [
+      "CategoryAndSubcategory",
+      currentPage,
+      productId,
+      isLoading,
+      // categoryAndSubcategoryList,
+    ],
     queryFn: getCategoryAndSubcategoryData,
     placeholderData: keepPreviousData,
+    // enabled: Boolean(productId),
   });
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
+
   const onPageChangeOrders = (page: number) => {
     setCurrentPageOrders(page);
   };
+
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
   };
@@ -118,7 +127,7 @@ const AdminPanelProvider = ({
   };
 
   const CategoriesNameData = useQuery({
-    queryKey: ["CategoriesNameData"],
+    queryKey: ["CategoriesNameData", currentPage, productId],
     queryFn: getCategoriesName,
     placeholderData: keepPreviousData,
   });
@@ -156,6 +165,12 @@ const AdminPanelProvider = ({
         onPageChangeOrders,
         orderId,
         setOrderId,
+        productDetail,
+        setProductDetail,
+        isLoading,
+        setIsLoading,
+        deliveryStatus,
+        setDeliveryStatus,
       }}
     >
       {children}

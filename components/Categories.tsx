@@ -11,7 +11,7 @@ export default async function CategoriesList({
 }) {
   categories.map((el: ICategory) =>
     endPoints.push(
-      `http://localhost:8000/api/products?category=${el._id}&limit=6`,
+      `http://localhost:8000/api/products?category=${el._id}&limit=9`,
     ),
   );
 

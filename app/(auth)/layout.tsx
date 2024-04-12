@@ -3,7 +3,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   title: "ورود به پنل مدیریت",
-  description: "ورود به پنل مدیریت فروشگاه انترنتی قهوه آلفا",
+  description: "ورود به پنل مدیریت فروشگاه اینترنتی قهوه آلفا",
 };
 
 export default function AuthLayout({

@@ -9,7 +9,7 @@ import {
   FooterTitle,
 } from "flowbite-react";
 import {
-  BsDribbble,
+  BsLinkedin,
   BsFacebook,
   BsGithub,
   BsInstagram,
@@ -83,36 +83,51 @@ export default function FooterComponent() {
               <div>
                 <FooterTitle title="درباره ما" />
                 <FooterLinkGroup col>
-                  <FooterLink href="#">Flowbite</FooterLink>
-                  <FooterLink href="#">Tailwind CSS</FooterLink>
+                  <FooterLink href="about_us">تیم ما</FooterLink>
+                  <FooterLink href="contact_us">تماس با ما</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>
                 <FooterTitle title="ما را دنبال کنید" />
                 <FooterLinkGroup col>
-                  <FooterLink href="#">Github</FooterLink>
-                  <FooterLink href="#">Discord</FooterLink>
+                  <FooterLink href="#">محصولات ما</FooterLink>
+                  <FooterLink href="#">شبکه های اجتماعی</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>
                 <FooterTitle title="شرایط" />
                 <FooterLinkGroup col>
-                  <FooterLink href="#">Privacy Policy</FooterLink>
-                  <FooterLink href="#">Terms &amp; Conditions</FooterLink>
+                  <FooterLink href="#">قوانین</FooterLink>
+                  <FooterLink href="#">ضوابط</FooterLink>
                 </FooterLinkGroup>
               </div>
             </div>
           </div>
           <FooterDivider />
-          <div className="w-full sm:flex sm:items-center sm:justify-between">
-            <FooterCopyright href="/" by="قهوه آلفا™" year={2024} />
+          <div className="w-full font-IRANSans sm:flex sm:items-center sm:justify-between">
+            <FooterCopyright
+              href="/"
+              by="قهوه آلفا™"
+              year={new Date().getFullYear()}
+            />
             <div className="ml-4 mt-4 flex gap-6 sm:mt-0 sm:justify-center">
-              <FooterIcon href="#" icon={BsFacebook} />
-              <FooterIcon href="#" icon={BsInstagram} />
-              <FooterIcon href="#" icon={BsTwitter} />
-              <FooterIcon href="#" icon={BsGithub} />
-              <FooterIcon href="#" icon={BsDribbble} />
-              <FooterIcon href="#" icon={BsFacebook} />
+              <FooterIcon
+                href="https://www.facebook.com/profile.php?id=100090318496313"
+                icon={BsFacebook}
+              />
+              <FooterIcon
+                href="https://www.instagram.com/pkaveh20/"
+                icon={BsInstagram}
+              />
+              <FooterIcon
+                href="https://twitter.com/a_real_gentle"
+                icon={BsTwitter}
+              />
+              <FooterIcon href="https://github.com/Kavehpa20" icon={BsGithub} />
+              <FooterIcon
+                href="https://www.linkedin.com/in/kaveh-pajoohesh-9274b1212/"
+                icon={BsLinkedin}
+              />
             </div>
           </div>
         </div>

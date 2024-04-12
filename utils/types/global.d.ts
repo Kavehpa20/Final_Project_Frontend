@@ -24,25 +24,6 @@ interface ButtonProps {
   type: string;
 }
 
-// interface categories {
-//   id: number;
-//   title: string;
-//   name: string;
-//   path: string;
-//   products: products[];
-// }
-
-// interface products {
-//   id: number;
-//   name: string;
-//   link: string;
-//   type: string;
-// }
-
-// interface IProductsProps {
-//   data: categories[];
-// }
-
 interface ILoginAdmin {
   username: string;
   password: string;
@@ -75,6 +56,28 @@ type Users = {
   lastname: string;
 };
 
+interface IDataSubcategory {
+  data: {
+    subcategory: {
+      _id: string;
+      category: {
+        _id: string;
+        name: string;
+        icon: string;
+        createdAt: string;
+        updatedAt: string;
+        slugname: string;
+        __v: number;
+      };
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      slugname: string;
+      __v: number;
+    };
+  };
+}
+
 interface ISubcategory {
   data: {
     subcategories: ISubcat[];
@@ -94,10 +97,10 @@ interface ICreateContext {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<boolean>>;
-  onPageChange: Function;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  onPageChange: (page: number) => void;
   selectedValue: string;
-  setSelectedValue: Dispatch<SetStateAction<boolean>>;
+  setSelectedValue: Dispatch<SetStateAction<string>>;
   handleRadioChange: Function;
   OrdersTableData: UseQueryResult<Group[], Error>;
   OrdersDeliveryData: UseQueryResult<Group[], Error>;
@@ -110,17 +113,23 @@ interface ICreateContext {
   openDeleteModal: boolean;
   setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
   productId: null | string;
-  setProductId: Dispatch<SetStateAction<boolean>>;
+  setProductId: Dispatch<SetStateAction<string>>;
   showEditingModal: boolean;
   setShowEditingModal: Dispatch<SetStateAction<boolean>>;
   onCloseEditingModal: ModalProps;
   openOrdersModal: boolean;
   setOpenOrdersModal: Dispatch<SetStateAction<boolean>>;
   currentPageOrders: number;
-  setCurrentPageOrders: Dispatch<SetStateAction<boolean>>;
-  onPageChangeOrders: Function;
+  setCurrentPageOrders: Dispatch<SetStateAction<number>>;
+  onPageChangeOrders: (page: number) => void;
   orderId: null | string;
   setOrderId: Dispatch<SetStateAction<boolean>>;
+  productDetail: IProduct;
+  setProductDetail: Dispatch<SetStateAction<object>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  deliveryStatus: boolean;
+  setDeliveryStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IUserPanelContext {
@@ -140,23 +149,29 @@ interface IOrders {
 }
 
 interface IProduct {
-  brand: string;
-  description: string;
-  quantity: number;
+  brand?: string;
+  description?: string;
+  quantity?: number;
   thumbnail?: File[] | Array;
   images?: File[] | Array;
-  name: string;
-  subcategory: ISubcategories;
-  category: ICategory;
+  name?: string;
+  subcategory?: ISubcategories;
+  category?: ICategory;
   _id?: string;
-  price: number;
-  slugname: string;
+  price?: number;
+  slugname?: string;
+  count?: number;
+  categoryName?: string;
+  productId?: string;
+  newCount?: number;
 }
 
 interface IProducts {
   product: IProduct;
-  count: number;
-  _id: string;
+  count?: number;
+  _id?: string;
+  count?: number;
+  categoryName?: string;
 }
 
 interface IAddingProduct {
@@ -171,6 +186,18 @@ interface IAddingProduct {
   images: object;
 }
 
+interface IProductsWithPage {
+  paramsCategory?: string;
+  status?: string;
+  page: number;
+  per_page?: number;
+  total?: number;
+  total_pages: number;
+  data?: {
+    products: [IProduct];
+  };
+}
+
 interface IUser {
   address: string;
   createdAt: string;
@@ -181,4 +208,58 @@ interface IUser {
   updatedAt: string;
   username: string;
   _id: string;
+}
+
+interface IEditedCell {
+  rowIndex?: number;
+  key?: string;
+  productId?: string;
+  price?: string;
+  quantity?: string;
+}
+
+interface IImage {
+  src: string;
+  width: number;
+  height?: number;
+  quality: number;
+}
+
+interface IBuyerCart {
+  user: string;
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  phoneNumber?: string;
+  products: [
+    {
+      product: string;
+      count: number;
+    },
+  ];
+  deliveryStatus: boolean;
+  deliveryDate: string;
+}
+
+interface ICartSlice {
+  productCount: number;
+  productAddingCount: number;
+  product?: IProduct[];
+}
+
+interface IUserSlice {
+  user: IUser[];
+}
+
+interface IPayment {
+  payment: boolean;
+}
+
+interface IPaymentState {
+  payment: IPayment;
+}
+
+interface IRootState {
+  cart: ICartSlice;
+  user: IUserSlice;
 }
