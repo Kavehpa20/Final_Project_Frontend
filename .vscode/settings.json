@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "ckeditor",
     "datepicker",
     "Dribbble",
     "extralight",
@@ -80,6 +81,8 @@
     "تمامی",
     "تواند",
     "توضیحات",
+    "جستجو",
+    "چیزی",
     "حتما",
     "حداقل",
     "حداکثر",
@@ -191,7 +194,8 @@
     "وارد",
     "وجود",
     "ورود",
-    "ویرایش"
+    "ویرایش",
+    "یافت"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

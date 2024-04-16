@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Label, Modal, Textarea, Datepicker, Flowbite } from "flowbite-react";
+import { Datepicker, Flowbite } from "flowbite-react";
 import { Controller, useForm } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { classNames } from "@/libs/tools";
 import { DatePickerTheme } from "./DatePickerTheme";
 import { cartBuyerSchema } from "@/libs/validations/cartBuyerSchema";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import TextAreaEditor from "@/components/TextAreaEditor";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import parse from "html-react-parser";
 
 const moment = require("moment-jalaali");
 
@@ -150,28 +151,19 @@ const BuyerFormComponent = () => {
         >
           آدرس
         </label>
-        <TextAreaEditor />
         <Controller
           name="address"
           control={control}
           defaultValue={user[0].address}
           render={({ field }) => (
-            <Textarea
-              id="address"
-              placeholder="آدرس"
-              rows={8}
-              className={classNames(
-                "rounded-t-0 block w-full rounded-b-lg border",
-                "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600 disabled:text-gray-700 disabled:opacity-50",
-                "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white disabled:dark:text-gray-200",
-                "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.address?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
-                  : "",
-              )}
+            <CKEditor
+              editor={ClassicEditor}
+              data={user[0].address}
               {...field}
-              onChange={(e) => field.onChange(e.target.value)}
-              value={field.value}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                field.onChange(parse(data));
+              }}
             />
           )}
         />
@@ -199,7 +191,7 @@ const BuyerFormComponent = () => {
               id="phoneNumber"
               placeholder="تلفن همراه"
               className={classNames(
-                "block w-full rounded-lg border",
+                "block w-full rounded-lg border font-IRANSans",
                 "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600 disabled:text-gray-700 disabled:opacity-50",
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white disabled:dark:text-gray-200",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",

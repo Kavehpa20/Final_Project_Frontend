@@ -17,7 +17,6 @@ const CategoryAndSubcategoryName = ({ index }: { index: number }) => {
     const res = await getNameSubcategoryById(
       CategoryAndSubcategory.data.data.products[index].subcategory,
     );
-    console.log(res);
 
     setLoading(false);
     setCategorySubcategory(res);
