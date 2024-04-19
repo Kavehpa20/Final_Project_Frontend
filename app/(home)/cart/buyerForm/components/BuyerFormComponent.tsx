@@ -162,7 +162,7 @@ const BuyerFormComponent = () => {
               {...field}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                field.onChange(parse(data));
+                field.onChange(data);
               }}
             />
           )}
