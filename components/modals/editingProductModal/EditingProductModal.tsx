@@ -254,7 +254,7 @@ const EditingProductModal = () => {
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.name?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("name")}
@@ -288,7 +288,7 @@ const EditingProductModal = () => {
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.price?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("price")}
@@ -322,7 +322,7 @@ const EditingProductModal = () => {
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.quantity?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("quantity")}
@@ -356,7 +356,7 @@ const EditingProductModal = () => {
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.brand?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("brand")}
@@ -391,7 +391,7 @@ const EditingProductModal = () => {
                 "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                 "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                 !!formState.errors.description?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                   : "",
               )}
               {...register("description")}
@@ -425,7 +425,7 @@ const EditingProductModal = () => {
                   "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                   "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                   !!formState.errors.thumbnail?.message
-                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                     : "",
                 )}
                 {...register("thumbnail")}
@@ -449,7 +449,7 @@ const EditingProductModal = () => {
                   "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                   "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                   !!formState.errors.images?.message
-                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                    ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                     : "",
                 )}
                 {...register("images")}

@@ -91,7 +91,7 @@ const AdminLoginForm = () => {
                     "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                     "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                     !!formState.errors.username?.message
-                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                       : "",
                   )}
                   placeholder="نام کاربری"
@@ -118,7 +118,7 @@ const AdminLoginForm = () => {
                     "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
                     "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
                     !!formState.errors.password?.message
-                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+                      ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-300 dark:focus:border-red-500 dark:focus:ring-red-500"
                       : "",
                   )}
                   {...register("password")}
