@@ -1,3 +1,7 @@
+This project Designed and Developing by Kaveh Pajhouhehs
+name of project Alpha Coffee Shop
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
