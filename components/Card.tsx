@@ -12,7 +12,7 @@ export default async function CardComponent({
       imgSrc={`http://localhost:8000/images/products/thumbnails/${await thumbnail}`}
       horizontal
     >
-      <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white md:text-lg xl:text-xl">
         {await name}
       </h5>
       <p className="font-IRANSans font-normal text-gray-700 dark:text-gray-400">
