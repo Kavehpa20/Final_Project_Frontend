@@ -6,8 +6,11 @@ import Image from "next/image";
 import { DarkThemeToggle } from "flowbite-react";
 import Link from "next/link";
 import BadgeComponent from "./BadgeComponent";
+import { getToken } from "@/libs/tokenManager";
 
 export default function Navbar() {
+  const token = getToken();
+
   return (
     <Disclosure
       as="nav"
@@ -46,7 +49,7 @@ export default function Navbar() {
 
                 <div className="hidden items-center justify-between sm:flex">
                   <Link
-                    href="/admin"
+                    href={token ? "/admin/admin_panel" : "/admin"}
                     className="ml-2 inline-flex items-center border-b-2 border-transparent px-4 pt-1 text-sm font-normal text-brown-900 hover:border-brown-200 hover:text-brown-500 dark:text-brown-200 dark:hover:border-brown-50 dark:hover:text-brown-100"
                   >
                     <span> ادمین</span>
@@ -133,7 +136,7 @@ export default function Navbar() {
           <Disclosure.Panel className="sm:hidden">
             <div className="mt-4 space-y-4 bg-gray-200 py-4 pt-2 dark:bg-gray-900">
               <Link
-                href="/admin"
+                href={token ? "/admin/admin_panel" : "/admin"}
                 className="dark:hover:border-50 inline-flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium text-brown-900 hover:border-brown-500 hover:bg-brown-50 hover:text-brown-500
                     dark:text-brown-200  dark:hover:text-brown-900"
               >

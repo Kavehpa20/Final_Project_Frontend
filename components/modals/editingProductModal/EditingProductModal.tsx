@@ -4,7 +4,6 @@ import {
   FileInput,
   Label,
   Modal,
-  Textarea,
   Select,
   Avatar,
 } from "flowbite-react";
@@ -23,7 +22,6 @@ import {
   getProductNameById,
   getSubcategoryByCategory,
 } from "@/apis/requestsAPI";
-import TextAreaEditor from "@/components/TextAreaEditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 

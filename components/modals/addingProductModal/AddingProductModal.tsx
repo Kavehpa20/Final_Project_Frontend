@@ -1,6 +1,6 @@
 "use client";
 
-import { FileInput, Label, Modal, Textarea, Select } from "flowbite-react";
+import { FileInput, Label, Modal, Select } from "flowbite-react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -11,7 +11,6 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
 import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
-import TextAreaEditor from "@/components/TextAreaEditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 

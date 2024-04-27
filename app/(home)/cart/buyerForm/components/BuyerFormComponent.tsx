@@ -9,9 +9,6 @@ import { DatePickerTheme } from "./DatePickerTheme";
 import { cartBuyerSchema } from "@/libs/validations/cartBuyerSchema";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import parse from "html-react-parser";
 
 const moment = require("moment-jalaali");
 
