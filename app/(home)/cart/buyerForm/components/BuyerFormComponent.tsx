@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Datepicker, Flowbite } from "flowbite-react";
+import { Datepicker, Flowbite, Textarea } from "flowbite-react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { classNames } from "@/libs/tools";
@@ -9,9 +9,6 @@ import { DatePickerTheme } from "./DatePickerTheme";
 import { cartBuyerSchema } from "@/libs/validations/cartBuyerSchema";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import parse from "html-react-parser";
 
 const moment = require("moment-jalaali");
 
@@ -51,7 +48,7 @@ const BuyerFormComponent = () => {
     window.open("/paymentpage", "_blank");
   };
 
-  const { handleSubmit, formState, control } = useForm<IBuyerCart>({
+  const { handleSubmit, formState, control, register } = useForm<IBuyerCart>({
     mode: "all",
     resolver: zodResolver(cartBuyerSchema),
   });
@@ -151,21 +148,22 @@ const BuyerFormComponent = () => {
         >
           آدرس
         </label>
-        <Controller
-          name="address"
-          control={control}
+
+        <Textarea
+          id="address"
           defaultValue={user[0].address}
-          render={({ field }) => (
-            <CKEditor
-              editor={ClassicEditor}
-              data={user[0].address}
-              {...field}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                field.onChange(parse(data));
-              }}
-            />
+          placeholder="توضیحات محصول"
+          rows={8}
+          className={classNames(
+            "rounded-t-0 block w-full rounded-b-lg border",
+            "border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-600",
+            "focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white",
+            "dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
+            !!formState.errors.address?.message
+              ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:focus:border-red-500 dark:focus:ring-red-500"
+              : "",
           )}
+          {...register("address")}
         />
         <p className="mt-1 text-xs font-semibold text-red-600">
           {formState.errors.address?.message}

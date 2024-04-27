@@ -83,8 +83,8 @@ export default function FooterComponent() {
               <div>
                 <FooterTitle title="درباره ما" />
                 <FooterLinkGroup col>
-                  <FooterLink href="about_us">تیم ما</FooterLink>
-                  <FooterLink href="contact_us">تماس با ما</FooterLink>
+                  <FooterLink href="/about_us">تیم ما</FooterLink>
+                  <FooterLink href="/contact_us">تماس با ما</FooterLink>
                 </FooterLinkGroup>
               </div>
               <div>

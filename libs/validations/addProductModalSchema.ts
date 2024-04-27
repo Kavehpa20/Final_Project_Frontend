@@ -43,7 +43,7 @@ export const addProductModalSchema = z.object({
   description: z
     .string()
     .nonempty({ message: "توضیحات محصول را وارد کنید" })
-    .min(10, "توضیحات محصول باید بیش از ۱۰ کاراکتر باشد"),
+    .min(17, "توضیحات محصول باید بیش از ۱۰ کاراکتر باشد"),
 
   thumbnail: z
     .any()

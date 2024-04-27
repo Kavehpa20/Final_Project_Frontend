@@ -3,6 +3,7 @@
 import React from "react";
 
 import { Card } from "flowbite-react";
+import parse from "html-react-parser";
 
 const ProductDescription = ({ description }: { description: string }) => {
   return (
@@ -11,7 +12,7 @@ const ProductDescription = ({ description }: { description: string }) => {
         توضیحات محصول
       </h5>
       <p className="font-normal leading-9 text-gray-700 dark:text-gray-400">
-        {description}
+        {parse(description)}
       </p>
     </Card>
   );

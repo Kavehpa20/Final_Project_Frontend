@@ -1,4 +1,12 @@
+import { axiosBaseUrl } from "./axiosBaseURL";
 import { requestClient } from "./requestClient";
+
+export const categoryProductsRequest = async (id: string, page: number = 1) => {
+  const response = await axiosBaseUrl().get(`/products`, {
+    params: { category: id, page, limit: 9 },
+  });
+  return response.data;
+};
 
 export const loginRequest = async (data: ILoginAdmin) => {
   const response = await requestClient.post("/auth/login", data);
