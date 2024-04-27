@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { categoryProductsRequest } from "@/apis/axiosBaseURL";
+
 import { getCategories } from "@/apis/getCategories";
 import CardComponent from "@/components/Card";
 import PaginationServerSide from "@/components/paginationServerSide/paginationServerSide";
@@ -8,6 +8,7 @@ import SidebarComponent from "@/components/sidebar/SidebarComponent";
 import Subcategories from "@/components/Subcategories";
 
 import {
+  categoryProductsRequest,
   findSubcategoryBySlugname,
   getCategoryNameById,
   getProductsBySubcategoryAndCategory,

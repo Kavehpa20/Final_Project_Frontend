@@ -132,6 +132,10 @@
   -moz-appearance: textfield;
 }
 
+.ck-editor__editable_inline {
+  min-height: 175px;
+}
+
 .ck-editor {
   /* Overrides the border radius setting in the theme. */
   --ck-border-radius: 8px;

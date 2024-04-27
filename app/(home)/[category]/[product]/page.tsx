@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { Button } from "flowbite-react";
 
-import { categoryProductsRequest } from "@/apis/axiosBaseURL";
 import { getCategories } from "@/apis/getCategories";
-import { findProductBySlugname } from "@/apis/requestsAPI";
+import { categoryProductsRequest, findProductBySlugname } from "@/apis/requestsAPI";
 import CardComponent from "@/components/Card";
 import SwiperComponent from "@/components/swiper/SwiperComponent";
 import PaginationServerSide from "@/components/paginationServerSide/paginationServerSide";
