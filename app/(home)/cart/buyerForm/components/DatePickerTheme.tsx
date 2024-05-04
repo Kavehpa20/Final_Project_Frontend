@@ -1,5 +1,4 @@
 import { CustomFlowbiteTheme } from "flowbite-react";
-import DatePicker from "react-multi-date-picker";
 
 export const DatePickerTheme: CustomFlowbiteTheme = {
   datepicker: {
