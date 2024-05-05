@@ -1,16 +1,17 @@
 "use client";
-import AdminLoginForm from "@/components/forms/AdminLoginForm";
-import { getToken } from "@/libs/tokenManager";
+
+import dynamic from "next/dynamic";
+// import AdminLoginForm from "@/components/forms/AdminLoginForm";
 import { DarkThemeToggle } from "flowbite-react";
-import { useRouter } from "next/navigation";
+
+const AdminLoginForm = dynamic(
+  () => import("@/components/forms/AdminLoginForm"),
+  {
+    ssr: false,
+  },
+);
 
 export default function Login() {
-  const router = useRouter();
-  const token = getToken();
-  const refreshToken = getToken("refresh_token");
-
-  // if (token && refreshToken) router.push("admin/admin_panel");
-
   return (
     <>
       <div className="absolute left-11 top-5">

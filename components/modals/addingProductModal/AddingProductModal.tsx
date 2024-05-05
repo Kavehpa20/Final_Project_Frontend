@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FileInput, Label, Modal, Select } from "flowbite-react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -11,8 +12,13 @@ import { useAdminPanel } from "@/contexts/AdminPanelContext";
 import { LoadingButton } from "@/components/LoadingButton";
 import SubCategoriesOptions from "./SubCategoriesOptions";
 import { addNewProductApi, getSubcategoryByCategory } from "@/apis/requestsAPI";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useState } from "react";
+const ClassicEditor = dynamic(
+  () => {
+    return import("@/components/custom-editor");
+  },
+  { ssr: false },
+);
 
 const AddingProductModal = () => {
   const {
@@ -22,6 +28,8 @@ const AddingProductModal = () => {
     isLoading,
     setIsLoading,
   } = useAdminPanel();
+
+  const [descriptionData, setDescriptionData] = useState("");
 
   const { register, handleSubmit, formState, watch, control, setValue } =
     useForm<IAddingProduct>({
@@ -249,36 +257,19 @@ const AddingProductModal = () => {
             >
               توضیحات کالا
             </label>
-            <div
-              className={classNames(
-                "z-10 block w-full rounded-lg border-2",
-                "border-gray-300 bg-gray-50 text-gray-900 focus:border-blue-600",
-                "focus:ring-blue-600 dark:border-gray-500 dark:bg-blue-600 dark:text-gray-900",
-                "dark:placeholder-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm",
-                !!formState.errors.description?.message
-                  ? "border-red-300 focus:border-red-600 focus:ring-red-600 dark:border-red-400 dark:focus:border-red-500 dark:focus:ring-red-500"
-                  : "",
+
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <ClassicEditor
+                  id="description"
+                  value={field.value}
+                  error={formState.errors.description}
+                  onChange={field.onChange}
+                />
               )}
-            >
-              <Controller
-                name="description"
-                control={control}
-                render={({ field }) => (
-                  <CKEditor
-                    editor={ClassicEditor}
-                    // data={field}
-                    {...field}
-                    onChange={(event, editor) => {
-                      const data = editor.getData();
-                      field.onChange(data);
-                    }}
-                  />
-                )}
-              />
-            </div>
-            <p className="mt-1 text-xs font-semibold text-red-600">
-              {formState.errors.description?.message}
-            </p>
+            />
           </div>
           <div className="flex flex-col gap-4">
             <div>
