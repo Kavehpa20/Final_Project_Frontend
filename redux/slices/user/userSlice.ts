@@ -1,23 +1,32 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export const userSlice_KEY = "User Slice";
 
+// Utility functions for localStorage interactions
+export function getUserFromLocalStorage(): IUser[] {
+  if (typeof window !== "undefined") {
+    const userString = localStorage.getItem(userSlice_KEY);
+    return userString ? JSON.parse(userString) : [];
+  } else {
+    // Optional: Handle server-side behavior (e.g., return default value)
+    return []; // Or any default value you prefer for SSR
+  }
+}
+
 const initialState: IUserSlice = {
-  user: JSON.parse(localStorage.getItem(userSlice_KEY) || "[]") ?? [],
+  user: getUserFromLocalStorage(),
 };
 
 function userFunc(state: IUserSlice, action: PayloadAction<IUser>) {
-  const existingUserSlice = localStorage.getItem("User Slice");
-  const existingUserSliceArray = existingUserSlice
-    ? JSON.parse(existingUserSlice)
-    : [];
+  const existingUserSlice = getUserFromLocalStorage();
+  const existingUserSliceArray = existingUserSlice;
   existingUserSliceArray.push(action.payload);
   const updatedArrayString = JSON.stringify(existingUserSliceArray);
-  localStorage.setItem(userSlice_KEY, updatedArrayString);
+  window.localStorage.setItem(userSlice_KEY, updatedArrayString);
   state.user.push(action.payload);
 }
 
 function resetUserFunc(state: IUserSlice) {
-  localStorage.removeItem(userSlice_KEY);
+  window.localStorage.removeItem(userSlice_KEY);
   state.user = [];
 }
 
