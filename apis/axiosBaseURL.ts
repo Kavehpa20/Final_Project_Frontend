@@ -2,6 +2,8 @@ import axios from "axios";
 
 export const axiosBaseUrl = () => {
   return axios.create({
-    baseURL: "http://localhost:8000/api/",
+    baseURL: "https://alphacoffee.liara.run/api/",
   });
 };
+
+export const baseUrl = "https://alphacoffee.liara.run/";

@@ -12,6 +12,7 @@ import {
 import { getCategories } from "@/apis/getCategories";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { baseUrl } from "@/apis/axiosBaseURL";
 
 const GroupButtonsTheme: CustomFlowbiteTheme = {
   buttonGroup: {
@@ -59,11 +60,11 @@ const CategoryButtonGroups = () => {
             <Button className="p-0" color="gray" key={category._id}>
               <Link
                 className="flex items-center"
-                href={`http://localhost:3000/${category.slugname}`}
+                href={`/${category.slugname}`}
               >
                 <Avatar
                   className="mx-2"
-                  img={`http://localhost:8000/images/categories/icons/${category.icon}`}
+                  img={`${baseUrl}/images/categories/icons/${category.icon}`}
                   bordered
                   rounded
                   color="gray"

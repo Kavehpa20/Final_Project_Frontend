@@ -17,6 +17,7 @@ import CategoryAndSubcategoryName from "./CategoryAndSubcategory";
 import PaginationComponent from "../../pagination/PaginationComponent";
 import { TableTheme } from "../../forms/TableTheme";
 import AskingDeleteModal from "@/components/modals/AskingDeleteModal";
+import { baseUrl } from "@/apis/axiosBaseURL";
 
 const AssetsManager = () => {
   const {
@@ -65,7 +66,7 @@ const AssetsManager = () => {
                 >
                   <TableCell className="px-2">
                     <Avatar
-                      img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+                      img={`${baseUrl}/images/products/thumbnails/${product.thumbnail}`}
                       rounded
                       bordered
                       color="gray"

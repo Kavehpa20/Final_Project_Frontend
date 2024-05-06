@@ -4,7 +4,7 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
 
 export const requestClient = axios.create({
-  baseURL: "http://localhost:8000/api/",
+  baseURL: "https://alphacoffee.liara.run/api/",
 });
 
 // =====code ostad mohtashami =========

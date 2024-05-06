@@ -20,6 +20,7 @@ import Link from "next/link";
 import RemoveProductModal from "./RemoveProductModal";
 import ProductCell from "./ProductCell";
 import { editCountProductAction } from "@/redux/slices/cart/cartSlice";
+import { baseUrl } from "@/apis/axiosBaseURL";
 
 const CartTable = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -72,7 +73,7 @@ const CartTable = () => {
                 >
                   <TableCell className="px-2">
                     <Avatar
-                      img={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`}
+                      img={`${baseUrl}/images/products/thumbnails/${product.thumbnail}`}
                       bordered
                       color="light"
                       size="lg"
