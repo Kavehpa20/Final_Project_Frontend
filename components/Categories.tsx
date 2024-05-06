@@ -2,6 +2,7 @@ import Link from "next/link";
 import ProductContainer from "./ProductContainer";
 import ProductsHeaderLink from "./ProductsHeaderLink";
 import axios from "axios";
+import { baseUrl } from "@/apis/axiosBaseURL";
 const endPoints: string[] = [];
 
 export default async function CategoriesList({
@@ -10,9 +11,7 @@ export default async function CategoriesList({
   categories: [ICategory];
 }) {
   categories.map((el: ICategory) =>
-    endPoints.push(
-      `http://localhost:8000/api/products?category=${el._id}&limit=9`,
-    ),
+    endPoints.push(`${baseUrl}api/products?category=${el._id}&limit=9`),
   );
 
   const res = await axios

@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { baseUrl } from "@/apis/axiosBaseURL";
 
 const SwiperComponent = ({ data }: { data: string[] }) => {
   return (
@@ -37,7 +38,7 @@ const SwiperComponent = ({ data }: { data: string[] }) => {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     className="h-fit object-contain"
-                    src={`http://localhost:8000/images/products/images/${picture}`}
+                    src={`${baseUrl}/images/products/images/${picture}`}
                     alt={picture}
                   />
                 }

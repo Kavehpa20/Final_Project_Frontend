@@ -8,7 +8,7 @@
       {
         "id": 1,
         "text": "خرید قهوه",
-        "link": "http://localhost:3000/coffee",
+        "link": "/coffee",
         "type": "btn-dark btn-circle"
       }
     ]
@@ -22,7 +22,7 @@
       {
         "id": 1,
         "text": "خرید گانودرما ماسالا",
-        "link": "http://localhost:3000/coffee/qhwh-masala-ba-qarch-ganwdrma-20-addy",
+        "link": "/coffee/qhwh-masala-ba-qarch-ganwdrma-20-addy",
         "type": "btn-dark btn-circle"
       }
     ]
@@ -36,7 +36,7 @@
       {
         "id": 1,
         "text": "خرید قهوه های گانودرما",
-        "link": "http://localhost:3000/coffee/ganoderma",
+        "link": "/coffee/ganoderma",
         "type": "btn-dark btn-circle"
       }
     ]
@@ -50,7 +50,7 @@
       {
         "id": 4,
         "text": "خرید چای",
-        "link": "http://localhost:3000/tea",
+        "link": "/tea",
         "type": "btn-dark btn-circle"
       }
     ]
@@ -64,7 +64,7 @@
       {
         "id": 5,
         "text": "خرید خرما بار",
-        "link": "http://localhost:3000/khorma",
+        "link": "/khorma",
         "type": "btn-dark btn-circle"
       }
     ]

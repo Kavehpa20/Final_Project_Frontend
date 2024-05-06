@@ -17,6 +17,7 @@ import {
   getProductNameById,
   getSubcategoryByCategory,
 } from "@/apis/requestsAPI";
+import { baseUrl } from "@/apis/axiosBaseURL";
 // import { CKEditor } from "@ckeditor/ckeditor5-react";
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 const ClassicEditor = dynamic(
@@ -455,7 +456,7 @@ const EditingProductModal = () => {
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <Avatar
-                img={`http://localhost:8000/images/products/thumbnails/${productThumbnail}`}
+                img={`${baseUrl}/images/products/thumbnails/${productThumbnail}`}
                 bordered
                 color="pink"
                 size="xl"
@@ -470,7 +471,7 @@ const EditingProductModal = () => {
               {productImages.map((image) => (
                 <Avatar
                   key={image}
-                  img={`http://localhost:8000/images/products/images/${image}`}
+                  img={`${baseUrl}/images/products/images/${image}`}
                   bordered
                   color="success"
                   size="xl"

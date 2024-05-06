@@ -38,7 +38,7 @@ const SidebarComponent = () => {
   ) : (
     <Flowbite theme={{ theme: SidebarTheme }}>
       <Sidebar aria-label="قهوه آلفا سایدبار (دسته بندی و زیردسته بندی)">
-        <Sidebar.Logo img="" href={"http://localhost:3000/"}>
+        <Sidebar.Logo img="" href={"/"}>
           <div className="flex items-center justify-between">
             {" "}
             <Image
@@ -65,7 +65,7 @@ const SidebarComponent = () => {
             {data.data.categories.map((category: ICategory) => (
               <Sidebar.Collapse
                 label={category.name}
-                href={`http://localhost:3000/${category.slugname}`}
+                href={`/${category.slugname}`}
                 key={category._id}
               >
                 <SubcategoriesName categoryId={category._id} />
