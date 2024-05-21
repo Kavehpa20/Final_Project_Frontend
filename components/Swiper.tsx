@@ -14,7 +14,7 @@ import Image from "next/image";
 
 const SwiperMenu: React.FC<DemoSliderProps> = ({ data }) => {
   return (
-    <section className="mx-auto h-dvh w-full">
+    <section className="mx-auto hidden w-full md:block md:h-dvh">
       <div className="h-screen">
         <ul className="h-dvh w-full">
           <Swiper
