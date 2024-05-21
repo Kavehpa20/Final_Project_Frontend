@@ -17,7 +17,7 @@ export default async function Landing() {
   return (
     <div className="mx-auto mb-auto max-w-8xl bg-gray-50 dark:bg-gray-500 ">
       <BannerComponent />
-      <div className="mx-5 my-2 flex items-center justify-between gap-5 sm:flex-col-reverse md:flex-row">
+      <div className="mx-5 my-2 flex flex-col-reverse items-center justify-between gap-5 md:flex-row">
         <CategoryButtonGroups />
         <SearchModal />
         {/* <SearchInput /> */}
